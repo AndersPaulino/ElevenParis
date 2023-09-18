@@ -1,14 +1,12 @@
 package com.elevenparis.store.controller;
 
 import com.elevenparis.store.dto.EstoqueDTO;
+import com.elevenparis.store.entity.Estoque;
 import com.elevenparis.store.service.EstoqueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -101,6 +99,16 @@ public class EstoqueController {
             }
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @PostMapping
+    public ResponseEntity<?> cadastrar(@RequestBody Estoque estoque) {
+        try {
+            estoqueService.cadastrar(estoque);
+            return ResponseEntity.ok().body("Registro cadastrado com sucesso!");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 

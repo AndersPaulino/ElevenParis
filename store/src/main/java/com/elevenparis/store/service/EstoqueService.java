@@ -6,6 +6,7 @@ import com.elevenparis.store.repository.EstoqueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -22,17 +23,20 @@ public class EstoqueService {
         this.estoqueRepository = estoqueRepository;
     }
 
+    @Transactional(readOnly = true)
     public EstoqueDTO findById(Long id) {
         Estoque estoque = estoqueRepository.findById(id).get();
         EstoqueDTO estoqueDTO = new EstoqueDTO(estoque);
         return estoqueDTO;
     }
 
+    @Transactional(readOnly = true)
     public List<EstoqueDTO> findAll() {
         List<Estoque> estoques = estoqueRepository.findAll();
         return estoques.stream().map(EstoqueDTO::new).collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     public EstoqueDTO findByNomeEstoque(String nomeEstoque) {
         Estoque estoque = estoqueRepository.findByNomeEstoque(nomeEstoque);
         EstoqueDTO estoqueDTO = new EstoqueDTO(estoque);
@@ -46,6 +50,7 @@ public class EstoqueService {
             }
         }
     }
+    @Transactional(readOnly = true)
     public List<EstoqueDTO> findByAtivo(boolean ativo) {
         List<Estoque> estoques = estoqueRepository.findByAtivo(ativo);
 
@@ -58,6 +63,7 @@ public class EstoqueService {
         return estoqueDTOs;
     }
 
+    @Transactional(readOnly = true)
     public List<EstoqueDTO> findByDiaRegistro(LocalDate registro) {
         List<Estoque> estoques = estoqueRepository.findByDiaRegistro(registro);
 
@@ -70,6 +76,7 @@ public class EstoqueService {
         return estoqueDTOS;
     }
 
+    @Transactional(readOnly = true)
     public List<EstoqueDTO> findByDiaAtualizar(LocalDate registro) {
         List<Estoque> estoques = estoqueRepository.findByDiaAtualizar(registro);
 
@@ -80,6 +87,21 @@ public class EstoqueService {
             estoqueDTOS.add(dto);
         }
         return estoqueDTOS;
+    }
+
+    public void validarEstoque(final Estoque estoque) {
+        if (estoque.getNomeEstoque() == null || estoque.getNomeEstoque().isEmpty()){
+            throw new IllegalArgumentException("Nome do Estoque não informado");
+        }
+        if (!estoque.getNomeEstoque().matches("[a-zA-Z0-9 ]+")) {
+            throw new IllegalArgumentException("Nome do Estoque inválido");
+        }
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void cadastrar( Estoque estoque) {
+        validarEstoque(estoque);
+        estoqueRepository.save(estoque);
     }
 
 }
