@@ -1,1 +1,1 @@
-INSERT INTO tb_estoque(cl_nome, ativo, registro) VALUES('Estoque 01', true, now());
+INSERT INTO tb_estoque(cl_nome, ativo, registro) VALUES('Estoque', true, now());

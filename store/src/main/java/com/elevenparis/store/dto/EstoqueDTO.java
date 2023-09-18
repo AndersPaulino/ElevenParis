@@ -22,4 +22,12 @@ public class EstoqueDTO {
         atualizar = estoque.getAtualizar();
         nomeEstoque = estoque.getNomeEstoque();
     }
+
+    public EstoqueDTO(Long id, boolean ativo, LocalDateTime registro, LocalDateTime atualizar, String nomeEstoque){
+        this.id = id;
+        this.ativo = ativo;
+        this.registro = registro;
+        this.atualizar = atualizar;
+        this.nomeEstoque = nomeEstoque;
+    }
 }

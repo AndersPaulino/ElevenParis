@@ -35,6 +35,9 @@ public class Produto extends AbstractEntity{
     @Column(name = "descricao", nullable = false, length = 255)
     private String descricao;
 
+    public Produto() {
+    }
+
     public Produto(String nome, Estoque estoque, Tipo tipo, String codigo, String descricao) {
         this.nome = nome;
         this.estoque = estoque;
@@ -42,4 +45,5 @@ public class Produto extends AbstractEntity{
         this.codigo = codigo;
         this.descricao = descricao;
     }
+
 }

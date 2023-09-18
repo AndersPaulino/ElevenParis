@@ -1,16 +1,18 @@
 package com.elevenparis.store.controller;
 
 import com.elevenparis.store.dto.EstoqueDTO;
-import com.elevenparis.store.entity.Estoque;
 import com.elevenparis.store.service.EstoqueService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+import java.time.LocalDate;
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/estoque")
 public class EstoqueController {
@@ -22,5 +24,84 @@ public class EstoqueController {
         this.estoqueService = estoqueService;
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<EstoqueDTO> findById(@PathVariable Long id) {
+        try {
+            EstoqueDTO estoqueDTO = estoqueService.findById(id);
+
+            if (estoqueDTO != null) {
+                return ResponseEntity.ok(estoqueDTO);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+    @GetMapping
+    public ResponseEntity<List<EstoqueDTO>> findAll() {
+        List<EstoqueDTO> estoqueDTO = estoqueService.findAll();
+        return ResponseEntity.ok(estoqueDTO);
+    }
+
+    @GetMapping("/nome/{nomeEstoque}")
+    public ResponseEntity<EstoqueDTO> findByNomeEstoque(@PathVariable String nomeEstoque){
+        try {
+            EstoqueDTO estoqueDTO = estoqueService.findByNomeEstoque(nomeEstoque);
+
+            if (estoqueDTO != null) {
+                return ResponseEntity.ok(estoqueDTO);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("ativo/{ativo}")
+    public ResponseEntity<List<EstoqueDTO>> findByAtivo(@PathVariable boolean ativo) {
+        try {
+            List<EstoqueDTO> estoqueDTO = estoqueService.findByAtivo(ativo);
+
+            if (!estoqueDTO.isEmpty()) {
+                return ResponseEntity.ok(estoqueDTO);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("registro/dia/{registro}")
+    public ResponseEntity<List<EstoqueDTO>> findByDiaRegistro(@PathVariable("registro") LocalDate registro) {
+        try {
+            List<EstoqueDTO> estoqueDTO = estoqueService.findByDiaRegistro(registro);
+
+            if (!estoqueDTO.isEmpty()) {
+                return ResponseEntity.ok(estoqueDTO);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("atualizar/dia/{atualizar}")
+    public ResponseEntity<List<EstoqueDTO>> findByDiaAtualizar(@PathVariable("registro") LocalDate atualizar) {
+        try {
+            List<EstoqueDTO> estoqueDTO = estoqueService.findByDiaAtualizar(atualizar);
+
+            if (!estoqueDTO.isEmpty()) {
+                return ResponseEntity.ok(estoqueDTO);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 
 }
