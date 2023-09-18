@@ -6,11 +6,13 @@ import com.elevenparis.store.repository.EstoqueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -77,8 +79,8 @@ public class EstoqueService {
     }
 
     @Transactional(readOnly = true)
-    public List<EstoqueDTO> findByDiaAtualizar(LocalDate registro) {
-        List<Estoque> estoques = estoqueRepository.findByDiaAtualizar(registro);
+    public List<EstoqueDTO> findByDiaAtualizar(LocalDate atualizar) {
+        List<Estoque> estoques = estoqueRepository.findByDiaAtualizar(atualizar);
 
         List<EstoqueDTO> estoqueDTOS = new ArrayList<>();
 
@@ -102,6 +104,24 @@ public class EstoqueService {
     public void cadastrar( Estoque estoque) {
         validarEstoque(estoque);
         estoqueRepository.save(estoque);
+    }
+
+    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRES_NEW)
+    public void atualizar(Long id, Estoque estoque) {
+        validarEstoque(estoque);
+
+        Optional<Estoque> estoqueExistente = estoqueRepository.findById(id);
+
+        if (estoqueExistente.isPresent()) {
+            Estoque estoqueAtualizado = estoqueExistente.get();
+
+            if (estoque.getNomeEstoque() != null) {
+                estoqueAtualizado.setNomeEstoque(estoque.getNomeEstoque());
+            }
+            estoqueRepository.save(estoqueAtualizado);
+        } else {
+            throw new IllegalArgumentException("Id inválido!");
+        }
     }
 
 }

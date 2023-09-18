@@ -3,6 +3,7 @@ package com.elevenparis.store.controller;
 import com.elevenparis.store.dto.EstoqueDTO;
 import com.elevenparis.store.entity.Estoque;
 import com.elevenparis.store.service.EstoqueService;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -88,7 +89,7 @@ public class EstoqueController {
     }
 
     @GetMapping("atualizar/dia/{atualizar}")
-    public ResponseEntity<List<EstoqueDTO>> findByDiaAtualizar(@PathVariable("registro") LocalDate atualizar) {
+    public ResponseEntity<List<EstoqueDTO>> findByDiaAtualizar(@PathVariable("atualizar") LocalDate atualizar) {
         try {
             List<EstoqueDTO> estoqueDTO = estoqueService.findByDiaAtualizar(atualizar);
 
@@ -109,6 +110,17 @@ public class EstoqueController {
             return ResponseEntity.ok().body("Registro cadastrado com sucesso!");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+    @PutMapping("/nome/{id}")
+    public ResponseEntity<?> atualizar(@PathVariable @NotNull Long id, @RequestBody Estoque estoque) {
+        try {
+            estoqueService.atualizar(id, estoque);
+            return ResponseEntity.ok().body("Registro atualizado com sucesso!");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao atualizar o registro.");
         }
     }
 
