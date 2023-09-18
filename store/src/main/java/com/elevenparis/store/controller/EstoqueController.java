@@ -1,5 +1,7 @@
 package com.elevenparis.store.controller;
 
+import com.elevenparis.store.dto.EstoqueDTO;
+import com.elevenparis.store.entity.Estoque;
 import com.elevenparis.store.service.EstoqueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,5 +21,6 @@ public class EstoqueController {
     public EstoqueController(EstoqueService estoqueService){
         this.estoqueService = estoqueService;
     }
+
 
 }
