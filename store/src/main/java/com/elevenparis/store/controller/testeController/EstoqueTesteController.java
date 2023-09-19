@@ -14,10 +14,12 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import javax.swing.tree.ExpandVetoException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -76,4 +78,46 @@ public class EstoqueTesteController {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
+    @Test
+    public void testFindAll() throws Exception {
+
+        EstoqueDTO estoqueDTO1 = new EstoqueDTO(new Estoque());
+        estoqueDTO1.setNomeEstoque("Estoque01");
+        estoqueDTO1.setAtivo(true);
+
+        EstoqueDTO estoqueDTO2 = new EstoqueDTO(new Estoque());
+        estoqueDTO2.setNomeEstoque("Estoque02");
+        estoqueDTO2.setAtivo(false);
+
+        List<EstoqueDTO> estoqueDTOList = Arrays.asList(estoqueDTO1, estoqueDTO2);
+
+        Mockito.when(estoqueService.findAll()).thenReturn(estoqueDTOList);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/estoque")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(estoqueDTOList)))
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    public void testDeleteEstoque() throws Exception {
+
+        EstoqueDTO estoqueDTO1 = new EstoqueDTO(new Estoque());
+        estoqueDTO1.setNomeEstoque("Estoque01");
+        estoqueDTO1.setAtivo(true);
+
+        EstoqueDTO estoqueDTO2 = new EstoqueDTO(new Estoque());
+        estoqueDTO2.setNomeEstoque("Estoque02");
+        estoqueDTO2.setAtivo(false);
+
+        List<EstoqueDTO> estoqueDTOList = Arrays.asList(estoqueDTO1, estoqueDTO2);
+
+        Mockito.when(estoqueService.findAll()).thenReturn(estoqueDTOList);
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/estoque/desativar/1")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
 }
