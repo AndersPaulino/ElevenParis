@@ -123,5 +123,16 @@ public class EstoqueController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao atualizar o registro.");
         }
     }
+    @DeleteMapping("/desativar/{id}")
+    public ResponseEntity<?> deletar(@PathVariable Long id) {
+        try {
+            estoqueService.deletar(id);
+            return ResponseEntity.ok().body("Registro desativado com sucesso!");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao desativar o registro.");
+        }
+    }
 
 }
