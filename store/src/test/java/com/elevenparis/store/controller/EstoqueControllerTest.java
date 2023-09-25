@@ -2,17 +2,20 @@ package com.elevenparis.store.controller;
 
 import com.elevenparis.store.dto.EstoqueDTO;
 import com.elevenparis.store.entity.Estoque;
+import com.elevenparis.store.repository.EstoqueRepository;
 import com.elevenparis.store.service.EstoqueService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.extension.Extension;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
@@ -21,18 +24,18 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith(MockitoExtension.class)
+
+@WebMvcTest(EstoqueController.class)
 class EstoqueControllerTest {
     @Autowired
     private MockMvc mockMvc;
-    @Mock
+    @MockBean
     private EstoqueService estoqueService;
 
-    @InjectMocks
+    @Autowired
     private EstoqueController estoqueController;
 
     @Autowired
@@ -45,9 +48,9 @@ class EstoqueControllerTest {
     @BeforeEach
     void setUp() {
         estoque = new Estoque();
-        estoqueDTO = new EstoqueDTO(estoque);
         estoque.setNomeEstoque("Estoque01");
         estoque.setAtivo(true);
+        estoqueDTO = new EstoqueDTO(estoque);
     }
 
 
@@ -59,6 +62,8 @@ class EstoqueControllerTest {
     @Test
     void testSalvar(){
         estoqueController.cadastrar(estoque);
+
+        verify(estoqueService, times(1)).cadastrar(estoque);
     }
     @Test
     void testEstoque() {
@@ -80,6 +85,16 @@ class EstoqueControllerTest {
     }
 
     @Test
+    void testFindByIdNotFound() throws Exception {
+        when(estoqueService.findById(1L)).thenReturn(Optional.empty());
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/estoque/1")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+    }
+
+
+    @Test
     void testFindByNomeEstoque() throws Exception {
         when(estoqueService.findByNomeEstoque("Estoque01")).thenReturn(estoqueDTO);
 
@@ -89,11 +104,49 @@ class EstoqueControllerTest {
     }
 
     @Test
+    void testFindByNomeEstoqueException() throws Exception {
+        when(estoqueService.findByNomeEstoque(anyString())).thenThrow(new RuntimeException("Exceção simulada!"));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/estoque/nome/Estoque01")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isInternalServerError());
+    }
+
+    @Test
+    void testFindByNomeEstoqueNaoEncontrado() throws Exception {
+        when(estoqueService.findByNomeEstoque("Estoque02")).thenReturn(estoqueDTO);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/estoque/nome/Estoque01")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
     void testFindByAtivo() throws Exception {
         List<EstoqueDTO> estoqueDTOList = Collections.singletonList(estoqueDTO);
         when(estoqueService.findByAtivo(true)).thenReturn(estoqueDTOList);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/estoque/ativo/true")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void testFindByAtivoException() throws Exception {
+        List<EstoqueDTO> estoqueDTOList = Collections.singletonList(estoqueDTO);
+        when(estoqueService.findByAtivo(true)).thenThrow(new RuntimeException("Exceção simulada!"));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/estoque/ativo/true")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isInternalServerError());
+    }
+
+    @Test
+    void testFindByInativo() throws Exception {
+        List<EstoqueDTO> estoqueDTOList = Collections.singletonList(estoqueDTO);
+        when(estoqueService.findByAtivo(false)).thenReturn(estoqueDTOList);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/estoque/ativo/false")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
