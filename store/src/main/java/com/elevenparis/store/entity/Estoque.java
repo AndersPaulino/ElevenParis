@@ -13,5 +13,4 @@ public class Estoque extends AbstractEntity{
     @Getter @Setter
     @Column(name = "cl_nome")
     private String nomeEstoque;
-
 }

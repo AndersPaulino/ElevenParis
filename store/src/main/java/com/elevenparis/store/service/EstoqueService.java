@@ -26,82 +26,65 @@ public class EstoqueService {
     }
 
     @Transactional(readOnly = true)
-    public EstoqueDTO findById(Long id) {
-        Estoque estoque = estoqueRepository.findById(id).get();
-        EstoqueDTO estoqueDTO = new EstoqueDTO(estoque);
-        return estoqueDTO;
+    public Optional<EstoqueDTO> findById(Long id) {
+        return estoqueRepository.findById(id).map(EstoqueDTO::new);
     }
+
 
     @Transactional(readOnly = true)
     public List<EstoqueDTO> findAll() {
         List<Estoque> estoques = estoqueRepository.findAll();
-        return estoques.stream().map(EstoqueDTO::new).collect(Collectors.toList());
+        return estoques.stream().map(EstoqueDTO::new).toList();
     }
 
     @Transactional(readOnly = true)
     public EstoqueDTO findByNomeEstoque(String nomeEstoque) {
         Estoque estoque = estoqueRepository.findByNomeEstoque(nomeEstoque);
-        EstoqueDTO estoqueDTO = new EstoqueDTO(estoque);
-        if (estoqueDTO !=null) {
-            return estoqueDTO;
-        } else {
-            try {
-                throw new ChangeSetPersister.NotFoundException();
-            } catch (ChangeSetPersister.NotFoundException e) {
-                throw new RuntimeException(e);
-            }
-        }
+        return new EstoqueDTO(estoque);
     }
     @Transactional(readOnly = true)
     public List<EstoqueDTO> findByAtivo(boolean ativo) {
         List<Estoque> estoques = estoqueRepository.findByAtivo(ativo);
-
-        List<EstoqueDTO> estoqueDTOs = new ArrayList<>();
-
-        for (Estoque estoque : estoques) {
-            EstoqueDTO dto = new EstoqueDTO(estoque);
-            estoqueDTOs.add(dto);
-        }
-        return estoqueDTOs;
+        return estoques.stream()
+                .map(EstoqueDTO::new)
+                .toList();
     }
+
 
     @Transactional(readOnly = true)
     public List<EstoqueDTO> findByDiaRegistro(LocalDate registro) {
         List<Estoque> estoques = estoqueRepository.findByDiaRegistro(registro);
 
-        List<EstoqueDTO> estoqueDTOS = new ArrayList<>();
-
-        for (Estoque estoque : estoques) {
-            EstoqueDTO dto = new EstoqueDTO(estoque);
-            estoqueDTOS.add(dto);
-        }
-        return estoqueDTOS;
+        return estoques.stream()
+                .map(EstoqueDTO::new)
+                .toList();
     }
+
 
     @Transactional(readOnly = true)
     public List<EstoqueDTO> findByDiaAtualizar(LocalDate atualizar) {
         List<Estoque> estoques = estoqueRepository.findByDiaAtualizar(atualizar);
 
-        List<EstoqueDTO> estoqueDTOS = new ArrayList<>();
-
-        for (Estoque estoque : estoques) {
-            EstoqueDTO dto = new EstoqueDTO(estoque);
-            estoqueDTOS.add(dto);
-        }
-        return estoqueDTOS;
+        return estoques.stream()
+                .map(EstoqueDTO::new)
+                .toList();
     }
 
+
     public void validarEstoque(final Estoque estoque) {
-        if (estoque.getNomeEstoque() == null || estoque.getNomeEstoque().isEmpty()){
+        String nomeEstoque = estoque.getNomeEstoque();
+
+        if (nomeEstoque == null || nomeEstoque.isEmpty()) {
             throw new IllegalArgumentException("Nome do Estoque não informado");
         }
-        if (!estoque.getNomeEstoque().matches("[a-zA-Z0-9 ]+")) {
+
+        if (!nomeEstoque.matches("[a-zA-Z0-9 ]+")) {
             throw new IllegalArgumentException("Nome do Estoque inválido");
         }
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void cadastrar( Estoque estoque) {
+    public void cadastrar(Estoque estoque) {
         validarEstoque(estoque);
         estoqueRepository.save(estoque);
     }
@@ -109,20 +92,16 @@ public class EstoqueService {
     @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRES_NEW)
     public void atualizar(Long id, Estoque estoque) {
         validarEstoque(estoque);
+        Optional<Estoque> estoqueExistenteOptional = estoqueRepository.findById(id);
 
-        Optional<Estoque> estoqueExistente = estoqueRepository.findById(id);
-
-        if (estoqueExistente.isPresent()) {
-            Estoque estoqueAtualizado = estoqueExistente.get();
-
-            if (estoque.getNomeEstoque() != null) {
-                estoqueAtualizado.setNomeEstoque(estoque.getNomeEstoque());
-            }
-            estoqueRepository.save(estoqueAtualizado);
+        if (estoqueExistenteOptional.isPresent()) {
+            Estoque estoqueExistente = estoqueExistenteOptional.get();
+            estoqueRepository.save(estoqueExistente);
         } else {
-            throw new IllegalArgumentException("Id inválido!");
+            throw new IllegalArgumentException("ID de estoque inválido!");
         }
     }
+
     @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRES_NEW)
     public void deletar(Long id) {
         Optional<Estoque> estoqueExistenteOptional = estoqueRepository.findById(id);

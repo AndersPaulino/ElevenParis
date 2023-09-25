@@ -25,18 +25,11 @@ public class EstoqueController {
 
     @GetMapping("/{id}")
     public ResponseEntity<EstoqueDTO> findById(@PathVariable Long id) {
-        try {
-            EstoqueDTO estoqueDTO = estoqueService.findById(id);
-
-            if (estoqueDTO != null) {
-                return ResponseEntity.ok(estoqueDTO);
-            } else {
-                return ResponseEntity.notFound().build();
-            }
-        } catch (Exception ex) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+        return estoqueService.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
+
     @GetMapping
     public ResponseEntity<List<EstoqueDTO>> findAll() {
         List<EstoqueDTO> estoqueDTO = estoqueService.findAll();
@@ -104,7 +97,7 @@ public class EstoqueController {
     }
 
     @PostMapping
-    public ResponseEntity<?> cadastrar(@RequestBody Estoque estoque) {
+    public ResponseEntity<String> cadastrar(@RequestBody Estoque estoque) {
         try {
             estoqueService.cadastrar(estoque);
             return ResponseEntity.ok().body("Registro cadastrado com sucesso!");
@@ -113,7 +106,7 @@ public class EstoqueController {
         }
     }
     @PutMapping("/nome/{id}")
-    public ResponseEntity<?> atualizar(@PathVariable @NotNull Long id, @RequestBody Estoque estoque) {
+    public ResponseEntity<String> atualizar(@PathVariable @NotNull Long id, @RequestBody Estoque estoque) {
         try {
             estoqueService.atualizar(id, estoque);
             return ResponseEntity.ok().body("Registro atualizado com sucesso!");
@@ -124,7 +117,7 @@ public class EstoqueController {
         }
     }
     @DeleteMapping("/desativar/{id}")
-    public ResponseEntity<?> deletar(@PathVariable Long id) {
+    public ResponseEntity<String> deletar(@PathVariable Long id) {
         try {
             estoqueService.deletar(id);
             return ResponseEntity.ok().body("Registro desativado com sucesso!");
