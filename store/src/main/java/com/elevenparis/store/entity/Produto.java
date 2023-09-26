@@ -16,34 +16,11 @@ public class Produto extends AbstractEntity{
     private String nome;
 
     @Getter @Setter
-    @ManyToOne
-    @JoinColumn(name = "estoque_id")
-    private Estoque estoque;
-
-    @Getter @Setter
     private Tipo tipo;
-
-    @Getter @Setter
-    @NotBlank(message = "O codigo é obrigatório")
-    @Size(max = 255, message = "O codigo deve ter no máximo {max} caracteres")
-    @Column(name = "codigo", nullable = false, length = 255)
-    private String codigo;
 
     @Getter @Setter
     @NotBlank(message = "A descrição é obrigatório")
     @Size(max = 255, message = "A descrição deve ter no máximo {max} caracteres")
     @Column(name = "descricao", nullable = false, length = 255)
     private String descricao;
-
-    public Produto() {
-    }
-
-    public Produto(String nome, Estoque estoque, Tipo tipo, String codigo, String descricao) {
-        this.nome = nome;
-        this.estoque = estoque;
-        this.tipo = tipo;
-        this.codigo = codigo;
-        this.descricao = descricao;
-    }
-
 }

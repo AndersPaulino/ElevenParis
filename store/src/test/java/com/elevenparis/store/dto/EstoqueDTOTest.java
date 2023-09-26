@@ -1,29 +1,32 @@
 package com.elevenparis.store.dto;
 
+
 import com.elevenparis.store.entity.Estoque;
+import com.elevenparis.store.repository.EstoqueRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class EstoqueDTOTest {
-
     private Estoque estoque;
     private EstoqueDTO estoqueDTO;
+
+    @Autowired
+    private EstoqueRepository estoqueRepository;
+
     @Test
     void testConstructorWithEstoque() {
 
         estoque = new Estoque();
-        estoque.setAtivo(true);
-        estoque.setRegistro(LocalDateTime.now());
-        estoque.setAtualizar(LocalDateTime.now());
         estoque.setNomeEstoque("Estoque de Exemplo");
-
 
         estoqueDTO = new EstoqueDTO(estoque);
 

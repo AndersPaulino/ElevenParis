@@ -23,12 +23,12 @@ public abstract class AbstractEntity {
     private LocalDateTime atualizar;
 
     @PrePersist
-    private void prePersist(){
+    void prePersist(){
         this.registro = LocalDateTime.now();
         this.ativo = true;
     }
     @PreUpdate
-    private void preUpdate(){
+    void preUpdate(){
         this.atualizar = LocalDateTime.now();
     }
 }
