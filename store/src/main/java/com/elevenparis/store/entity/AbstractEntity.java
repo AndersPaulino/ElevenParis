@@ -3,7 +3,6 @@ package com.elevenparis.store.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.time.LocalDateTime;
 
 @MappedSuperclass
@@ -24,12 +23,12 @@ public abstract class AbstractEntity {
     private LocalDateTime atualizar;
 
     @PrePersist
-    private void prePersist(){
+    void prePersist(){
         this.registro = LocalDateTime.now();
         this.ativo = true;
     }
     @PreUpdate
-    private void preUpdate(){
+    void preUpdate(){
         this.atualizar = LocalDateTime.now();
     }
 }
