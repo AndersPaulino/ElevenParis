@@ -15,8 +15,8 @@ public class Produto extends AbstractEntity{
     @Column(name = "nome", nullable = false, length = 50)
     private String nome;
 
-    @Getter @Setter
-    private Tipo tipo;
+    /*@Getter @Setter
+    private Tipo tipo;*/
 
     @Getter @Setter
     @NotBlank(message = "A descrição é obrigatório")
