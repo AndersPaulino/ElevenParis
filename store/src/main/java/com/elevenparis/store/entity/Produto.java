@@ -16,6 +16,7 @@ public class Produto extends AbstractEntity{
     private String nome;
 
     @Getter @Setter
+    @ManyToOne
     private Tipo tipo;
 
     @Getter @Setter

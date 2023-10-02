@@ -20,21 +20,19 @@ public class Movimentacao extends AbstractEntity{
     @Column(name = "saida", nullable = false)
     private int saida;
 
-    /*
     @Getter @Setter
-    @Column(name = "totalProduto", nullable = false)
+    @Column(name = "totalProduto")
     private BigDecimal totalProduto;
 
     @Getter @Setter
-    @Column(name = "valorCompra", nullable = false)
+    @Column(name = "valorCompra")
     private BigDecimal valorCompra;
 
     @Getter @Setter
-    @Column(name = "valorVenda", nullable = false)
+    @Column(name = "valorVenda")
     private BigDecimal valorVenda;
 
     @Getter @Setter
-    @Column(name = "valorTotal", nullable = false)
+    @Column(name = "valorTotal")
     private BigDecimal valorTotal;
-    */
 }

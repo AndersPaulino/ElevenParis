@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface MovimentacaoRepository extends JpaRepository<Movimentacao , Long> {
     @Query("SELECT e FROM Movimentacao e WHERE e.ativo = :ativo")
-    public List<Movimentacao> findByAtivo(@Param("ativo") boolean ativo);
+    List<Movimentacao> findByAtivo(@Param("ativo") boolean ativo);
 
     @Query("SELECT e FROM Movimentacao e WHERE DATE(e.registro) = :registro")
     List<Movimentacao> findByDiaRegistro(@Param("registro") LocalDate registro);

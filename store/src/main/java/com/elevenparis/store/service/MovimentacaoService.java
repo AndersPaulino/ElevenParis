@@ -1,7 +1,9 @@
 package com.elevenparis.store.service;
 
 import com.elevenparis.store.dto.MovimentacaoDTO;
+import com.elevenparis.store.dto.ProdutoDTO;
 import com.elevenparis.store.entity.Movimentacao;
+import com.elevenparis.store.entity.Produto;
 import com.elevenparis.store.repository.MovimentacaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +33,15 @@ public class MovimentacaoService {
     @Transactional(readOnly = true)
     public List<MovimentacaoDTO> findByAtivo(boolean ativo){
         List<Movimentacao> movimentacaos = movimentacaoRepository.findByAtivo(ativo);
+        return movimentacaos.stream()
+                .map(MovimentacaoDTO::new)
+                .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<MovimentacaoDTO> findByDiaRegistro(LocalDate registro){
+        List<Movimentacao> movimentacaos = movimentacaoRepository.findByDiaRegistro(registro);
+
         return movimentacaos.stream()
                 .map(MovimentacaoDTO::new)
                 .toList();
