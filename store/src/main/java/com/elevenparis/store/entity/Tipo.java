@@ -11,5 +11,5 @@ import lombok.Setter;
 public class Tipo extends AbstractEntity{
     @Getter @Setter
     @Column(name = "cl_tipo")
-    private String nomeTipo;
+    private String nameTipo;
 }

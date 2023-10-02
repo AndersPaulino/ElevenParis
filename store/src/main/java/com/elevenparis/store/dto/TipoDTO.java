@@ -13,22 +13,22 @@ public class TipoDTO {
     private boolean ativo;
     private LocalDateTime registro;
     private LocalDateTime atualizar;
-    private String nomeTipo;
+    private String nameTipo;
 
     public TipoDTO(Tipo tipo){
         id = tipo.getId();
         ativo = isAtivo();
         registro = tipo.getRegistro();
         atualizar = tipo.getAtualizar();
-        nomeTipo = getNomeTipo();
+        nameTipo = tipo.getNameTipo();
     }
 
-    public TipoDTO(Long id, boolean ativo, LocalDateTime registro, LocalDateTime atualizar, String nomeTipo){
+    public TipoDTO(Long id, boolean ativo, LocalDateTime registro, LocalDateTime atualizar, String nameTipo){
         this.id = id;
         this.ativo = ativo;
         this.registro = registro;
         this.atualizar = atualizar;
-        this.nomeTipo = nomeTipo;
+        this.nameTipo = nameTipo;
     }
 
 }
