@@ -16,6 +16,8 @@ public class Produto extends AbstractEntity{
     private String nome;
 
     @Getter @Setter
+    @ManyToOne
+    @JoinColumn(name = "tipo_id")
     private Tipo tipo;
 
     @Getter @Setter

@@ -3,7 +3,6 @@ package com.elevenparis.store.dto;
 
 import com.elevenparis.store.entity.Estoque;
 import com.elevenparis.store.repository.EstoqueRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -18,9 +17,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class EstoqueDTOTest {
     private Estoque estoque;
     private EstoqueDTO estoqueDTO;
-
-    @Autowired
-    private EstoqueRepository estoqueRepository;
 
     @Test
     void testConstructorWithEstoque() {

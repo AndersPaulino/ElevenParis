@@ -44,7 +44,7 @@ class EstoqueServiceTest {
     }
 
     @Test
-    void findByIdShouldReturnOptionalEmptyWhenIdNotFound() {
+    void findByIdNotFound() {
         Long id = 1L;
         when(estoqueRepository.findById(id)).thenReturn(Optional.empty());
 
