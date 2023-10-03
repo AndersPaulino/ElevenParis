@@ -1,7 +1,6 @@
 package com.elevenparis.store.service;
 
 import com.elevenparis.store.dto.TipoDTO;
-import com.elevenparis.store.entity.Estoque;
 import com.elevenparis.store.entity.Tipo;
 import com.elevenparis.store.repository.TipoRepository;
 import org.junit.jupiter.api.BeforeEach;

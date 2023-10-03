@@ -1,13 +1,9 @@
 package com.elevenparis.store.dto;
 
 import com.elevenparis.store.entity.Tipo;
-import com.elevenparis.store.repository.TipoRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
