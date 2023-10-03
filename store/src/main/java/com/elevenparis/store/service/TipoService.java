@@ -51,7 +51,6 @@ public class TipoService {
 
     @Transactional(rollbackFor = Exception.class)
     public void cadastrar(Tipo tipo){
-        tipo.setAtivo(true);
         validarTipo(tipo);
         tipoRepository.save(tipo);
     }
