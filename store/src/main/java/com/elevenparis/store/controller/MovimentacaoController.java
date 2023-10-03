@@ -78,8 +78,23 @@ public class MovimentacaoController {
         }
     }
 
+    @GetMapping("/entrada/{entrada}")
+    public ResponseEntity<MovimentacaoDTO> findByEntrada(@PathVariable int entrada) {
+        try {
+            MovimentacaoDTO movimentacaoDTO = (MovimentacaoDTO) movimentacaoService.findByEntrada(entrada);
+
+            if (movimentacaoDTO != null) {
+                return ResponseEntity.ok(movimentacaoDTO);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        }catch (Exception exception){
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
+    }
+
     @PostMapping
-    public ResponseEntity<?> cadastrar(@RequestBody Movimentacao movimentacao) {
+    public ResponseEntity<String> cadastrar(@RequestBody Movimentacao movimentacao) {
         try {
             movimentacaoService.cadastrar(movimentacao);
             return ResponseEntity.ok().body("Registro cadastrado com sucesso!");
@@ -89,7 +104,7 @@ public class MovimentacaoController {
     }
 
     @PutMapping("/atualizar/{id}")
-    public ResponseEntity<?> atualizar(@PathVariable @NotNull Long id, @RequestBody Movimentacao movimentacao) {
+    public ResponseEntity<String> atualizar(@PathVariable @NotNull Long id, @RequestBody Movimentacao movimentacao) {
         try {
             movimentacaoService.atualizar(id, movimentacao);
             return ResponseEntity.ok().body("Registro atualizado com sucesso!");

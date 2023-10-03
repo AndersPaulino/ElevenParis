@@ -56,6 +56,11 @@ public class MovimentacaoService {
                 .toList();
     }
 
+    @Transactional(readOnly = true)
+    public List<Movimentacao> findByEntrada(int entrada) {
+        return movimentacaoRepository.findByEntrada(entrada);
+    }
+
     @Transactional(rollbackFor = Exception.class)
     public void cadastrar(Movimentacao movimentacao){
         movimentacaoRepository.save(movimentacao);
@@ -73,6 +78,14 @@ public class MovimentacaoService {
         }
     }
 
+
+    public void validarMovimentacao(final Movimentacao movimentacao){
+        int entrada = movimentacao.getEntrada();
+
+        if (entrada == 0){
+            throw new IllegalArgumentException("Nome De Produto Não Preenchido");
+        }
+    }
     @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRES_NEW)
     public void deletar(Long id){
         Optional<Movimentacao> movimentacaoExistenteOptional = movimentacaoRepository.findById(id);

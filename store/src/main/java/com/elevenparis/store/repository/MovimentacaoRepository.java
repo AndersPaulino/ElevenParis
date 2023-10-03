@@ -19,4 +19,7 @@ public interface MovimentacaoRepository extends JpaRepository<Movimentacao , Lon
 
     @Query("SELECT e FROM Movimentacao e WHERE DATE(e.atualizar) = :atualizar")
     List<Movimentacao> findByDiaAtualizar(@Param("atualizar") LocalDate registro);
+
+    @Query("SELECT e FROM Movimentacao e WHERE e.entrada = :entrada")
+    List<Movimentacao> findByEntrada(int entrada);
 }
