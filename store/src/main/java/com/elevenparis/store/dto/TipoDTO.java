@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 public class TipoDTO {
 
     private Long id;
-    private boolean ativo = true;
+    private boolean ativo;
     private LocalDateTime registro;
     private LocalDateTime atualizar;
     private String nameTipo;

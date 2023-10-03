@@ -3,18 +3,21 @@ package com.elevenparis.store.dto;
 import com.elevenparis.store.entity.Movimentacao;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class MovimentacaoDTOTest {
+@ExtendWith(MockitoExtension.class)
+class MovimentacaoDTOTest {
 
     private Movimentacao movimentacao;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         movimentacao = new Movimentacao();
         movimentacao.setAtivo(true);
         movimentacao.setRegistro(LocalDateTime.now());
@@ -28,7 +31,7 @@ public class MovimentacaoDTOTest {
     }
 
     @Test
-    public void testConstructorWithMovimentacao() {
+    void testConstructorWithMovimentacao() {
         MovimentacaoDTO movimentacaoDTO = new MovimentacaoDTO(movimentacao);
         assertEquals(movimentacao.getId(), movimentacaoDTO.getId());
         assertEquals(movimentacao.isAtivo(), movimentacaoDTO.isAtivo());
@@ -43,7 +46,7 @@ public class MovimentacaoDTOTest {
     }
 
     @Test
-    public void testConstructorWithParameters() {
+    void testConstructorWithParameters() {
         Long id = 2L;
         boolean ativo = false;
         LocalDateTime registro = LocalDateTime.now().minusDays(1);
