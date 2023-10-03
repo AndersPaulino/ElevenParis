@@ -12,8 +12,6 @@ import lombok.Setter;
 @Table(name = "tb_tipo",schema = "public")
 public class Tipo extends AbstractEntity{
     @Getter @Setter
-    @NotBlank(message = "O nome é obrigatório")
-    @Size(max = 50, message = "O nome deve ter no máximo {max} caracteres")
-    @Column(name = "nome", nullable = false, length = 50)
-    private String nome;
+    @Column(name = "cl_tipo")
+    private String nameTipo;
 }

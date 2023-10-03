@@ -4,7 +4,6 @@ import com.elevenparis.store.dto.EstoqueDTO;
 import com.elevenparis.store.entity.Estoque;
 import com.elevenparis.store.service.EstoqueService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.validation.constraints.Null;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
