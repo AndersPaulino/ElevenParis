@@ -32,7 +32,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(MovimentacaoController.class)
-public class MovimentacaoControllerTest {
+class MovimentacaoControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -64,7 +64,7 @@ public class MovimentacaoControllerTest {
         movimentacaoDTO = new MovimentacaoDTO(movimentacao);
     }
     @Test
-    public void testController() throws Exception {
+    void testController() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/movimentacao"))
                 .andExpect((status().isOk()));
     }
