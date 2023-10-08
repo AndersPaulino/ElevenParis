@@ -28,7 +28,9 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(MovimentacaoController.class)
@@ -200,7 +202,7 @@ class MovimentacaoControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/movimentacao")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(movimentacaoDTOList)))
+                .andExpect(content().json(objectMapper.writeValueAsString(movimentacaoDTOList)))
                 .andDo(MockMvcResultHandlers.print());
     }
     @Test
@@ -210,5 +212,56 @@ class MovimentacaoControllerTest {
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
         assertEquals("Mensagem de erro simulada", response.getBody());
     }
+
+    @Test
+    void testFindByEntradaNotFound() throws Exception {
+        when(movimentacaoService.findByEntrada(2)).thenReturn(null);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/movimentacao/entrada/2")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void testDeletar() throws Exception {
+        doNothing().when(movimentacaoService).deletar(1L);
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/movimentacao/desativar/1")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void testDeletarNotFound() throws Exception {
+        doThrow(new IllegalArgumentException("Registro não encontrado")).when(movimentacaoService).deletar(2L);
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/movimentacao/desativar/2")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void testDeletarException() throws Exception {
+        doThrow(new RuntimeException("Exceção simulada")).when(movimentacaoService).deletar(1L);
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/movimentacao/desativar/1")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isInternalServerError());
+    }
+
+    @Test
+    void testAtualizarSuccess() throws Exception {
+        Long id = 1L;
+        doNothing().when(movimentacaoService).atualizar(id, movimentacao);
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/movimentacao/atualizar/" + id)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(movimentacao)))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Registro atualizado com sucesso!"));
+    }
+
+
+
 
 }
