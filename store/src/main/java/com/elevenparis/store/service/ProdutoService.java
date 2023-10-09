@@ -77,18 +77,22 @@ public class ProdutoService {
         produtoRepository.save(produto);
     }
 
-    @Transactional(rollbackFor = Exception.class, propagation =  Propagation.REQUIRES_NEW)
-    public void atualizar(Long id, Produto produto){
+    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRES_NEW)
+    public void atualizar(Long id, Produto produto) {
         validarProduto(produto);
         Optional<Produto> produtoExistenteOptional = produtoRepository.findById(id);
 
-        if (produtoExistenteOptional.isPresent()){
+        if (produtoExistenteOptional.isPresent()) {
             Produto produtoExistente = produtoExistenteOptional.get();
+            produtoExistente.setNome(produto.getNome());
+            produtoExistente.setTipo(produto.getTipo());
+            produtoExistente.setDescricao(produto.getDescricao());
             produtoRepository.save(produtoExistente);
         } else {
-            throw new IllegalArgumentException("ID Invalido!");
+            throw new IllegalArgumentException("ID Inválido!");
         }
     }
+
 
     @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRES_NEW)
     public void deletar(Long id){

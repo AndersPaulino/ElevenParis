@@ -56,17 +56,19 @@ public class TipoService {
     }
 
     @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRES_NEW)
-    public void atualizar(Long id, Tipo tipo){
+    public void atualizar(Long id, Tipo tipo) {
         validarTipo(tipo);
         Optional<Tipo> tipoOptional = tipoRepository.findById(id);
 
-        if (tipoOptional.isPresent()){
-            Tipo tipo1 = tipoOptional.get();
-            tipoRepository.save(tipo1);
+        if (tipoOptional.isPresent()) {
+            Tipo tipoExistente = tipoOptional.get();
+            tipoExistente.setNameTipo(tipo.getNameTipo());
+            tipoRepository.save(tipoExistente);
         } else {
             throw new IllegalArgumentException("ID de tipo inválido!");
         }
     }
+
 
     @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRES_NEW)
     public void deletar(Long id){
