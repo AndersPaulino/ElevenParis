@@ -107,6 +107,16 @@ class TipoServiceTest {
         assertEquals("Nome do Tipo inválido!", exception3.getMessage());
 
     }
+    @Test
+    void cadastrarEstoque() {
+        tipo.setNameTipo("Tipo1");
+
+        when(tipoRepository.save(tipo)).thenReturn(tipo);
+
+        assertDoesNotThrow(() -> tipoService.cadastrar(tipo));
+
+        verify(tipoRepository, times(1)).save(tipo);
+    }
 
     @Test
     void cadastrarIdInvalid(){

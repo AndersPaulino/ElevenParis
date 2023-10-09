@@ -3,18 +3,21 @@ package com.elevenparis.store.dto;
 import com.elevenparis.store.entity.Movimentacao;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(MockitoExtension.class)
 class MovimentacaoDTOTest {
 
     private Movimentacao movimentacao;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         movimentacao = new Movimentacao();
         movimentacao.setAtivo(true);
         movimentacao.setRegistro(LocalDateTime.now());

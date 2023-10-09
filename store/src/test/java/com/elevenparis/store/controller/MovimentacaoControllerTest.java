@@ -72,6 +72,7 @@ class MovimentacaoControllerTest {
     }
     @Test
     void testController() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/movimentacao"))
         mockMvc.perform(get("/api/movimentacao"))
                 .andExpect((status().isOk()));
     }
