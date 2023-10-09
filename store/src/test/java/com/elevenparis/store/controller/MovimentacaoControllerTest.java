@@ -99,15 +99,6 @@ class MovimentacaoControllerTest {
                 .andExpect(status().isNotFound());
     }
 
-    @Test
-    void testFindByEntradaException() throws Exception{
-        when(movimentacaoService.findByEntrada(anyInt())).thenThrow(new RuntimeException("Exceção simulada!"));
-
-        mockMvc.perform(get("/api/movimentacao/entrada/1")
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isInternalServerError());
-    }
-
 
 
     @Test
@@ -217,15 +208,6 @@ class MovimentacaoControllerTest {
         ResponseEntity<String> response = movimentacaoController.cadastrar(movimentacao);
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
         assertEquals("Mensagem de erro simulada", response.getBody());
-    }
-
-    @Test
-    void testFindByEntradaNotFound() throws Exception {
-        when(movimentacaoService.findByEntrada(2)).thenReturn(null);
-
-        mockMvc.perform(get("/api/movimentacao/entrada/2")
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNotFound());
     }
 
     @Test

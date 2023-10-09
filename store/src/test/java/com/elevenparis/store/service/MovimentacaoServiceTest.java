@@ -186,18 +186,4 @@ class MovimentacaoServiceTest {
 
         verify(movimentacaoRepository, never()).save(any(Movimentacao.class));
     }
-
-    @Test
-    void findByEntradaShouldReturnListOfMovimentacao() {
-        int entrada = 5;
-        List<Movimentacao> movimentacaoList = Stream.of(new Movimentacao(), new Movimentacao())
-                .collect(Collectors.toList());
-
-        when(movimentacaoRepository.findByEntrada(entrada)).thenReturn(movimentacaoList);
-
-        List<Movimentacao> result = movimentacaoService.findByEntrada(entrada);
-
-        assertEquals(movimentacaoList.size(), result.size());
-    }
-
 }

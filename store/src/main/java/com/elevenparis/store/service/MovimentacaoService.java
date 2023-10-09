@@ -56,11 +56,6 @@ public class MovimentacaoService {
                 .toList();
     }
 
-    @Transactional(readOnly = true)
-    public List<Movimentacao> findByEntrada(int entrada) {
-        return movimentacaoRepository.findByEntrada(entrada);
-    }
-
     @Transactional(rollbackFor = Exception.class)
     public void cadastrar(Movimentacao movimentacao){
         movimentacaoRepository.save(movimentacao);
