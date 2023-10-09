@@ -17,6 +17,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -51,10 +52,12 @@ class ProdutoServiceTest {
     }
 
     @Test
-    void findAllShhouldReturnListOfProdutoDTOs(){
+    void findByName(){
         String nome = "Produto1";
 
         Produto produtoSimulado = new Produto();
+        Produto produtoSimulado1 = new Produto();
+        produtoSimulado1.setNome(nome);
         produtoSimulado.setNome(nome);
 
         when(produtoRepository.findByNomeProduto(nome)).thenReturn(produtoSimulado);
@@ -66,6 +69,47 @@ class ProdutoServiceTest {
         assertEquals(nome, result.getNome());
     }
 
+    @Test
+    void findAllShhouldReturnListOfProdutoDTOs(){
+        List<Produto> produtoList = Stream.of(new Produto(), new Produto()).collect(Collectors.toList());
+
+        when(produtoRepository.findAll()).thenReturn(produtoList);
+
+        List<ProdutoDTO> result = produtoService.findAll();
+
+        assertEquals(produtoList.size(), result.size());
+    }
+
+    @Test
+    void testValidarProduto() {
+        Produto produto = new Produto();
+        produto.setNome(null);
+
+        Produto produto2 = new Produto();
+        produto2.setNome("Nome Inválido!@#");
+
+        Produto produto3 = new Produto();
+        produto3.setNome("");
+
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            produtoService.validarProduto(produto);
+        });
+
+        assertThat(exception.getMessage()).isEqualTo("Nome De Produto Não Preenchido");
+
+        IllegalArgumentException exception2 = assertThrows(IllegalArgumentException.class, () -> {
+            produtoService.validarProduto(produto2);
+        });
+
+        assertThat(exception2.getMessage()).isEqualTo("Nome De Produto Invalido");
+
+        IllegalArgumentException exception3 = assertThrows(IllegalArgumentException.class, () -> {
+            produtoService.validarProduto(produto3);
+        });
+
+        assertThat(exception3.getMessage()).isEqualTo("Nome De Produto Não Preenchido");
+    }
     @Test
     void findByAtivoShouldReturnListOfProdutoDTOs(){
         boolean ativo = true;
