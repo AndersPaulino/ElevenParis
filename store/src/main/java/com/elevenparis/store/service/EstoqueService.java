@@ -96,11 +96,13 @@ public class EstoqueService {
 
         if (estoqueExistenteOptional.isPresent()) {
             Estoque estoqueExistente = estoqueExistenteOptional.get();
+            estoqueExistente.setNomeEstoque(estoque.getNomeEstoque());
             estoqueRepository.save(estoqueExistente);
         } else {
             throw new IllegalArgumentException("ID de estoque inválido!");
         }
     }
+
 
     @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRES_NEW)
     public void deletar(Long id) {
