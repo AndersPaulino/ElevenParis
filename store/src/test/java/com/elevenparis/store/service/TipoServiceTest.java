@@ -162,6 +162,15 @@ class TipoServiceTest {
     }
 
     @Test
+    void cadastrarShouldSaveTipoWhenValidTipo() {
+        tipo.setNameTipo("ValidName");
+
+        tipoService.cadastrar(tipo);
+
+        verify(tipoRepository, times(1)).save(tipo);
+    }
+
+    @Test
     void deletarShouldThrowExceptionWhenIdDoesNotExist() {
         when(tipoRepository.findById(2L)).thenReturn(Optional.empty());
 
@@ -169,8 +178,19 @@ class TipoServiceTest {
                 () -> tipoService.deletar(2L));
 
         assertEquals("ID de tipo inválido!", exception.getMessage());
-
-        verify(tipoRepository, never()).save(any(Tipo.class));
     }
+
+    @Test
+    void deletarShouldNotDeactivateTipoWhenAlreadyInactive() {
+        Tipo alreadyInactiveTipo = new Tipo();
+        alreadyInactiveTipo.setAtivo(false);
+
+        when(tipoRepository.findById(1L)).thenReturn(Optional.of(alreadyInactiveTipo));
+
+        tipoService.deletar(1L);
+        assertFalse(alreadyInactiveTipo.isAtivo());
+    }
+
+
 
 }

@@ -12,6 +12,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -220,4 +221,45 @@ class ProdutoServiceTest {
 
         verify(produtoRepository, never()).save(any(Produto.class));
     }
+
+    @Test
+    void validarProdutoShouldThrowExceptionForNullName() {
+        produto.setNome(null);
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> produtoService.validarProduto(produto));
+
+        assertEquals("Nome De Produto Não Preenchido", exception.getMessage());
+    }
+
+    @Test
+    void validarProdutoShouldThrowExceptionForEmptyName() {
+        produto.setNome("");
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> produtoService.validarProduto(produto));
+
+        assertEquals("Nome De Produto Não Preenchido", exception.getMessage());
+    }
+
+    @Test
+    void validarProdutoShouldThrowExceptionForInvalidName() {
+        produto.setNome("Produto#");
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> produtoService.validarProduto(produto));
+
+        assertEquals("Nome De Produto Invalido", exception.getMessage());
+    }
+
+    @Test
+    void testFindAll() {
+
+        Produto produto1 = new Produto();
+        Produto produto2 = new Produto();
+        when(produtoRepository.findAll()).thenReturn(Arrays.asList(produto1, produto2));
+        List<ProdutoDTO> result = produtoService.findAll();
+        assertEquals(2, result.size());
+        }
+
 }

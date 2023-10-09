@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class MovimentacaoDTOTest {
+class MovimentacaoDTOTest {
 
     private Movimentacao movimentacao;
 
@@ -28,7 +28,7 @@ public class MovimentacaoDTOTest {
     }
 
     @Test
-    public void testConstructorWithMovimentacao() {
+    void testConstructorWithMovimentacao() {
         MovimentacaoDTO movimentacaoDTO = new MovimentacaoDTO(movimentacao);
         assertEquals(movimentacao.getId(), movimentacaoDTO.getId());
         assertEquals(movimentacao.isAtivo(), movimentacaoDTO.isAtivo());
@@ -43,7 +43,7 @@ public class MovimentacaoDTOTest {
     }
 
     @Test
-    public void testConstructorWithParameters() {
+    void testConstructorWithParameters() {
         Long id = 2L;
         boolean ativo = false;
         LocalDateTime registro = LocalDateTime.now().minusDays(1);
