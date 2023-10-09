@@ -37,12 +37,9 @@ class MovimentacaoDTOTest {
         assertEquals(movimentacao.isAtivo(), movimentacaoDTO.isAtivo());
         assertEquals(movimentacao.getRegistro(), movimentacaoDTO.getRegistro());
         assertEquals(movimentacao.getAtualizar(), movimentacaoDTO.getAtualizar());
-        assertEquals(movimentacao.getEntrada(), movimentacaoDTO.getEntrada());
-        assertEquals(movimentacao.getSaida(), movimentacaoDTO.getSaida());
         assertEquals(movimentacao.getTotalProduto(), movimentacaoDTO.getTotalProduto());
         assertEquals(movimentacao.getValorCompra(), movimentacaoDTO.getValorCompra());
         assertEquals(movimentacao.getValorVenda(), movimentacaoDTO.getValorVenda());
-        assertEquals(movimentacao.getValorTotal(), movimentacaoDTO.getValorTotal());
     }
 
     @Test
@@ -51,24 +48,18 @@ class MovimentacaoDTOTest {
         boolean ativo = false;
         LocalDateTime registro = LocalDateTime.now().minusDays(1);
         LocalDateTime atualizar = LocalDateTime.now().minusHours(1);
-        int entrada = 20;
-        int saida = 15;
         BigDecimal totalProduto = BigDecimal.valueOf(200.0);
         BigDecimal valorCompra = BigDecimal.valueOf(100.0);
         BigDecimal valorVenda = BigDecimal.valueOf(150.0);
-        BigDecimal valorTotal = BigDecimal.valueOf(500.0);
 
-        MovimentacaoDTO movimentacaoDTO = new MovimentacaoDTO(id, ativo, registro, atualizar, entrada, saida, totalProduto, valorCompra, valorVenda, valorTotal);
+        MovimentacaoDTO movimentacaoDTO = new MovimentacaoDTO(id, ativo, registro, atualizar, totalProduto, valorCompra, valorVenda);
         assertEquals(id, movimentacaoDTO.getId());
         assertEquals(ativo, movimentacaoDTO.isAtivo());
         assertEquals(registro, movimentacaoDTO.getRegistro());
         assertEquals(atualizar, movimentacaoDTO.getAtualizar());
-        assertEquals(entrada, movimentacaoDTO.getEntrada());
-        assertEquals(saida, movimentacaoDTO.getSaida());
         assertEquals(totalProduto, movimentacaoDTO.getTotalProduto());
         assertEquals(valorCompra, movimentacaoDTO.getValorCompra());
         assertEquals(valorVenda, movimentacaoDTO.getValorVenda());
-        assertEquals(valorTotal, movimentacaoDTO.getValorTotal());
     }
 
 

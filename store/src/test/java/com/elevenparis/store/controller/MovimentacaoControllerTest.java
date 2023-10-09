@@ -23,11 +23,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -109,6 +107,8 @@ class MovimentacaoControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isInternalServerError());
     }
+
+
 
     @Test
     void testFindByAtivo() throws Exception {
@@ -196,10 +196,10 @@ class MovimentacaoControllerTest {
     @Test
     void testFindAll() throws Exception {
         MovimentacaoDTO movimentacaoDTO1 = new MovimentacaoDTO(new Movimentacao());
-        movimentacaoDTO1.setEntrada(5);
+
 
         MovimentacaoDTO movimentacaoDTO2 = new MovimentacaoDTO(new Movimentacao());
-        movimentacaoDTO2.setEntrada(10);
+
 
         List<MovimentacaoDTO> movimentacaoDTOList = Arrays.asList(movimentacaoDTO1, movimentacaoDTO2);
 
@@ -265,6 +265,29 @@ class MovimentacaoControllerTest {
                         .content(objectMapper.writeValueAsString(movimentacao)))
                 .andExpect(status().isOk())
                 .andExpect(content().string("Registro atualizado com sucesso!"));
+    }
+    @Test
+    void testAtualizarBadRequest() {
+        Long id = 1L;
+        Movimentacao movimentacao = new Movimentacao();
+        doThrow(new IllegalArgumentException("Mensagem de erro")).when(movimentacaoService).atualizar(id, movimentacao);
+
+        ResponseEntity<String> responseEntity = movimentacaoController.atualizar(id, movimentacao);
+
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        assertThat(responseEntity.getBody()).isEqualTo("Mensagem de erro");
+    }
+
+    @Test
+    void testAtualizarServerError() {
+        Long id = 1L;
+        Movimentacao movimentacao = new Movimentacao();
+        doThrow(new RuntimeException("Erro genérico")).when(movimentacaoService).atualizar(id, movimentacao);
+
+        ResponseEntity<String> responseEntity = movimentacaoController.atualizar(id, movimentacao);
+
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
+        assertThat(responseEntity.getBody()).isEqualTo("Erro ao atualizar o registro.");
     }
 
     @Test
