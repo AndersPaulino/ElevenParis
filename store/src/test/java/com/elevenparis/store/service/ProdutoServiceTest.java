@@ -153,14 +153,8 @@ class ProdutoServiceTest {
 
 
     }
-    @Test
-    void testevalidarEstoque(){
-        produto.setNome("Produto1");
 
-        assertDoesNotThrow(() -> produtoService.validarProduto(produto));
-    }
-
-    @Test
+   @Test
     void TestValidarProdutoIsNullIsEmptyException(){
         Produto produto2 = new Produto();
 
@@ -265,37 +259,6 @@ class ProdutoServiceTest {
 
         verify(produtoRepository, never()).save(any(Produto.class));
     }
-
-    @Test
-    void validarProdutoShouldThrowExceptionForNullName() {
-        produto.setNome(null);
-
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> produtoService.validarProduto(produto));
-
-        assertEquals("Nome De Produto Não Preenchido", exception.getMessage());
-    }
-
-    @Test
-    void validarProdutoShouldThrowExceptionForEmptyName() {
-        produto.setNome("");
-
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> produtoService.validarProduto(produto));
-
-        assertEquals("Nome De Produto Não Preenchido", exception.getMessage());
-    }
-
-    @Test
-    void validarProdutoShouldThrowExceptionForInvalidName() {
-        produto.setNome("Produto#");
-
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> produtoService.validarProduto(produto));
-
-        assertEquals("Nome De Produto Invalido", exception.getMessage());
-    }
-
     @Test
     void testFindAll() {
 

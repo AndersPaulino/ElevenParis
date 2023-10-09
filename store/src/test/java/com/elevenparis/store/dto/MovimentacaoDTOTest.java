@@ -61,6 +61,39 @@ class MovimentacaoDTOTest {
         assertEquals(valorCompra, movimentacaoDTO.getValorCompra());
         assertEquals(valorVenda, movimentacaoDTO.getValorVenda());
     }
+    @Test
+    void testGettersAndSetters() {
+        movimentacao = new Movimentacao();
+        movimentacao.setAtivo(true);
+        movimentacao.setRegistro(LocalDateTime.now());
+        movimentacao.setAtualizar(LocalDateTime.now().plusDays(1));
+        movimentacao.setTotalProduto(BigDecimal.valueOf(100.0));
+        movimentacao.setValorCompra(BigDecimal.valueOf(50.0));
+        movimentacao.setValorVenda(BigDecimal.valueOf(80.0));
 
+        MovimentacaoDTO movimentacaoDTO = new MovimentacaoDTO(movimentacao);
 
+        assertTrue(movimentacaoDTO.isAtivo());
+        assertNotNull(movimentacaoDTO.getRegistro());
+        assertNotNull(movimentacaoDTO.getAtualizar());
+        assertEquals(BigDecimal.valueOf(100.0), movimentacaoDTO.getTotalProduto());
+        assertEquals(BigDecimal.valueOf(50.0), movimentacaoDTO.getValorCompra());
+        assertEquals(BigDecimal.valueOf(80.0), movimentacaoDTO.getValorVenda());
+
+        movimentacaoDTO.setId(2L);
+        movimentacaoDTO.setAtivo(false);
+        movimentacaoDTO.setRegistro(LocalDateTime.now().minusDays(1));
+        movimentacaoDTO.setAtualizar(LocalDateTime.now().plusDays(2));
+        movimentacaoDTO.setTotalProduto(BigDecimal.valueOf(150.0));
+        movimentacaoDTO.setValorCompra(BigDecimal.valueOf(75.0));
+        movimentacaoDTO.setValorVenda(BigDecimal.valueOf(120.0));
+
+        assertEquals(2L, movimentacaoDTO.getId());
+        assertFalse(movimentacaoDTO.isAtivo());
+        assertNotNull(movimentacaoDTO.getRegistro());
+        assertNotNull(movimentacaoDTO.getAtualizar());
+        assertEquals(BigDecimal.valueOf(150.0), movimentacaoDTO.getTotalProduto());
+        assertEquals(BigDecimal.valueOf(75.0), movimentacaoDTO.getValorCompra());
+        assertEquals(BigDecimal.valueOf(120.0), movimentacaoDTO.getValorVenda());
+    }
 }
