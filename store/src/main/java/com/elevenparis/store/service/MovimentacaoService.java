@@ -61,17 +61,23 @@ public class MovimentacaoService {
         movimentacaoRepository.save(movimentacao);
     }
 
-    @Transactional(rollbackFor = Exception.class, propagation =  Propagation.REQUIRES_NEW)
-    public void atualizar(Long id, Movimentacao movimentacao){
+    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRES_NEW)
+    public void atualizar(Long id, Movimentacao movimentacao) {
         Optional<Movimentacao> movimentacaoExistenteOptional = movimentacaoRepository.findById(id);
 
-        if (movimentacaoExistenteOptional.isPresent()){
+        if (movimentacaoExistenteOptional.isPresent()) {
             Movimentacao movimentacaoExistente = movimentacaoExistenteOptional.get();
+            movimentacaoExistente.setEntrada(movimentacao.getEntrada());
+            movimentacaoExistente.setSaida(movimentacao.getSaida());
+            movimentacaoExistente.setValorCompra(movimentacao.getValorCompra());
+            movimentacaoExistente.setValorVenda(movimentacao.getValorVenda());
+
             movimentacaoRepository.save(movimentacaoExistente);
         } else {
             throw new IllegalArgumentException("ID Invalido!");
         }
     }
+
 
 
     public void validarMovimentacao(final Movimentacao movimentacao){

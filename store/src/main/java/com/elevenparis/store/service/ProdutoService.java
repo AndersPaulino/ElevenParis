@@ -84,9 +84,18 @@ public class ProdutoService {
 
         if (produtoExistenteOptional.isPresent()) {
             Produto produtoExistente = produtoExistenteOptional.get();
-            produtoExistente.setNome(produto.getNome());
-            produtoExistente.setTipo(produto.getTipo());
-            produtoExistente.setDescricao(produto.getDescricao());
+
+            if (produto.getNome() != null) {
+                produtoExistente.setNome(produto.getNome());
+            }
+
+            if (produto.getTipo() != null) {
+                produtoExistente.setTipo(produto.getTipo());
+            }
+            if (produto.getDescricao() != null) {
+                produtoExistente.setDescricao(produto.getDescricao());
+            }
+
             produtoRepository.save(produtoExistente);
         } else {
             throw new IllegalArgumentException("ID Inválido!");
