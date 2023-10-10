@@ -234,7 +234,7 @@ class ProdutoServiceTest {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
                 () -> produtoService.atualizar(2L,produto));
 
-        assertEquals("ID Invalido!", exception.getMessage());
+        assertEquals("ID Inválido!", exception.getMessage());
 
         verify(produtoRepository, never()).save(any(Produto.class));
     }
