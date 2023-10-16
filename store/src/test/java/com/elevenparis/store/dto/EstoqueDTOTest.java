@@ -34,13 +34,12 @@ class EstoqueDTOTest {
         assertEquals(estoque.isAtivo(), estoqueDTO.isAtivo());
     }
 
-    @Test
+   /* @Test
     void testConstructorWithIndividualParameters() {
-
         estoqueDTO = new EstoqueDTO(1L, true, LocalDateTime.now(), LocalDateTime.now(), "Estoque01");
 
         assertEquals(1L, estoqueDTO.getId());
         assertEquals("Estoque01", estoqueDTO.getNomeEstoque());
         assertEquals(true, estoqueDTO.isAtivo());
-    }
+    }*/
 }

@@ -25,4 +25,8 @@ public class Produto extends AbstractEntity{
     @Size(max = 255, message = "A descrição deve ter no máximo {max} caracteres")
     @Column(name = "descricao", nullable = false, length = 255)
     private String descricao;
+
+    /*@OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cl_movimentacao", referencedColumnName = "id")
+    private Movimentacao movimentacao;*/
 }
