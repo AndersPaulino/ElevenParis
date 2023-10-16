@@ -26,7 +26,4 @@ public class Produto extends AbstractEntity{
     @Column(name = "descricao", nullable = false, length = 255)
     private String descricao;
 
-    /*@OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cl_movimentacao", referencedColumnName = "id")
-    private Movimentacao movimentacao;*/
 }
