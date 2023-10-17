@@ -1,6 +1,7 @@
 package com.elevenparis.store.dto;
 
 import com.elevenparis.store.entity.Estoque;
+import com.elevenparis.store.entity.Movimentacao;
 import com.elevenparis.store.entity.Produto;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +17,7 @@ public class EstoqueDTO {
     private LocalDateTime registro;
     private LocalDateTime atualizar;
     private String nomeEstoque;
-    private List<Produto> produto;
+    private List<Movimentacao> movimentacao;
 
     public EstoqueDTO(Estoque estoque){
         id = estoque.getId();
@@ -24,15 +25,15 @@ public class EstoqueDTO {
         registro = estoque.getRegistro();
         atualizar = estoque.getAtualizar();
         nomeEstoque = estoque.getNomeEstoque();
-        produto = estoque.getProduto();
+        movimentacao = estoque.getMovimentacao();
     }
 
-    public EstoqueDTO(Long id, boolean ativo, LocalDateTime registro, LocalDateTime atualizar, String nomeEstoque, List<Produto> produto){
+    public EstoqueDTO(Long id, boolean ativo, LocalDateTime registro, LocalDateTime atualizar, String nomeEstoque, List<Movimentacao> movimentacao){
         this.id = id;
         this.ativo = ativo;
         this.registro = registro;
         this.atualizar = atualizar;
         this.nomeEstoque = nomeEstoque;
-        this.produto = produto;
+        this.movimentacao = movimentacao;
     }
 }
