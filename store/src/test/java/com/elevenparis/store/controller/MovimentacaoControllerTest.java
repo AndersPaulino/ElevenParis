@@ -20,6 +20,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.lang.management.MonitorInfo;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -339,6 +340,23 @@ class MovimentacaoControllerTest {
         mockMvc.perform(get("/api/movimentacao/ativo/true")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isInternalServerError());
+    }
+
+    @Test
+    public void testFindByEntradaWithData() throws Exception {
+        mockMvc = MockMvcBuilders.standaloneSetup(movimentacaoController).build();
+
+        MovimentacaoDTO movimentacaoDTO = new MovimentacaoDTO(new Movimentacao());
+
+        List<Movimentacao> movimentacoes = new ArrayList<>();
+        movimentacoes.add(new Movimentacao(/* set required properties here */));
+        when(movimentacaoService.findByEntrada(anyInt())).thenReturn(movimentacoes);
+
+        mockMvc.perform(get("/api/movimentacao/entrada/123")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
+
     }
 }
 
