@@ -17,7 +17,7 @@ public class TipoDTO {
 
     public TipoDTO(Tipo tipo){
         id = tipo.getId();
-        ativo = isAtivo();
+        ativo = tipo.isAtivo();
         registro = tipo.getRegistro();
         atualizar = tipo.getAtualizar();
         nameTipo = tipo.getNameTipo();

@@ -1,0 +1,14 @@
+<form (ngSubmit)="salvar()">
+    <div class="mb-3">
+        <label for="tipoNome" class="form-label">Nome do Tipo:</label>
+        <input type="text" class="form-control" name="tipoNome" [(ngModel)]="tipo.nameTipo">
+    </div>
+    <div class="mb-3">
+        <label for="tipoStatus" class="form-label">Status:</label>
+        <select class="form-select" name="tipoStatus" [(ngModel)]="tipo.ativo">
+            <option [ngValue]="true">Ativo</option>
+            <option [ngValue]="false">Inativo</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+</form>

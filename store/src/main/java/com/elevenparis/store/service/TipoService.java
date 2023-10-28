@@ -62,6 +62,7 @@ public class TipoService {
 
         if (tipoOptional.isPresent()) {
             Tipo tipoExistente = tipoOptional.get();
+            tipoExistente.setAtivo(tipo.isAtivo());
             tipoExistente.setNameTipo(tipo.getNameTipo());
             tipoRepository.save(tipoExistente);
         } else {

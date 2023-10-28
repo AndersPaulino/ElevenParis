@@ -13,9 +13,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/tipo")
+@CrossOrigin("*")
 public class TipoController {
 
-    private TipoService tipoService;
+    private final TipoService tipoService;
 
     @Autowired
     public TipoController(TipoService tipoService){
