@@ -57,10 +57,8 @@ export class ProdutolistComponent {
     };
 
     if (produto.id) {
-      console.log("Aqui foi atualizar");
       this.produtoService.atualizar(produto.id, produto).subscribe(onComplete);
     } else {
-      console.log("Aqui foi cadastrar");
       this.produtoService.cadastrar(produto).subscribe(onComplete);
     }
   }
