@@ -95,7 +95,7 @@ public class ProdutoService {
             if (produto.getDescricao() != null) {
                 produtoExistente.setDescricao(produto.getDescricao());
             }
-
+            produtoExistente.setAtivo(produto.isAtivo());
             produtoRepository.save(produtoExistente);
         } else {
             throw new IllegalArgumentException("ID Inválido!");
