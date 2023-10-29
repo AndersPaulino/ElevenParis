@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { NgbModal , NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Produto } from 'src/app/models/produto';
 import { ProdutoService } from 'src/app/services/produto.service';
 @Component({
@@ -69,7 +69,7 @@ export class ProdutolistComponent {
     this.produtoService.deletar(id).subscribe(() => this.listAll());
   }
 
-  lancamento(produto: Produto){
+  lancamento(produto: Produto) {
     this.retorno.emit(produto);
   }
 
@@ -144,14 +144,34 @@ export class ProdutolistComponent {
     );
   }
 
-  formatRegistro(data: string): string {
-  const formattedDate = this.datePipe.transform(data, 'dd/MM/yyyy HH:mm:ss');
-  return formattedDate || data;
-}
+  formatData(data: string): string {
+    const formattedDate = this.datePipe.transform(data, 'dd/MM/yyyy HH:mm:ss');
+    return formattedDate || data;
+  }
 
-formatAtualizar(data: string): string {
-  const formattedDate = this.datePipe.transform(data, 'dd/MM/yyyy HH:mm:ss');
-  return formattedDate || data;
-}
+  // Declaração da variável para o filtro
+  filtro: string = '';
+
+  // Função para aplicar o filtro
+  applyFilter() {
+    this.lista = this.lista.filter((produto) => {
+      // Personalize aqui como deseja aplicar o filtro (neste exemplo, o filtro é aplicado ao nome do produto)
+      return produto.nome.toLowerCase().includes(this.filtro.toLowerCase());
+    });
+  }
+
+  // Função para limpar o filtro
+  clearFilter() {
+    this.filtro = '';
+    this.listAll();
+  }
+
+  applyOrClearFilter() {
+    if (this.filtro) {
+      this.applyFilter();
+    } else {
+      this.clearFilter();
+    }
+  }
 
 }

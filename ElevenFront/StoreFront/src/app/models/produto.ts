@@ -8,4 +8,5 @@ export class Produto {
     nome!: string;
     tipo!: Tipo;
     descricao!: string;
+    filtro: string = '';
 }
