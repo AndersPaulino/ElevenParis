@@ -2,7 +2,6 @@ package com.elevenparis.store.controller;
 
 
 import com.elevenparis.store.dto.ProdutoDTO;
-
 import com.elevenparis.store.entity.Produto;
 import com.elevenparis.store.service.ProdutoService;
 import jakarta.validation.constraints.NotNull;
@@ -16,9 +15,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/produto")
+@CrossOrigin("*")
 public class ProdutoController {
 
-    private ProdutoService produtoService;
+    private final ProdutoService produtoService;
 
     @Autowired
     public ProdutoController(ProdutoService produtoService) {

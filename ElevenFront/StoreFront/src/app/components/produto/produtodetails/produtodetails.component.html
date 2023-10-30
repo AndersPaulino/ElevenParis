@@ -1,1 +1,41 @@
+<<<<<<< HEAD
 <p>produtodetails works!</p>
+=======
+<form (ngSubmit)="salvar()">
+    <div class="mb-3">
+        <label for="nomeInput" class="form-label">Nome:</label>
+        <input type="text" id="nomeInput" class="form-control" name="nome" [(ngModel)]="produto.nome">
+    </div>
+    <div class="mb-3">
+        <label for="descricaoInput" class="form-label">Descrição:</label>
+        <textarea id="descricaoInput" class="form-control" name="descricao" [(ngModel)]="produto.descricao"></textarea>
+    </div>
+    <div class="mb-3">
+        <button type="button" class="btn btn-primary" (click)="lancar(modal1)">Lançar Tipo</button>
+    </div>
+    <div class="mb-3">
+        <label for="tipoSelecionado" class="form-label">Tipo Selecionado:</label>
+        <span id="tipoSelecionado">{{ produto.tipo ? produto.tipo.nameTipo : 'Nenhum tipo selecionado' }}</span>
+    </div>
+    <div class="mb-3">
+        <label for="ativoCheckbox" class="form-check-label">Status:</label>
+        <input type="checkbox" id="ativoCheckbox" class="form-check-input" name="ativo" [(ngModel)]="produto.ativo">
+    </div>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+</form>
+
+<ng-template #modal1 let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Modal title</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+       
+        <app-tipolist [modoLancamento]="true" (retorno)="retornoTipoList($event)" ></app-tipolist>
+        
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+    </div>
+</ng-template>
+>>>>>>> main
