@@ -1,1 +1,7 @@
-<p>estoquedetails works!</p>
+<form (ngSubmit)="salvar()">
+    <div class="mb-3">
+        <label for="nomeInput" class="form-label">Nome:</label>
+        <input type="text" id="nomeInput" class="form-control" name="nome" [(ngModel)]="estoque.nomeEstoque">
+    </div>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+</form>
