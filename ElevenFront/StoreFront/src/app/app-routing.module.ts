@@ -6,6 +6,7 @@ import { MenuComponent } from './components/menu/menu.component';
 import { IndexComponent } from './layout/index/index.component';
 import { LoginComponent } from './components/sistema/login/login.component';
 import { CadastroComponent } from './components/sistema/cadastro/cadastro.component';
+import { EstoquedetailsComponent } from './components/estoque/estoquedetails/estoquedetails.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "login", pathMatch: 'full' },
@@ -15,7 +16,8 @@ const routes: Routes = [
     path: "admin", component: IndexComponent, children: [
       {path: "menu", component: MenuComponent},
       { path: "tipo", component: TipoListComponent },
-      { path: "produto", component: ProdutolistComponent }
+      { path: "produto", component: ProdutolistComponent },
+      { path: "estoque", component: EstoquedetailsComponent}
     ]
   }
 

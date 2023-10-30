@@ -16,6 +16,8 @@ import { FooterComponent } from './layout/footer/footer.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { LoginComponent } from './components/sistema/login/login.component';
 import { CadastroComponent } from './components/sistema/cadastro/cadastro.component';
+import { EstoquelistComponent } from './components/estoque/estoquelist/estoquelist.component';
+import { EstoquedetailsComponent } from './components/estoque/estoquedetails/estoquedetails.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { CadastroComponent } from './components/sistema/cadastro/cadastro.compon
     IndexComponent,
     FooterComponent,
     HeaderComponent,
+    EstoquelistComponent,
+    EstoquedetailsComponent,
     TipoListComponent,
     TipodetailsComponent,
     ProdutolistComponent,
