@@ -1,13 +1,9 @@
-<<<<<<< HEAD
-import { Component } from '@angular/core';
-=======
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Produto } from 'src/app/models/produto';
 import { Tipo } from 'src/app/models/tipo';
 import { ProdutoService } from 'src/app/services/produto.service';
 import { TipoListComponent } from '../../tipo/tipolist/tipolist.component';
->>>>>>> main
 
 @Component({
   selector: 'app-produtodetails',
@@ -15,9 +11,6 @@ import { TipoListComponent } from '../../tipo/tipolist/tipolist.component';
   styleUrls: ['./produtodetails.component.scss']
 })
 export class ProdutodetailsComponent {
-<<<<<<< HEAD
-
-=======
   @Input() produto: Produto = new Produto();
   @Output() retorno = new EventEmitter<Produto>();
   modalService = inject(NgbModal);
@@ -46,5 +39,4 @@ export class ProdutodetailsComponent {
       this.modalRef.close();
     });
   }
->>>>>>> main
 }

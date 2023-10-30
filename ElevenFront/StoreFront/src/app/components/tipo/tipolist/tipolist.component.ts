@@ -1,22 +1,13 @@
-<<<<<<< HEAD
-import { Component } from '@angular/core';
-
-=======
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Tipo } from 'src/app/models/tipo';
 import { TipoService } from 'src/app/services/tipo.service';
->>>>>>> main
 @Component({
   selector: 'app-tipolist',
   templateUrl: './tipolist.component.html',
   styleUrls: ['./tipolist.component.scss']
 })
-<<<<<<< HEAD
-export class TipolistComponent {
 
-}
-=======
 export class TipoListComponent {
 
   lista: Tipo[] = [];
@@ -113,6 +104,4 @@ export class TipoListComponent {
     this.sortStatusDirection = this.sortStatusDirection === 'asc' ? 'desc' : 'asc';
   }
   
-
 }
->>>>>>> main
