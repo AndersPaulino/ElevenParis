@@ -23,5 +23,8 @@ export class LoginComponent {
       this.router.navigate(["/admin"]);
     }
   }
+  cadastro(){
+    this.router.navigate(["/cadastro"]);
+  }
 
 }

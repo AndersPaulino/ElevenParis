@@ -11,14 +11,28 @@ import { TipodetailsComponent } from './components/tipo/tipodetails/tipodetails.
 import { ProdutodetailsComponent } from './components/produto/produtodetails/produtodetails.component';
 import { ProdutolistComponent } from './components/produto/produtolist/produtolist.component';
 import { DatePipe } from '@angular/common';
+import { IndexComponent } from './layout/index/index.component';
+import { FooterComponent } from './layout/footer/footer.component';
+import { HeaderComponent } from './layout/header/header.component';
+import { LoginComponent } from './components/sistema/login/login.component';
+import { CadastroComponent } from './components/sistema/cadastro/cadastro.component';
+import { EstoquelistComponent } from './components/estoque/estoquelist/estoquelist.component';
+import { EstoquedetailsComponent } from './components/estoque/estoquedetails/estoquedetails.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    LoginComponent,
+    CadastroComponent,
+    IndexComponent,
+    FooterComponent,
+    HeaderComponent,
+    EstoquelistComponent,
+    EstoquedetailsComponent,
     TipoListComponent,
     TipodetailsComponent,
-    ProdutodetailsComponent,
-    ProdutolistComponent
+    ProdutolistComponent,
+    ProdutodetailsComponent
   ],
   imports: [
     FormsModule,
