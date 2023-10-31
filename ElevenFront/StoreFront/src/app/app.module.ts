@@ -18,6 +18,8 @@ import { LoginComponent } from './components/sistema/login/login.component';
 import { CadastroComponent } from './components/sistema/cadastro/cadastro.component';
 import { EstoquelistComponent } from './components/estoque/estoquelist/estoquelist.component';
 import { EstoquedetailsComponent } from './components/estoque/estoquedetails/estoquedetails.component';
+import { MovimentacaodetailsComponent } from './components/movimentacao/movimentacaodetails/movimentacaodetails.component';
+import { MovimentacaolistComponent } from './components/movimentacao/movimentacaolist/movimentacaolist.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { EstoquedetailsComponent } from './components/estoque/estoquedetails/est
     TipoListComponent,
     TipodetailsComponent,
     ProdutolistComponent,
-    ProdutodetailsComponent
+    ProdutodetailsComponent,
+    MovimentacaodetailsComponent,
+    MovimentacaolistComponent
   ],
   imports: [
     FormsModule,

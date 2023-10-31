@@ -5,11 +5,15 @@ export class Movimentacao {
     ativo!: boolean;
     registro!: string;
     atualizar!: string;
-    produot!: Produto[];
+    produto!: Produto[];
     entrada!: number;
     saida!: number;
     totalProduto!: number;
     valorCompra!: number;
     valorVenda!: number;
     valorTotal!: number;
+
+    constructor(){
+        this.produto = [];
+    }
 }

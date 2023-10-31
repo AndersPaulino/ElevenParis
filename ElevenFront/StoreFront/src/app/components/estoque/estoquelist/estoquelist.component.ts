@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 import { Estoque } from 'src/app/models/estoque.model';
 import { EstoqueService } from 'src/app/services/estoque.service';
 @Component({
@@ -22,8 +23,9 @@ export class EstoquelistComponent {
   modalRef!: NgbModalRef;
 
   estoqueService = inject(EstoqueService);
+  router: any;
 
-  constructor(private datePipe: DatePipe){
+  constructor(private datePipe: DatePipe, router: Router){
     this.listAll();
   }
   listAll() {
@@ -37,7 +39,13 @@ export class EstoquelistComponent {
       }
     });
   }
+  acessar(indice: number) {
+    // Use o índice para obter o elemento desejado da lista
+    const elementoSelecionado = this.list[indice];
 
+    // Redirecione para a rota desejada com o elemento como parâmetro
+    this.router.navigate(['/admin/movimentacao', elementoSelecionado.id]);
+  }
   adicionar(modal: any) {
     this.estoqueSelecionadoParaEdicao = new Estoque();
       this.modalRef = this.modalService.open(modal, { size: 'sm'});
