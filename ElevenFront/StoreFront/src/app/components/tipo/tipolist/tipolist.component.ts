@@ -7,6 +7,7 @@ import { TipoService } from 'src/app/services/tipo.service';
   templateUrl: './tipolist.component.html',
   styleUrls: ['./tipolist.component.scss']
 })
+
 export class TipoListComponent {
 
   lista: Tipo[] = [];
@@ -103,5 +104,4 @@ export class TipoListComponent {
     this.sortStatusDirection = this.sortStatusDirection === 'asc' ? 'desc' : 'asc';
   }
   
-
 }

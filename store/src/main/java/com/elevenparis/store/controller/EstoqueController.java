@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/estoque")
+@CrossOrigin("*")
 public class EstoqueController {
 
     private EstoqueService estoqueService;

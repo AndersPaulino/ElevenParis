@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { Produto } from 'src/app/models/produto';
+import {Produto} from 'src/app/models/produto';
 import { ProdutoService } from 'src/app/services/produto.service';
+
 @Component({
   selector: 'app-produtolist',
   templateUrl: './produtolist.component.html',
@@ -171,5 +172,4 @@ export class ProdutolistComponent {
       this.clearFilter();
     }
   }
-
 }
