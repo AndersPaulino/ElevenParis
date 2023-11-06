@@ -5,7 +5,7 @@ export class Movimentacao {
     ativo!: boolean;
     registro!: string;
     atualizar!: string;
-    produto!: Produto[];
+    produtos!: Produto;
     entrada!: number;
     saida!: number;
     totalProduto!: number;
@@ -13,7 +13,4 @@ export class Movimentacao {
     valorVenda!: number;
     valorTotal!: number;
 
-    constructor(){
-        this.produto = [];
-    }
 }

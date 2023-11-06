@@ -20,6 +20,7 @@ import { EstoquelistComponent } from './components/estoque/estoquelist/estoqueli
 import { EstoquedetailsComponent } from './components/estoque/estoquedetails/estoquedetails.component';
 import { MovimentacaodetailsComponent } from './components/movimentacao/movimentacaodetails/movimentacaodetails.component';
 import { MovimentacaolistComponent } from './components/movimentacao/movimentacaolist/movimentacaolist.component';
+import { EstoquemovimentacaoComponent } from './components/estoque/estoquemovimentacao/estoquemovimentacao.component';
 
 @NgModule({
   declarations: [
@@ -31,12 +32,14 @@ import { MovimentacaolistComponent } from './components/movimentacao/movimentaca
     HeaderComponent,
     EstoquelistComponent,
     EstoquedetailsComponent,
+    EstoquemovimentacaoComponent,
     TipoListComponent,
     TipodetailsComponent,
     ProdutolistComponent,
     ProdutodetailsComponent,
     MovimentacaodetailsComponent,
-    MovimentacaolistComponent
+    MovimentacaolistComponent,
+    EstoquemovimentacaoComponent
   ],
   imports: [
     FormsModule,
