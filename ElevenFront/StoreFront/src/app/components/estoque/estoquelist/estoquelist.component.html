@@ -26,7 +26,7 @@
     </table>    
 </div>
 
-<ng-template #modal let-modal>
+<ng-template #modal let-modal >
     <div class="modal-header">
         <h4 class="modal-title">Modal Estoque</h4>
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
@@ -46,4 +46,8 @@
     .btn1{
         margin: 10px;
     }
+    ::ng-deep .modal .modal-dialog {
+  width: 150%;
+}
+
 </style>
