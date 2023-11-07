@@ -12,16 +12,9 @@ import java.util.List;
 public class Movimentacao extends AbstractEntity{
 
     @Getter @Setter
-    @ManyToMany
-    @JoinTable(name = "tb_movimentacao.produto",
-            joinColumns = @JoinColumn(
-                    name = "movimentacao.id"
-            ),
-            inverseJoinColumns = @JoinColumn(
-                    name = "produto.id"
-            )
-    )
-    private List<Produto> produtos;
+    @OneToOne
+    @JoinColumn(name = "produto_id") // Substitua "produto_id" pelo nome da coluna real
+    private Produto produtos;
 
 
     @Getter @Setter

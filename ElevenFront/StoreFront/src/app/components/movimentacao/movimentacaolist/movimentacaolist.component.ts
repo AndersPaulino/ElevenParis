@@ -5,6 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MovimentacaoService } from 'src/app/services/movimentacao.service';
 import { Movimentacao } from 'src/app/models/movimentacao.spec';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { Produto } from 'src/app/models/produto';
 
 @Component({
   selector: 'app-movimentacaolist',
@@ -13,6 +14,7 @@ import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 })
 export class MovimentacaolistComponent {
   list: Movimentacao[] = [];
+  list2: Produto[] = [];
 
   movimentacaoSelecionadoParaEdicao: Movimentacao = new Movimentacao ();
   indiceSelecionadoParaEdicao!: number;

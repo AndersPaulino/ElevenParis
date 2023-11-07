@@ -15,6 +15,11 @@ export class EstoqueService{
         return this.http.get<Estoque[]>(this.API);
     }
 
+    findById(id: number): Observable<Estoque> {
+        const url = `${this.API}/${id}`;
+        return this.http.get<Estoque>(url);
+    }
+
     cadastrar(estoque: Estoque): Observable<String> {
         return this.http.post(this.API, estoque, { responseType: 'text'});
     }

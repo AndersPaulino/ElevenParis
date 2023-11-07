@@ -8,6 +8,7 @@ import { LoginComponent } from './components/sistema/login/login.component';
 import { CadastroComponent } from './components/sistema/cadastro/cadastro.component';
 import { EstoquelistComponent } from './components/estoque/estoquelist/estoquelist.component';
 import { MovimentacaolistComponent } from './components/movimentacao/movimentacaolist/movimentacaolist.component';
+import { EstoquemovimentacaoComponent } from './components/estoque/estoquemovimentacao/estoquemovimentacao.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "login", pathMatch: 'full' },
@@ -19,7 +20,8 @@ const routes: Routes = [
       { path: "tipo", component: TipoListComponent },
       { path: "produto", component: ProdutolistComponent },
       { path: "estoque", component: EstoquelistComponent},
-      { path: "movimentacao", component: MovimentacaolistComponent}
+      { path: "movimentacao", component: MovimentacaolistComponent},
+      { path: "estoquemovimentacao", component: EstoquemovimentacaoComponent}
     ]
   }
 
