@@ -5,22 +5,18 @@
         <thead>
             <th scope="col" class="text-center">#ID Movimentação</th>
             <th scope="col" class="text-center">Produto</th>
-            <th scope="col" class="text-center">Tipo do Produto</th>
-            <th scope="col" class="text-center">Total Produto</th>
+            <th scope="col" class="text-center">Total Produtos</th>
             <th scope="col" class="text-center">Lucro</th>
+            <th scope="col" class="text-center">Atualização</th>
             <th scope="col" class="text-center">Ações</th>
         </thead>
         <tbody>
             <tr *ngFor="let movimentacao of list; let i = index">
                 <td class="text-center">{{ movimentacao.id }}</td>
-                <td class="text-center" >
-                    
-                 {{ movimentacao.produtos.nome}}
-                       
-                </td>
-                <td class="text-center">{{ movimentacao.entrada }}</td>
-                <td class="text-center">{{ movimentacao.saida }}</td>
-                <td class="text-center">{{ movimentacao.valorTotal }}</td>
+                <td class="text-center" >{{ movimentacao.produtos.nome}}</td>
+                <td class="text-center">{{ movimentacao.totalProduto }}</td>
+                <td class="text-center">{{ "R$ " + movimentacao.valorTotal }}</td>
+                <td class="text-center">{{ movimentacao.atualizar | date:'dd/MM/yyyy'}}</td>
                 <td class="text-center">
                     <button type="button" class="btn btn-primary"(click)="voltar()">voltar</button>
                     <button type="button" class="btn btn-primary" (click)="editar(modal, movimentacao, i)">Editar</button>
