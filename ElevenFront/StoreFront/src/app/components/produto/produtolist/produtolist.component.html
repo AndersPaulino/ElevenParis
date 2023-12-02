@@ -48,7 +48,7 @@
                         <td>{{ formatData(produto.registro) }}</td>
                         <td>{{ formatData(produto.atualizar) }}</td>
                         <td>{{ produto.descricao }}</td>
-                        <button class="btn btn-primary" (click)="editar(modal1, produto, i)">Editar</button>
+                        <td><button class="btn btn-primary" (click)="editar(modal1, produto, i)">Editar</button></td>
                         <td *ngIf="modoLancamento"> <button type="button" class="btn btn-primary" (click)="lancamento(produto)">Lançar</button> </td>
                     </tr>
                 </tbody>
