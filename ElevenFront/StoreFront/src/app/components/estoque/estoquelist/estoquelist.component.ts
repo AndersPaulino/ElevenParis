@@ -16,18 +16,19 @@ export class EstoquelistComponent {
   estoqueSelecionadoParaEdicao: Estoque = new Estoque();
   indiceSelecionadoParaEdicao!: number;
 
+  estoqueSelecionadoParaEdicao2: Estoque = new Estoque();
+  indiceSelecionadoParaEdicao2!: number;
+
   @Output() retorno = new EventEmitter<Estoque>();
   @Input() modoLancamento: boolean = false;
 
-  modalService = inject(NgbModal);
   modalRef!: NgbModalRef;
 
-  estoqueService = inject(EstoqueService);
-  router: any;
 
-  constructor(private datePipe: DatePipe, router: Router){
+  constructor(private datePipe: DatePipe, private router: Router, private modalService: NgbModal, private estoqueService: EstoqueService) {
     this.listAll();
   }
+
   listAll() {
     this.estoqueService.findAll().subscribe({
       next: list => {
@@ -39,13 +40,22 @@ export class EstoquelistComponent {
       }
     });
   }
-  acessar(indice: number) {
-    // Use o índice para obter o elemento desejado da lista
-    const elementoSelecionado = this.list[indice];
-
-    // Redirecione para a rota desejada com o elemento como parâmetro
-    this.router.navigate(['/admin/movimentacao', elementoSelecionado.id]);
+  acessarEstoque(estoque: Estoque) {
+    const onComplete = () => {
+      this.listAll();
+      this.modalRef.dismiss();
+    };
+  
+    if (estoque.id) {
+      this.estoqueService.atualizar(estoque.id, estoque).subscribe(onComplete);
+    } else {
+      this.estoqueService.cadastrar(estoque).subscribe(onComplete);
+    }
   }
+  
+  
+  
+  
   adicionar(modal: any) {
     this.estoqueSelecionadoParaEdicao = new Estoque();
       this.modalRef = this.modalService.open(modal, { size: 'sm'});
@@ -68,5 +78,11 @@ export class EstoquelistComponent {
     this.estoqueSelecionadoParaEdicao = { ...estoque};
     this.indiceSelecionadoParaEdicao = indice;
     this.modalRef = this.modalService.open(modal, { size: 'sm' });
+  }
+
+  acessar(modal2: any,  estoque: Estoque, indice: number){
+    this.estoqueSelecionadoParaEdicao2 = { ...estoque};
+    this.indiceSelecionadoParaEdicao2 = indice;
+    this.modalRef = this.modalService.open(modal2, { size: 'sm' });
   }
 }
