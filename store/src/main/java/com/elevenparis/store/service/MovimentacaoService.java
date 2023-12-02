@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class MovimentacaoService {
@@ -20,15 +21,6 @@ public class MovimentacaoService {
 
     @Autowired
     public MovimentacaoService(MovimentacaoRepository movimentacaoRepository){this.movimentacaoRepository = movimentacaoRepository;}
-
-    @Transactional(readOnly = true)
-    public Optional<MovimentacaoDTO> findById(Long id){ return movimentacaoRepository.findById(id).map(MovimentacaoDTO::new);}
-
-    @Transactional(readOnly = true)
-    public List<MovimentacaoDTO> findAll(){
-        List<Movimentacao> movimentacoes = movimentacaoRepository.findAll();
-        return movimentacoes.stream().map(MovimentacaoDTO::new).toList();
-    }
 
     @Transactional(readOnly = true)
     public List<MovimentacaoDTO> findByAtivo(boolean ativo){
@@ -56,8 +48,26 @@ public class MovimentacaoService {
                 .toList();
     }
 
+    @Transactional(readOnly = true)
+    public Optional<MovimentacaoDTO> findById(Long id) {
+        return movimentacaoRepository.findById(id).map(movimentacao -> {
+            MovimentacaoDTO movimentacaoDTO = new MovimentacaoDTO(movimentacao);
+            // Você pode configurar aqui a carga do produto associado, se necessário.
+            // movimentacaoDTO.setProduto(new ProdutoDTO(movimentacao.getProduto()));
+            return movimentacaoDTO;
+        });
+    }
+
+    @Transactional(readOnly = true)
+    public List<MovimentacaoDTO> findAll() {
+        List<Movimentacao> movimentacoes = movimentacaoRepository.findAll();
+        return movimentacoes.stream().map(MovimentacaoDTO::new).collect(Collectors.toList());
+    }
+
     @Transactional(rollbackFor = Exception.class)
-    public void cadastrar(Movimentacao movimentacao){
+    public void cadastrar(Movimentacao movimentacao) {
+        // Se necessário, você pode configurar aqui a associação com um Produto.
+        // movimentacao.setProduto(produtoRepository.findById(produtoId).orElse(null));
         movimentacaoRepository.save(movimentacao);
     }
 
@@ -72,9 +82,12 @@ public class MovimentacaoService {
             movimentacaoExistente.setValorCompra(movimentacao.getValorCompra());
             movimentacaoExistente.setValorVenda(movimentacao.getValorVenda());
 
+            // Se necessário, atualize a associação com um Produto.
+            // movimentacaoExistente.setProduto(produtoRepository.findById(produtoId).orElse(null));
+
             movimentacaoRepository.save(movimentacaoExistente);
         } else {
-            throw new IllegalArgumentException("ID Invalido!");
+            throw new IllegalArgumentException("ID Inválido!");
         }
     }
 

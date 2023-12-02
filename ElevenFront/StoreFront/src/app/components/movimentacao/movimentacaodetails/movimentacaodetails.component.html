@@ -1,0 +1,37 @@
+<form (ngSubmit)="salvar()">
+    <div class="mb-3">
+        <button type="button" class="btn btn-primary" (click)="lancar(modal3)">Lançar Produto</button>
+    </div>
+    <div class="mb-3">
+        <label for="entradaInput" class="form-label">Entrada:</label>
+        <input type="number" id="entradaInput" class="form-control" name="entrada" [(ngModel)]="movimentacao.entrada">
+    </div>
+    <div class="mb-3">
+        <label for="saidaInput" class="form-label">Saida:</label>
+        <input type="number" id="saidaInput" class="form-control" name="saida" [(ngModel)]="movimentacao.saida">
+    </div>
+    <div class="mb-3">
+        <label for="compraInput" class="form-label">Valor Compra:</label>
+        <input type="number" id="compraInput" class="form-control" name="compra" [(ngModel)]="movimentacao.valorCompra">
+    </div>
+    <div class="mb-3">
+        <label for="vendaInput" class="form-label">Valor Venda:</label>
+        <input  type="number" id="vendaInput" class="form-control" name="venda" [(ngModel)]="movimentacao.valorVenda">
+    </div>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+</form>
+
+<ng-template #modal3 let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Modal title</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+       
+        <app-produtolist [modoLancamento]="true" (retorno)="retornoProdutoList($event)" ></app-produtolist>
+        
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+    </div>
+</ng-template>

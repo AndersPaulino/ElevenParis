@@ -8,6 +8,7 @@ import { TipoService } from 'src/app/services/tipo.service';
   templateUrl: './tipolist.component.html',
   styleUrls: ['./tipolist.component.scss']
 })
+
 export class TipoListComponent {
 
   lista: Tipo[] = [];
@@ -104,6 +105,7 @@ export class TipoListComponent {
     });
     this.sortStatusDirection = this.sortStatusDirection === 'asc' ? 'desc' : 'asc';
   }
+<<<<<<< HEAD
 
   formatData(data: string): string {
     const formattedDate = this.datePipe.transform(data, 'dd/MM/yyyy HH:mm:ss');
@@ -156,3 +158,7 @@ sortAtualizar() {
   }
 
 }
+=======
+  
+}
+>>>>>>> 921b2a02c537e4fee0d24014302ae9f00879a9f6

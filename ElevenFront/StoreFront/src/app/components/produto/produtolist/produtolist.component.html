@@ -1,41 +1,41 @@
 <div class="container">
     <h3 class="alert alert-primary">Listagem de Produtos</h3>
-    <button type="button" class="btn btn-primary" (click)="adicionar(modal1)">Adicionar</button>
+    <button type="button" class="btn btn-primary btn1" (click)="adicionar(modal1)">Adicionar</button>
     <div class="row">
         <div class="col-lg-12">
             <input type="text" [(ngModel)]="filtro" placeholder="Filtrar por nome" class="form-control" (keyup.enter)="applyOrClearFilter()"/>
             <table class="table table-striped table-bordered table-responsive">
                 <thead>
                     <tr>
-                        <th scope="col" (click)="sortById()">#ID
+                        <th scope="col" (click)="sortById()" class="text-center">#ID
                             <i class="fas"
                                 [ngClass]="{'fa-arrow-up': sortByIdDirection === 'asc', 'fa-arrow-down': sortByIdDirection === 'desc'}"></i>
                         </th>
-                        <th scope="col" (click)="sortName()">Nome
+                        <th scope="col" (click)="sortName()" class="text-center">Nome
                             <i class="fas"
                                 [ngClass]="{'fa-arrow-up': sortNameDirection === 'asc', 'fa-arrow-down': sortNameDirection === 'desc'}"></i>
                         </th>
-                        <th scope="col" (click)="sortNameTipo()">Tipo
+                        <th scope="col" (click)="sortNameTipo()" class="text-center">Tipo
                             <i class="fas"
                                 [ngClass]="{'fa-arrow-up': sortNameTipoDirection === 'asc', 'fa-arrow-down': sortNameTipoDirection === 'desc'}"></i>
                         </th>
-                        <th scope="col" (click)="sortStatus()">Status
+                        <th scope="col" (click)="sortStatus()" class="text-center">Status
                             <i class="fas"
                                 [ngClass]="{'fa-arrow-up': sortStatusDirection === 'asc', 'fa-arrow-down': sortStatusDirection === 'desc'}"></i>
                         </th>
-                        <th scope="col" (click)="sortRegistro()">Registrado Em
+                        <th scope="col" (click)="sortRegistro()" class="text-center">Registrado Em
                             <i class="fas"
                                 [ngClass]="{'fa-arrow-up': sortRegistroDirection === 'asc', 'fa-arrow-down': sortRegistroDirection === 'desc'}"></i>
                         </th>
-                        <th scope="col" (click)="sortAtualizar()">Atualizado Em
+                        <th scope="col" (click)="sortAtualizar()" class="text-center">Atualizado Em
                             <i class="fas"
                                 [ngClass]="{'fa-arrow-up': sortAtualizarDirection === 'asc', 'fa-arrow-down': sortAtualizarDirection === 'desc'}"></i>
                         </th>
-                        <th scope="col" (click)="sortDescricao()">Descrição
+                        <th scope="col" (click)="sortDescricao()" class="text-center">Descrição
                             <i class="fas"
                                 [ngClass]="{'fa-arrow-up': sortDescricaoDirection === 'asc', 'fa-arrow-down': sortDescricaoDirection === 'desc'}"></i>
                         </th>
-                        <th>Açoes</th>
+                        <th class="text-center">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -53,6 +53,7 @@
                     </tr>
                 </tbody>
             </table>
+            
         </div>
     </div>
 </div>
@@ -70,3 +71,18 @@
         <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Fechar</button>
     </div>
 </ng-template>
+
+<style class="css">
+    button{
+        margin-left: 10px;
+    }
+    .btn1{
+        margin: 10px;
+    }
+    input{
+        margin-bottom: 10px;
+    }
+    h3 {
+        margin-top: 10px;
+    }
+</style>

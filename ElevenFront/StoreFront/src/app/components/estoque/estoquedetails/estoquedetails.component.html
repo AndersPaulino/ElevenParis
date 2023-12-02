@@ -1,0 +1,25 @@
+<form (ngSubmit)="salvar()">
+    <div class="mb-3">
+        <label for="nomeInput" class="form-label">Nome:</label>
+        <input type="text" id="nomeInput" class="form-control" name="nome" [(ngModel)]="estoque.nomeEstoque">
+    </div>
+    <div class="mb-3">
+        <button type="button" class="btn btn-primary" (click)="lancar(modal5)">Lançar Movimentações</button>
+    </div>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+</form>
+
+<ng-template #modal5 let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Modal title</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+       
+        <app-movimentacaolist [modoLancamento]="true" (retorno)="retornoMovimentacaoList($event)" ></app-movimentacaolist>
+        
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+    </div>
+</ng-template>
