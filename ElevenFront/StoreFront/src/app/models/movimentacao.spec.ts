@@ -1,16 +1,7 @@
-import { Produto } from "./produto";
+import { Movimentacao } from "./movimentacao.model";
 
-export class Movimentacao {
-    id! : number;
-    ativo!: boolean;
-    registro!: string;
-    atualizar!: string;
-    produtos!: Produto;
-    entrada!: number;
-    saida!: number;
-    totalProduto!: number;
-    valorCompra!: number;
-    valorVenda!: number;
-    valorTotal!: number;
-
-}
+describe('Movimentacao', () =>{
+    it('should create an instance', () => {
+        expect(new Movimentacao()).toBeTruthy();
+    });
+})

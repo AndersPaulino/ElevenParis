@@ -1,4 +1,4 @@
-import { Movimentacao } from "./movimentacao.spec";
+import { Movimentacao } from "./movimentacao.model";
 
 export class Estoque {
     id!: number;

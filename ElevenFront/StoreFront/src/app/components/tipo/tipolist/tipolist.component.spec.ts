@@ -1,16 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TipoListComponent } from './tipolist.component';
 
-import { TipolistComponent } from './tipolist.component';
-
-describe('TipolistComponent', () => {
-  let component: TipolistComponent;
-  let fixture: ComponentFixture<TipolistComponent>;
+describe('TipoListComponent', () => {
+  let component: TipoListComponent;
+  let fixture: ComponentFixture<TipoListComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [TipolistComponent]
+      declarations: [TipoListComponent]
     });
-    fixture = TestBed.createComponent(TipolistComponent);
+    fixture = TestBed.createComponent(TipoListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
