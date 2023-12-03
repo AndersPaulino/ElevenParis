@@ -1,4 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 import { MovimentacaolistComponent } from './movimentacaolist.component';
 
@@ -8,8 +11,11 @@ describe('MovimentacaolistComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [MovimentacaolistComponent]
+      declarations: [MovimentacaolistComponent],
+      imports: [FormsModule, HttpClientModule],
+      providers: [DatePipe],
     });
+
     fixture = TestBed.createComponent(MovimentacaolistComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

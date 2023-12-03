@@ -16,10 +16,10 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it('should render router-outlet', () => {
+  it(`should have as title 'StoreFront'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('router-outlet')).toBeTruthy();
+    const app = fixture.componentInstance;
+    expect(app.title).toEqual('StoreFront');
+
   });
 });

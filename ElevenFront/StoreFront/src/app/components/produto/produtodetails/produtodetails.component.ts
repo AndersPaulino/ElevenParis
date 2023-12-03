@@ -39,4 +39,12 @@ export class ProdutodetailsComponent {
       this.modalRef.close();
     });
   }
+
+  desativar() {
+    this.produto.ativo = false;
+  }
+
+  ativar() {
+    this.produto.ativo = true;
+  }
 }

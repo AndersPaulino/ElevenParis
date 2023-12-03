@@ -3,7 +3,7 @@ import { Component, EventEmitter, Inject, Input, Output, inject } from '@angular
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MovimentacaoService } from 'src/app/services/movimentacao.service';
-import { Movimentacao } from 'src/app/models/movimentacao.spec';
+import { Movimentacao } from 'src/app/models/movimentacao.model';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Produto } from 'src/app/models/produto';
 

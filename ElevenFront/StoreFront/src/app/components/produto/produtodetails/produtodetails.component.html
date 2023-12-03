@@ -12,11 +12,14 @@
     </div>
     <div class="mb-3">
         <label for="tipoSelecionado" class="form-label">Tipo Selecionado:</label>
-        <span id="tipoSelecionado">{{ produto.tipo ? produto.tipo.nameTipo : 'Nenhum tipo selecionado' }}</span>
+        <span id="tipoSelecionado">{{ produto.tipo ? produto.tipo.nameTipo : '' }}</span>
     </div>
     <div class="mb-3">
-        <label for="ativoCheckbox" class="form-check-label">Status:</label>
-        <input type="checkbox" id="ativoCheckbox" class="form-check-input" name="ativo" [(ngModel)]="produto.ativo">
+        <label for="tipoStatus" class="form-label">Status:</label>
+        <select class="form-select" name="tipoStatus" [(ngModel)]="produto.ativo">
+            <option [ngValue]="true">Ativo</option>
+            <option [ngValue]="false">Inativo</option>
+        </select>
     </div>
     <button type="submit" class="btn btn-primary">Salvar</button>
 </form>

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Estoque } from 'src/app/models/estoque.model';
-import { Movimentacao } from 'src/app/models/movimentacao.spec';
+import { Movimentacao } from 'src/app/models/movimentacao.model';
 import { EstoqueService } from 'src/app/services/estoque.service';
 import { MovimentacaolistComponent } from '../../movimentacao/movimentacaolist/movimentacaolist.component';
 
