@@ -3,13 +3,13 @@
         type="text"
         name="login"
         placeholder="Digite seu Login..."
-        [(ngModel)]="usuario.login"
+        [(ngModel)]="login.username"
     />
     <input
         type="password"
         name="senha"
         placeholder="Digite sua Senha..."
-        [(ngModel)]="usuario.senha"
+        [(ngModel)]="login.password"
     />
     <hr />
     <button (click)="logar()">Login</button>

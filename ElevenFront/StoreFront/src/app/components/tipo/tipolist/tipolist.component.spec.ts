@@ -6,11 +6,13 @@ import { of } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
+
 describe('TipoListComponent', () => {
   let component: TipoListComponent;
   let fixture: ComponentFixture<TipoListComponent>;
   let mockTipoService: jasmine.SpyObj<TipoService>;
   let mockNgbModal: jasmine.SpyObj<NgbModal>;
+
 
   beforeEach(() => {
     mockTipoService = jasmine.createSpyObj('TipoService', ['listAll', 'cadastrar', 'atualizar']);

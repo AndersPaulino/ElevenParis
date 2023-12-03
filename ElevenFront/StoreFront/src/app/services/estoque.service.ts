@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { Injectable, inject } from "@angular/core";
 import { Observable } from "rxjs";
 import { Estoque } from "../models/estoque.model";
 
@@ -8,8 +8,8 @@ import { Estoque } from "../models/estoque.model";
 })
 export class EstoqueService{
     private API: string = 'http://localhost:8080/api/estoque';
-
-    constructor(private http: HttpClient){}
+    http = inject(HttpClient);
+    constructor(){}
 
     findAll(): Observable<Estoque[]>{
         return this.http.get<Estoque[]>(this.API);
