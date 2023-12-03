@@ -213,7 +213,7 @@ describe('ProdutoService', () => {
 
   it('should delete produto by id', () => {
     service.deletar(1).subscribe((response: string) => {
-      expect(response).toBe('Produto desativado com sucesso');
+      expect(response).toBe('Registro desativado com sucesso!');
     });
 
     const req = httpMock.expectOne('http://localhost:8080/api/produto/desativar/1');
