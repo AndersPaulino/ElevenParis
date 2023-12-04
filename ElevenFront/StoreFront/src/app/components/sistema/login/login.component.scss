@@ -92,10 +92,11 @@ input {
     width: 90%;
     margin: 10px 0;
     padding: 8px;
-    border: 1px solid #B10F2E;
+    border: 1px solid aliceblue;
     border-radius: 5px;
-    background-color: #ffff;
-    color: #0000;
+    background-color: #0000;
+    color: #fff;
+    text-decoration: none;
 }
 
 
@@ -109,13 +110,22 @@ button {
     width: 40%;
     margin: 10px 0;
     padding: 10px;
-    border: none;
+    border: 1px aliceblue solid;
     border-radius: 5px;
     cursor: pointer;
-    background-color: #B10F2E;
+    color: #fff;
+    background-color: #555555;
 }
 
 button:hover {
-    background-color: #090C9B;
-    color: #C4CBCA;
+    animation: fundobtn 1s infinite;
+    color: #555555;
+}
+
+@keyframes fundobtn {
+    0% {background-color: #fff;}
+    25% {background-color: aliceblue;}
+    50% {background-color: #fff;}
+    75% {background-color: aliceblue;}
+    100% {background-color: #fff;}
 }
