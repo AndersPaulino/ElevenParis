@@ -15,7 +15,7 @@ public class MovimentacaoDTO {
     private boolean ativo;
     private LocalDateTime registro;
     private LocalDateTime atualizar;
-    private BigDecimal totalProduto;
+    private int totalProduto;
     private BigDecimal valorCompra;
     private BigDecimal valorVenda;
     private Produto produtos;
@@ -34,9 +34,10 @@ public class MovimentacaoDTO {
         produtos = movimentacao.getProdutos();
         entrada = movimentacao.getEntrada();
         saida = movimentacao.getSaida();
+        valorTotal = movimentacao.getValorTotal();
 
     }
-    public MovimentacaoDTO(Long id, boolean ativo, LocalDateTime registro, LocalDateTime atualizar, BigDecimal totalProduto, BigDecimal valorCompra, BigDecimal valorVenda, Produto produtos, int entrada, int saida, BigDecimal valorTotal) {
+    public MovimentacaoDTO(Long id, boolean ativo, LocalDateTime registro, LocalDateTime atualizar, int totalProduto, BigDecimal valorCompra, BigDecimal valorVenda, Produto produtos, int entrada, int saida, BigDecimal valorTotal) {
         this.id = id;
         this.ativo = ativo;
         this.registro = registro;

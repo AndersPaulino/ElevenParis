@@ -12,5 +12,4 @@ export class Movimentacao {
     valorCompra!: number;
     valorVenda!: number;
     valorTotal!: number;
-
 }

@@ -6,10 +6,9 @@ export class Estoque {
     registro!: Date;
     atualizar!: Date;
     nomeEstoque!: string;
-    movimentacao!: Movimentacao[];
+    movimentacao: Movimentacao[];
 
     constructor(){
         this.movimentacao = [];
     }
-    
 } 

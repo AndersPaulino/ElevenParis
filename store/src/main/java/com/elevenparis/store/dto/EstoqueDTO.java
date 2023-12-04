@@ -2,7 +2,6 @@ package com.elevenparis.store.dto;
 
 import com.elevenparis.store.entity.Estoque;
 import com.elevenparis.store.entity.Movimentacao;
-import com.elevenparis.store.entity.Produto;
 import lombok.Getter;
 import lombok.Setter;
 

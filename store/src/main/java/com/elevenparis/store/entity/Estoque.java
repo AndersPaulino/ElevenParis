@@ -17,6 +17,6 @@ public class Estoque extends AbstractEntity{
 
     @Getter @Setter
     @OneToMany
-    @JoinColumn(name = "cl_movimentacao")
+    @JoinColumn(name = "cl_estoque")
     private List<Movimentacao> movimentacao = new ArrayList<>();
 }

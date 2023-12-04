@@ -27,17 +27,17 @@ public class Movimentacao extends AbstractEntity{
 
     @Getter @Setter
     @Column(name = "totalProduto")
-    private BigDecimal totalProduto;
+    private int totalProduto;
 
     @Getter @Setter
-    @Column(name = "valorCompra")
+    @Column(name = "valorCompra", nullable = false)
     private BigDecimal valorCompra;
 
     @Getter @Setter
-    @Column(name = "valorVenda")
+    @Column(name = "valorVenda", nullable = false)
     private BigDecimal valorVenda;
 
     @Getter @Setter
-    @Column(name = "valorTotal")
+    @Column(name = "valorTotal", nullable = false)
     private BigDecimal valorTotal;
 }

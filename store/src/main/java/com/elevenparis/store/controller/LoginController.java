@@ -36,7 +36,7 @@ public class LoginController {
     }
 
 
-    @GetMapping("deslogar")
+    @GetMapping("/deslogar")
     public ResponseEntity<HttpStatus> logout() {
 
         SecurityContextHolder.clearContext();
