@@ -51,6 +51,16 @@
     transform-origin: right center;
 }
 
+#text1{
+  text-align: center;
+  text-decoration: none;
+  color: aliceblue;
+
+  position: relative;
+  overflow: hidden;
+  animation: luzIntermitente 8s infinite;
+}
+
   @keyframes pontosVolta {
     0%,100% {
         width: 100%;

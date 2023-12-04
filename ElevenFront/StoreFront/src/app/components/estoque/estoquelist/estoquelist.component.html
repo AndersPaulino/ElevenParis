@@ -1,6 +1,7 @@
+<section id="teste">
 <div class="container">
     <h3 class="alert">Estoques</h3>
-    <button type="button" class="btn btn-primary btn1" (click)="adicionar(modal)">Adicionar</button>
+    <button type="button" class="btn btn1" (click)="adicionar(modal)">Adicionar</button>
     <table class="table table-striped table-bordered table-responsive">
         <thead>
             <th scope="col" class="text-center">#ID</th>
@@ -39,7 +40,7 @@
         <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Fechar</button>
     </div>
 </ng-template>
-
+</section>
 <ng-template #modal2 let-modal>
         <div class="modal-header">
             <h4 class="modal-title">Movimentações</h4>
