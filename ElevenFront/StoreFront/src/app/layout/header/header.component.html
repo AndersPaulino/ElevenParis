@@ -18,7 +18,7 @@
                   <a id="text1" class="nav-link {{ isRouteActive('/admin/tipo') ? 'active' : '' }}" aria-current="page" href="/admin/tipo">Tipo</a>
               </li>
               <li id="li_sair" class="nav-item">
-                  <a  id="sair" class="nav-link {{ isRouteActive('/login') ? 'active' : '' }}" aria-current="page" href="/login">Sair</a>
+                 <a class="nav-link" aria-current="page" (click)="deslogar()">Sair</a>
               </li>
           </ul>
       </div>
