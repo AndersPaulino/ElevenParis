@@ -23,14 +23,11 @@ export class CadastroComponent {
   cadastrar() {
     this.cadastroService.cadastrar(this.cadastro).subscribe(
       (response: any) => {
-        if(response.status == 200 || response.status == 201){
-        console.log('Usuário cadastrado com sucesso!', response);
-        alert('Usuário cadastrado com sucesso!');
+        console.log(response.message);
+        alert(response.message);
         this.limparFormulario();
         this.router.navigate(['/cadastro']);
-        } else {
-          alert('Erro ao cadastrar Usuário!');
-        }
+      
       },
     );
   }

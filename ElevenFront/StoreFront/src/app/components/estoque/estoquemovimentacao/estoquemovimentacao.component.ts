@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Estoque } from 'src/app/models/estoque.model';
 import { Movimentacao } from 'src/app/models/movimentacao.model';
@@ -10,7 +10,7 @@ import { MovimentacaodetailsComponent } from '../../movimentacao/movimentacaodet
   templateUrl: './estoquemovimentacao.component.html',
   styleUrls: ['./estoquemovimentacao.component.scss']
 })
-export class EstoquemovimentacaoComponent {
+export class EstoquemovimentacaoComponent implements OnInit {
   @Input() estoque: Estoque = new Estoque();
   @Output() retorno = new EventEmitter<Estoque>();
 
@@ -18,7 +18,17 @@ export class EstoquemovimentacaoComponent {
   modalRef!: NgbModalRef;
   estoqueService = inject(EstoqueService);
 
-  constructor() {}
+  ngOnInit(): void {
+      this.findById(this.estoque.id);
+  }
+
+  findById(idEstoque: number){
+    console.log(idEstoque); 
+  }
+
+  constructor() {
+
+  } 
 
   salvar(): void {
     console.log(this.estoque);
