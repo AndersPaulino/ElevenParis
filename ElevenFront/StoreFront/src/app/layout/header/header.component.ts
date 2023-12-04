@@ -13,7 +13,12 @@ export class HeaderComponent {
   loginService = inject(LoginService)
 
   deslogar(){
-    this.router.navigate(['/login']);
+    this.loginService.deslogar().subscribe(
+      () => {
+        this.loginService.removerToken(); // Remove o token do localStorage ao deslogar
+        this.router.navigate(['/login']);
+      }
+    );
   }
   
   isRouteActive(route: string): string {
