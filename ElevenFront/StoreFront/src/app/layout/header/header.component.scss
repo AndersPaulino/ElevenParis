@@ -6,8 +6,8 @@
 
 .navbar {
     display: flex;
-    width: 99.1vw;
-    height: 6vh;
+    width: 98.9vw;
+    height: 7vh;
     animation: fundo 8s infinite;
   }
   
@@ -50,6 +50,19 @@
     bottom: 0;
     transform-origin: right center;
 }
+
+/* Estilo para o link "Sair" */
+.navbar-nav .nav-item:last-child {
+  margin-right: 0vw;
+  cursor: pointer; /* Isso alinhará o último item à direita */
+}
+
+/* Estilo para o link "Sair" ao passar o mouse */
+.navbar-nav .nav-item:last-child a.nav-link:hover {
+  color: #ffff00; /* Dark Blue */
+}
+
+
 
 #text1{
   text-align: center;
@@ -95,7 +108,7 @@
   
   /* Estilo para o link "Sair" ao passar o mouse */
   .navbar-nav .nav-item a.nav-link[href="/login"]:hover {
-    color: #1F01B9; /* Dark Blue */
+    color: rgb(185, 71, 1); /* Dark Blue */
   }
 
   #sair{
