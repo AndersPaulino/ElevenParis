@@ -26,7 +26,7 @@ export class CadastroComponent {
         if(response.status == 200 || response.status == 201){
         console.log('Usuário cadastrado com sucesso!', response);
         alert('Usuário cadastrado com sucesso!');
-        this.limparFormulario(); // Limpa o formulário após o cadastro bem-sucedido
+        this.limparFormulario();
         this.router.navigate(['/cadastro']);
         } else {
           alert('Erro ao cadastrar Usuário!');
@@ -37,6 +37,6 @@ export class CadastroComponent {
 
 
   limparFormulario() {
-    this.cadastro = new Cadastro(); // Cria um novo objeto Cadastro para limpar os campos
+    this.cadastro = new Cadastro();
   }
 }

@@ -13,6 +13,7 @@ import { TipoListComponent } from '../../tipo/tipolist/tipolist.component';
 export class ProdutodetailsComponent {
   @Input() produto: Produto = new Produto();
   @Output() retorno = new EventEmitter<Produto>();
+  
   modalService = inject(NgbModal);
   modalRef!: NgbModalRef;
   produtoService = inject(ProdutoService);

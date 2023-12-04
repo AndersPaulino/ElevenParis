@@ -36,7 +36,7 @@
                             <i class="fas"
                                 [ngClass]="{'fa-arrow-up': sortDescricaoDirection === 'asc', 'fa-arrow-down': sortDescricaoDirection === 'desc'}"></i>
                         </th>
-                        <th class="text-center">Ações</th>
+                        <th scope="col" class="text-center" colspan="2">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -60,30 +60,20 @@
 </div>
 
 <ng-template #modal1 let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title">Modal Produto</h4>
-        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-    </div>
-    <div class="modal-body">
-        <app-produtodetails [produto]="produtoSelecionadoParaEdicao"
-            (retorno)="addOuEditarProduto($event)"></app-produtodetails>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Fechar</button>
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Modal Produto</h4>
+                <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+            </div>
+            <div class="modal-body">
+                <app-produtodetails [produto]="produtoSelecionadoParaEdicao" (retorno)="addOuEditarProduto($event)"></app-produtodetails>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Fechar</button>
+            </div>
+        </div>
     </div>
 </ng-template>
+
 </section>
-<style class="css">
-    button{
-        margin-left: 10px;
-    }
-    .btn1{
-        margin: 10px;
-    }
-    input{
-        margin-bottom: 10px;
-    }
-    h3 {
-        margin-top: 10px;
-    }
-</style>

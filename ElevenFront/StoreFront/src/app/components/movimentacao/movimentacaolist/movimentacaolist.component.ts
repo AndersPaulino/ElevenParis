@@ -53,42 +53,14 @@ export class MovimentacaolistComponent {
       this.listAll();
       this.modalRef.dismiss();
     };
-  
+
     if (movimentacao.id) {
-      // Atualiza a movimentação existente
       this.movimentacaoService.atualizar(movimentacao.id, movimentacao).subscribe(onComplete);
-      
-      // Calcula o valor total da Movimentação
-      const valorTotal = this.calcularValorTotal(movimentacao);
-      
-      // Calcula o total de produtos da Movimentação
-      const totalProduto = this.calcularTotalProduto(movimentacao);
-      
-      // Faça o que precisar com valorTotal e totalProduto aqui
-      console.log('Valor Total:', valorTotal);
-      console.log('Total de Produtos:', totalProduto);
     } else {
-      // Se você precisar adicionar alguma lógica adicional para inserir uma nova movimentação,
-      // faça isso aqui
+      this.movimentacaoService.cadastar(movimentacao).subscribe(onComplete);
     }
   }
-  
-  // Função para calcular o valor total da Movimentação
-  calcularValorTotal(movimentacao: Movimentacao): number {
-    // Calcula o valor total da Movimentação com base em valorVenda e valorCompra
-    const valorTotal = movimentacao.valorVenda - movimentacao.valorCompra;
-  
-    return valorTotal;
-  }
-  
-  // Função para calcular o total de produtos da Movimentação
-  calcularTotalProduto(movimentacao: Movimentacao): number {
-    // Calcula o total de produtos da Movimentação com base em entrada e saída
-    const totalProduto = movimentacao.entrada - movimentacao.saida;
-  
-    return totalProduto;
-  }
-  
+
 
   editar(modal: any, movimentacao: Movimentacao, indice: number){
     this.movimentacaoSelecionadoParaEdicao = { ...movimentacao};
@@ -98,5 +70,9 @@ export class MovimentacaolistComponent {
 
   voltar() {
     this.router.navigate(['/admin/estoque']);
+  }
+
+  lancamento(movimentacao: Movimentacao) {
+    this.retorno.emit(movimentacao);
   }
 }
