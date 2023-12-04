@@ -22,9 +22,6 @@ export class HttpRequestInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(catchError(x => this.errorHandler(x)));
   }
 
-
-
-
   private errorHandler(err: HttpErrorResponse): Observable<any> {
     if (err.status === 401) {
       alert('401 - tratar');

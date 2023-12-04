@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Login } from 'src/app/models/login.model';
-import { Usuario } from 'src/app/models/usuario.model';
 import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
@@ -33,7 +32,7 @@ export class LoginComponent {
     });
   }
   cadastro(){
-    this.router.navigate(["/cadastro"]);
+    this.router.navigate(['/cadastro']);
   }
 
 }

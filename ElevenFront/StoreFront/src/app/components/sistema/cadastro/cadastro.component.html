@@ -3,12 +3,13 @@
       href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
     />
 <form id="form" class="form">
-    <div class="Email">
+    <div class="username">
     <input
-        id="email"
+        id="username"
         type="text"
-        name="email"
-        placeholder="Digite seu E-mail..."
+        name="username"
+        placeholder="Digite seu Username..."
+        [(ngModel)]="cadastro.username"
     />
     <small>Mensagem de erro</small>
     </div>
@@ -19,21 +20,23 @@
         type="password"
         name="senha"
         placeholder="Digite sua Senha..."
+        [(ngModel)]="cadastro.password"
     />
     <small>Mensagem de erro</small>
     </div>
 
-    <div class="confirmPassword">
+    <div class="role">
     <input
-        id="passwordconfirmation"
-        type="password"
-        name="confirmasenha"
-        placeholder="Confirme sua Senha..."
+        id="role"
+        type="text"
+        name="role"
+        placeholder="Digite o papel do usuario..."
+        [(ngModel)]="cadastro.role"
     />
     <small>Mensagem de erro</small>
     </div>
 
-    <input type="submit" nome="acao" value="Cadastrar" />
+    <button type="submit" nome="acao" value="Cadastrar" (click)="cadastrar()">Cadastrar</button>
     <hr />
     <a (click)="logar()">Login</a>
 </form>
@@ -85,7 +88,7 @@ form input[type="password"] {
   margin: 10px 0;
   border-radius: 20px;
 }
-form input[type="submit"] {
+form button[type="submit"] {
   position: relative;
   top: 10px;
   font-family: "Poppins";
@@ -106,7 +109,7 @@ form input[type="submit"]:hover {
   background-color: #007c8a;
 }
 
-form input[type="submit"]:active {
+form button[type="submit"]:active {
   background-color: #79dae8;
 }
 
