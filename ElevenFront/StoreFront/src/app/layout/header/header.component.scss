@@ -6,7 +6,7 @@
 
 .navbar {
     display: flex;
-    width: 100vw;
+    width: 99.1vw;
     height: 6vh;
     animation: fundo 8s infinite;
   }
@@ -96,11 +96,6 @@
   /* Estilo para o link "Sair" ao passar o mouse */
   .navbar-nav .nav-item a.nav-link[href="/login"]:hover {
     color: #1F01B9; /* Dark Blue */
-  }
-
-  #li_sair{
-    display: flex;
-    justify-self: flex-end;
   }
 
   #sair{

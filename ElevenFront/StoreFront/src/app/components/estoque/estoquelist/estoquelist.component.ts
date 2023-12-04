@@ -86,3 +86,36 @@ export class EstoquelistComponent {
     this.modalRef = this.modalService.open(modal2, { size: 'sm' });
   }
 }
+
+
+
+/*
+acessar(estoque: Estoque) {
+  const onComplete = () => {
+    // Fetch movements associated with the selected stock
+    this.fetchMovimentacoesDoEstoque(estoque);
+    this.listAll();
+    this.modalRef.dismiss();
+  };
+
+  if (estoque.id) {
+    this.estoqueService.atualizar(estoque.id, estoque).subscribe(onComplete);
+  } else {
+    this.estoqueService.cadastrar(estoque).subscribe(onComplete);
+  }
+}
+
+
+fetchMovimentacoesDoEstoque(estoque: Estoque) {
+  this.estoqueService.getMovimentacoesDoEstoque(estoque.id).subscribe({
+      next: movimentacoes => {
+          this.movimentacoesDoEstoque = movimentacoes;
+      },
+      error: erro => {
+          const errorMessage = erro.error ? erro.error : 'Erro ao buscar as movimentações do estoque.';
+          alert(errorMessage);
+          console.error(erro);
+      }
+  });
+}
+*/

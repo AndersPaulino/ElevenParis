@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Estoque } from 'src/app/models/estoque.model';
+import { Movimentacao } from 'src/app/models/movimentacao.model';
 import { EstoqueService } from 'src/app/services/estoque.service';
+import { MovimentacaodetailsComponent } from '../../movimentacao/movimentacaodetails/movimentacaodetails.component';
 
 @Component({
   selector: 'app-estoquemovimentacao',
@@ -9,7 +11,6 @@ import { EstoqueService } from 'src/app/services/estoque.service';
   styleUrls: ['./estoquemovimentacao.component.scss']
 })
 export class EstoquemovimentacaoComponent {
-
   @Input() estoque: Estoque = new Estoque();
   @Output() retorno = new EventEmitter<Estoque>();
 
@@ -17,10 +18,29 @@ export class EstoquemovimentacaoComponent {
   modalRef!: NgbModalRef;
   estoqueService = inject(EstoqueService);
 
-  constructor(){}
+  constructor() {}
 
-  salvar():void{
+  salvar(): void {
+    console.log(this.estoque);
     this.retorno.emit(this.estoque);
   }
 
+  lancar(modal: any): void {
+    this.modalRef = this.modalService.open(modal, { size: 'lg' });
+  }
+
+  retornoMovimentacaoList(movimentacao: Movimentacao) {
+    // Assuming 'estoque' has a property named 'movimentacoes' that is an array
+    this.estoque.movimentacao.push(movimentacao);
+    this.modalRef.dismiss();
+  }
+
+  abrirModalSelecaoMovimentancao(): void {
+    this.modalRef = this.modalService.open(MovimentacaodetailsComponent, { size: 'lg' });
+    this.modalRef.componentInstance.retorno.subscribe((movimentacao: Movimentacao) => {
+      // Assuming 'estoque' has a property named 'movimentacoes' that is an array
+      this.estoque.movimentacao.push(movimentacao);
+      this.modalRef.close();
+    });
+  }
 }

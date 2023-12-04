@@ -28,4 +28,15 @@ export class EstoqueService{
         const url = `${this.API}/nome/${id}`;
         return this.http.put(url, estoque, { responseType: 'text'});
     }
+
+    /*
+    getMovimentacoesDoEstoque(idEstoque: number): Observable<Movimentacao[]> {
+        // Assuming your API endpoint for fetching movimentacoes based on Estoque ID is /api/estoque/:idEstoque/movimentacoes
+        const url = `${this.API}/${idEstoque}/movimentacoes`;
+    
+        // Assuming your API returns an array of Movimentacao objects
+        return this.http.get<Movimentacao[]>(url);
+    }
+    */
+    
 }
