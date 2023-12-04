@@ -61,7 +61,6 @@ class MovimentacaoControllerTest {
         movimentacao = new Movimentacao();
         movimentacao.setEntrada(1);
         movimentacao.setSaida(2);
-        movimentacao.setTotalProduto(BigDecimal.valueOf(200.0));
         movimentacao.setValorCompra(BigDecimal.valueOf(100.0));
         movimentacao.setValorVenda(BigDecimal.valueOf(40.00));
         movimentacao.setValorTotal(BigDecimal.valueOf(50.00));
