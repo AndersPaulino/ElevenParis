@@ -82,6 +82,8 @@ export class EstoquelistComponent {
 
   acessar(modal2: any,  estoque: Estoque, indice: number){
     this.estoqueSelecionadoParaEdicao2 = { ...estoque};
+
+    console.log(this.estoqueSelecionadoParaEdicao2.id);
     this.indiceSelecionadoParaEdicao2 = indice;
     this.modalRef = this.modalService.open(modal2, { size: 'sm' });
   }
