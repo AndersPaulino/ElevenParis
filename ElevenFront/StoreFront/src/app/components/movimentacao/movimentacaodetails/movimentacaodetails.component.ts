@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { Movimentacao } from 'src/app/models/movimentacao.spec';
+import { Movimentacao } from 'src/app/models/movimentacao.model';
 import { Produto } from 'src/app/models/produto';
 import { MovimentacaoService } from 'src/app/services/movimentacao.service';
 import { ProdutodetailsComponent } from '../../produto/produtodetails/produtodetails.component';
