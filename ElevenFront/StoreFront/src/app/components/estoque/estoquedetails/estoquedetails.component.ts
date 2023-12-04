@@ -27,12 +27,14 @@ export class EstoquedetailsComponent {
 
   lancar(modal: any): void{
     this,this.modalRef = this.modalService.open(modal, { size:'lg'});
+    console.log(this.estoque.movimentacao);
   }
 
   retornoMovimentacaoList(movimentacao: Movimentacao): void {
-    this.estoque.movimentacao = [];
+    this.estoque.movimentacao.push(movimentacao); // Adicionando a nova movimentação ao array do estoque
     this.modalRef.dismiss();
   }
+  
 
   abrirModalSelecaoMovimentacao(): void{
     this.modalRef = this.modalService.open(MovimentacaolistComponent, {size: 'lg'});

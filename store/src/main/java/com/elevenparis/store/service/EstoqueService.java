@@ -2,6 +2,7 @@ package com.elevenparis.store.service;
 
 import com.elevenparis.store.dto.EstoqueDTO;
 import com.elevenparis.store.entity.Estoque;
+import com.elevenparis.store.entity.Movimentacao;
 import com.elevenparis.store.repository.EstoqueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -97,11 +99,23 @@ public class EstoqueService {
         if (estoqueExistenteOptional.isPresent()) {
             Estoque estoqueExistente = estoqueExistenteOptional.get();
             estoqueExistente.setNomeEstoque(estoque.getNomeEstoque());
-            estoqueRepository.save(estoqueExistente);
+
+            // Atualizar as movimentações do estoque
+            if (estoque.getMovimentacao() != null && !estoque.getMovimentacao().isEmpty()) {
+                // Limpar as movimentações existentes
+                estoqueExistente.getMovimentacao().clear();
+
+                // Adicionar as novas movimentações
+                estoqueExistente.getMovimentacao().addAll(estoque.getMovimentacao());
+            }
+            estoqueExistente.setAtualizar(LocalDateTime.now());
+            estoqueRepository.save(estoqueExistente); // Salvar o estoque atualizado
         } else {
             throw new IllegalArgumentException("ID de estoque inválido!");
         }
     }
+
+
 
 
     @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRES_NEW)
