@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -66,8 +67,12 @@ public class MovimentacaoService {
 
     @Transactional(rollbackFor = Exception.class)
     public void cadastrar(Movimentacao movimentacao) {
-        // Se necessário, você pode configurar aqui a associação com um Produto.
-        // movimentacao.setProduto(produtoRepository.findById(produtoId).orElse(null));
+        BigDecimal valorVenda = movimentacao.getValorVenda();
+        BigDecimal valorCompra = movimentacao.getValorCompra();
+        BigDecimal diferenca = valorVenda.subtract(valorCompra);
+        movimentacao.setValorTotal(diferenca);
+
+        movimentacao.setTotalProduto(movimentacao.getEntrada() - movimentacao.getSaida());
         movimentacaoRepository.save(movimentacao);
     }
 
@@ -95,10 +100,15 @@ public class MovimentacaoService {
 
     public void validarMovimentacao(final Movimentacao movimentacao){
         int entrada = movimentacao.getEntrada();
+        int saida = movimentacao.getSaida();
 
         if (entrada == 0){
             throw new IllegalArgumentException("Nome De Produto Não Preenchido");
         }
+        if (entrada < saida){
+            throw new IllegalArgumentException("Erro! Saida maior do que os produtos em estoque!");
+        }
+
     }
     @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRES_NEW)
     public void deletar(Long id){

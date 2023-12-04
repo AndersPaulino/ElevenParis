@@ -21,6 +21,7 @@ import { EstoquedetailsComponent } from './components/estoque/estoquedetails/est
 import { MovimentacaodetailsComponent } from './components/movimentacao/movimentacaodetails/movimentacaodetails.component';
 import { MovimentacaolistComponent } from './components/movimentacao/movimentacaolist/movimentacaolist.component';
 import { EstoquemovimentacaoComponent } from './components/estoque/estoquemovimentacao/estoquemovimentacao.component';
+import { httpInterceptorProviders } from './interceptors/httpinterceptor.service';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,7 @@ import { EstoquemovimentacaoComponent } from './components/estoque/estoquemovime
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [DatePipe],
+  providers: [DatePipe, httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

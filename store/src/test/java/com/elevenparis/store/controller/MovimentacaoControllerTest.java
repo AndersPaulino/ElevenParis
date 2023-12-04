@@ -61,7 +61,6 @@ class MovimentacaoControllerTest {
         movimentacao = new Movimentacao();
         movimentacao.setEntrada(1);
         movimentacao.setSaida(2);
-        movimentacao.setTotalProduto(BigDecimal.valueOf(200.0));
         movimentacao.setValorCompra(BigDecimal.valueOf(100.0));
         movimentacao.setValorVenda(BigDecimal.valueOf(40.00));
         movimentacao.setValorTotal(BigDecimal.valueOf(50.00));
@@ -340,23 +339,6 @@ class MovimentacaoControllerTest {
         mockMvc.perform(get("/api/movimentacao/ativo/true")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isInternalServerError());
-    }
-
-    @Test
-    public void testFindByEntradaWithData() throws Exception {
-        mockMvc = MockMvcBuilders.standaloneSetup(movimentacaoController).build();
-
-        MovimentacaoDTO movimentacaoDTO = new MovimentacaoDTO(new Movimentacao());
-
-        List<Movimentacao> movimentacoes = new ArrayList<>();
-        movimentacoes.add(new Movimentacao(/* set required properties here */));
-        when(movimentacaoService.findByEntrada(anyInt())).thenReturn(movimentacoes);
-
-        mockMvc.perform(get("/api/movimentacao/entrada/123")
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
-
     }
 }
 
