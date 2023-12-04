@@ -1,6 +1,7 @@
+<section id="teste">
 <div class="container">
-    <h3 class="alert alert-primary">Listagem de Estoques</h3>
-    <button type="button" class="btn btn-primary btn1" (click)="adicionar(modal)">Adicionar</button>
+    <h3 class="alert">Estoques</h3>
+    <button type="button" class="btn btn1" (click)="adicionar(modal)">Adicionar</button>
     <table class="table table-striped table-bordered table-responsive">
         <thead>
             <th scope="col" class="text-center">#ID</th>
@@ -26,7 +27,7 @@
     </table>    
 </div>
 
-<ng-template #modal let-modal>
+<ng-template #modal let-modal >
     <div class="modal-header">
         <h4 class="modal-title">Modal Estoque</h4>
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
@@ -39,7 +40,7 @@
         <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Fechar</button>
     </div>
 </ng-template>
-
+</section>
 <ng-template #modal2 let-modal>
         <div class="modal-header">
             <h4 class="modal-title">Movimentações</h4>
@@ -63,9 +64,5 @@
     }
     .btn1{
         margin: 10px;
-    }
-    div .ttd{
-        max-width: 750px;
-        max-height: 750px;
     }
 </style>

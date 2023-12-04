@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { Movimentacao } from "../models/movimentacao.spec";
+import { Movimentacao } from "../models/movimentacao.model";
 
 @Injectable({
     providedIn: 'root'
@@ -20,7 +20,7 @@ export class MovimentacaoService{
     }
 
     atualizar(id:number, movimentacao: Movimentacao): Observable<string> {
-        const url = `${this.API}/nome/${id}`;
+        const url = `${this.API}/atualizar/${id}`;
         return this.http.put(url, movimentacao, {responseType: 'text'});
     }
 }
