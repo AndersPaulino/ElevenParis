@@ -1,5 +1,6 @@
 package com.elevenparis.store.controller;
 
+import com.elevenparis.store.dto.MensagemDTO;
 import com.elevenparis.store.entity.User;
 import com.elevenparis.store.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,9 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<String> cadastrarNovoUsuario(@RequestBody User userRequest) {
+    public ResponseEntity<MensagemDTO> cadastrarNovoUsuario(@RequestBody User userRequest) {
         userService.cadastrarUsuario(userRequest);
-        return new ResponseEntity<>("Usuário cadastrado com sucesso", HttpStatus.CREATED);
+        MensagemDTO mensagemDTO = new MensagemDTO("Usuário cadastrado com sucesso");
+        return new ResponseEntity<>(mensagemDTO, HttpStatus.CREATED);
     }
 }
