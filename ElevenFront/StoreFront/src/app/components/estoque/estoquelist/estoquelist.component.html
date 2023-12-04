@@ -16,7 +16,7 @@
                 <td class="text-center">{{ estoque.id }}</td>
                 <td class="text-center">{{ estoque.nomeEstoque }}</td>
                 <td class="text-center">{{ estoque.registro | date:'dd/MM/yyyy'}}</td>
-                <td class="text-center">{{ estoque.ativo }}</td>
+                <td class="text-center">{{ estoque.ativo ? 'Ativo' : 'Inativo' }}</td>
                 <td class="text-center">{{ estoque.atualizar | date:'dd/MM/yyyy'}}</td>
                 <td class="text-center">
                     <button type="button" class="btn btn-primary"(click)="acessar(modal2, estoque, i)">Acessar</button>

@@ -22,11 +22,12 @@ export class MovimentacaodetailsComponent {
   constructor(){}
 
   salvar():void{
+    console.log(this.movimentacao);
     this.retorno.emit(this.movimentacao);
   }
 
   lancar(modal: any): void{
-    this,this.modalRef = this.modalService.open(modal, {size: 'lg'});
+    this.modalRef = this.modalService.open(modal, {size: 'lg'});
   }
 
   retornoProdutoList(produtos: Produto){
