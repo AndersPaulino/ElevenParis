@@ -82,13 +82,30 @@ public class MovimentacaoService {
 
         if (movimentacaoExistenteOptional.isPresent()) {
             Movimentacao movimentacaoExistente = movimentacaoExistenteOptional.get();
-            movimentacaoExistente.setEntrada(movimentacao.getEntrada());
-            movimentacaoExistente.setSaida(movimentacao.getSaida());
-            movimentacaoExistente.setValorCompra(movimentacao.getValorCompra());
-            movimentacaoExistente.setValorVenda(movimentacao.getValorVenda());
+            if (movimentacao.getEntrada() != movimentacao.getEntrada()){
+                movimentacaoExistente.setEntrada(movimentacaoExistente.getEntrada() + movimentacao.getEntrada());
+            }
+            if (movimentacao.getEntrada() == movimentacao.getEntrada()){
+                movimentacaoExistente.setEntrada(movimentacaoExistente.getEntrada());
+            }
+            if(movimentacao.getSaida() != movimentacao.getSaida()){
+                movimentacaoExistente.setSaida(movimentacao.getSaida());
+            }
+            if(movimentacao.getSaida() == movimentacao.getSaida()){
+                movimentacaoExistente.setSaida(movimentacao.getSaida());
+            }
+            if(movimentacao.getValorCompra() != null){
+                movimentacaoExistente.setValorCompra(movimentacao.getValorCompra());
+            }
+            if(movimentacao.getValorVenda() != null){
+                movimentacaoExistente.setValorVenda(movimentacao.getValorVenda());
+            }
+            BigDecimal valorVenda = movimentacao.getValorVenda();
+            BigDecimal valorCompra = movimentacao.getValorCompra();
+            BigDecimal diferenca = valorVenda.subtract(valorCompra);
+            movimentacaoExistente.setValorTotal(diferenca);
 
-            // Se necessário, atualize a associação com um Produto.
-            // movimentacaoExistente.setProduto(produtoRepository.findById(produtoId).orElse(null));
+            movimentacaoExistente.setTotalProduto(movimentacao.getEntrada() - movimentacao.getSaida());
 
             movimentacaoRepository.save(movimentacaoExistente);
         } else {

@@ -40,16 +40,21 @@
         <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Fechar</button>
     </div>
 </ng-template>
-</section>
 <ng-template #modal2 let-modal>
-        <div class="modal-header">
-            <h4 class="modal-title">Movimentações</h4>
-            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    <div class="modal-dialog modal-xl"> <!-- Adiciona a classe modal-xl para uma modal extra-large -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Movimentações</h4>
+                <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+            </div>
+            <div class="modal-body">
+                <app-estoquemovimentacao [estoque]="estoqueSelecionadoParaEdicao2" (retorno)="acessarEstoque($event)"></app-estoquemovimentacao>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Fechar</button>
+            </div>
         </div>
-        <div class="modal-body">
-            <app-estoquemovimentacao [estoque]="estoqueSelecionadoParaEdicao2" (retorno)="acessarEstoque($event)"></app-estoquemovimentacao>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Fechar</button>
-        </div>
+    </div>
 </ng-template>
+</section>
+
