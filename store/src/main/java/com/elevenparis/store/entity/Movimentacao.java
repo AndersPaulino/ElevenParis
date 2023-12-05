@@ -18,7 +18,7 @@ public class Movimentacao extends AbstractEntity{
 
 
     @Getter @Setter
-    @Column(name = "entrada", nullable = false)
+    @Column(name = "entrada")
     private int entrada;
 
     @Getter @Setter
