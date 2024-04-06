@@ -1,7 +1,15 @@
-import { Movimentacao } from "./movimentacao.spec";
+import { Produto } from "./produto";
 
-describe('Produto', () =>{
-    it('should create an instance', () => {
-        expect(new Movimentacao()).toBeTruthy();
-    });
-})
+export class Movimentacao {
+    id! : number;
+    ativo!: boolean;
+    registro!: string;
+    atualizar!: string;
+    produtos!: Produto;
+    entrada!: number;
+    saida!: number;
+    totalProduto!: number;
+    valorCompra!: number;
+    valorVenda!: number;
+    valorTotal!: number;
+}

@@ -4,4 +4,5 @@ export class Tipo {
     registro!: string;
     atualizar!: string;
     nameTipo!: string;
+    filtro: string = '';
 }

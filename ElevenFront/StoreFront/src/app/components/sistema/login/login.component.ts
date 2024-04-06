@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { Usuario } from 'src/app/models/usuario.model';
+import { Login } from 'src/app/models/login.model';
+import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
   selector: 'app-login',
@@ -8,23 +9,30 @@ import { Usuario } from 'src/app/models/usuario.model';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+
+  login: Login = new Login();
   router = inject(Router);
+  loginService = inject(LoginService);
 
-  usuario: Usuario = new Usuario();
+  constructor() {
+    this.loginService.removerToken();
+  }
 
-  logar(){
-    if(this.usuario.login != "admin"){
-      alert("Usuário Incorreto!");
-    }if(this.usuario.senha != "admin"){
-      alert("Senha Incorreto!");
-    }if(this.usuario.login != "admin" && this.usuario.senha != "admin"){
-      alert("Usuário e senha incorretos!")
-    }if(this.usuario.login == "admin" && this.usuario.senha == "admin"){
-      this.router.navigate(["/admin"]);
-    }
+  logar() {
+    this.loginService.logar(this.login).subscribe({
+      next: user => { // QUANDO DÁ CERTO
+        console.log(user);
+        this.loginService.addToken(user.token);
+        this.router.navigate(['/admin/estoque']);
+      },
+      error: erro => { // QUANDO DÁ ERRO
+        alert('Exemplo de tratamento de erro/exception! Observe o erro no console!');
+        console.error(erro);
+      }
+    });
   }
   cadastro(){
-    this.router.navigate(["/cadastro"]);
+    this.router.navigate(['/cadastro']);
   }
 
 }

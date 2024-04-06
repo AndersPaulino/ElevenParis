@@ -1,6 +1,7 @@
+<section id="teste">
 <div class="container">
-    <h3 class="alert alert-primary">Listagem de Estoques</h3>
-    <button type="button" class="btn btn-primary btn1" (click)="adicionar(modal)">Adicionar</button>
+    <h3 class="alert">Estoques</h3>
+    <button type="button" class="btn btn1" (click)="adicionar(modal)">Adicionar</button>
     <table class="table table-striped table-bordered table-responsive">
         <thead>
             <th scope="col" class="text-center">#ID</th>
@@ -14,11 +15,11 @@
             <tr *ngFor="let estoque of list; let i = index">
                 <td class="text-center">{{ estoque.id }}</td>
                 <td class="text-center">{{ estoque.nomeEstoque }}</td>
-                <td class="text-center">{{ estoque.registro }}</td>
-                <td class="text-center">{{ estoque.ativo }}</td>
-                <td class="text-center">{{ estoque.atualizar }}</td>
+                <td class="text-center">{{ estoque.registro | date:'dd/MM/yyyy'}}</td>
+                <td class="text-center">{{ estoque.ativo ? 'Ativo' : 'Inativo' }}</td>
+                <td class="text-center">{{ estoque.atualizar | date:'dd/MM/yyyy'}}</td>
                 <td class="text-center">
-                    <button type="button" class="btn btn-primary"(click)="acessar(i)">Acessar</button>
+                    <button type="button" class="btn btn-primary"(click)="acessar(modal2, estoque, i)">Acessar</button>
                     <button type="button" class="btn btn-primary" (click)="editar(modal, estoque, i)">Editar</button>
                 </td>    
             </tr>
@@ -39,15 +40,21 @@
         <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Fechar</button>
     </div>
 </ng-template>
-<style class="css">
-    button{
-        margin-left: 10px;
-    }
-    .btn1{
-        margin: 10px;
-    }
-    ::ng-deep .modal .modal-dialog {
-  width: 150%;
-}
+<ng-template #modal2 let-modal>
+    <div class="modal-dialog modal-xl"> <!-- Adiciona a classe modal-xl para uma modal extra-large -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Movimentações</h4>
+                <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+            </div>
+            <div class="modal-body">
+                <app-estoquemovimentacao [estoque]="estoqueSelecionadoParaEdicao2" (retorno)="acessarEstoque($event)"></app-estoquemovimentacao>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Fechar</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+</section>
 
-</style>

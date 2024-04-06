@@ -13,6 +13,7 @@ import { TipoListComponent } from '../../tipo/tipolist/tipolist.component';
 export class ProdutodetailsComponent {
   @Input() produto: Produto = new Produto();
   @Output() retorno = new EventEmitter<Produto>();
+  
   modalService = inject(NgbModal);
   modalRef!: NgbModalRef;
   produtoService = inject(ProdutoService);
@@ -38,5 +39,13 @@ export class ProdutodetailsComponent {
       this.produto.tipo = tipo;
       this.modalRef.close();
     });
+  }
+
+  desativar() {
+    this.produto.ativo = false;
+  }
+
+  ativar() {
+    this.produto.ativo = true;
   }
 }

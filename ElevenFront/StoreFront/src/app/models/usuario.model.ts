@@ -1,4 +1,6 @@
 export class Usuario{
-    login!: String;
-    senha!: String;
+    id!: number;
+    username!: string;
+    role!: string;
+    token!: string;
 }

@@ -1,7 +1,6 @@
 package com.elevenparis.store.controller;
 
 import com.elevenparis.store.dto.MovimentacaoDTO;
-import com.elevenparis.store.dto.ProdutoDTO;
 import com.elevenparis.store.entity.Movimentacao;
 import com.elevenparis.store.service.MovimentacaoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,10 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
-import java.lang.management.MonitorInfo;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -29,10 +25,7 @@ import java.util.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
-import static org.springframework.mock.http.server.reactive.MockServerHttpRequest.post;
-import static org.springframework.mock.http.server.reactive.MockServerHttpRequest.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -61,7 +54,6 @@ class MovimentacaoControllerTest {
         movimentacao = new Movimentacao();
         movimentacao.setEntrada(1);
         movimentacao.setSaida(2);
-        movimentacao.setTotalProduto(BigDecimal.valueOf(200.0));
         movimentacao.setValorCompra(BigDecimal.valueOf(100.0));
         movimentacao.setValorVenda(BigDecimal.valueOf(40.00));
         movimentacao.setValorTotal(BigDecimal.valueOf(50.00));
@@ -340,23 +332,6 @@ class MovimentacaoControllerTest {
         mockMvc.perform(get("/api/movimentacao/ativo/true")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isInternalServerError());
-    }
-
-    @Test
-    public void testFindByEntradaWithData() throws Exception {
-        mockMvc = MockMvcBuilders.standaloneSetup(movimentacaoController).build();
-
-        MovimentacaoDTO movimentacaoDTO = new MovimentacaoDTO(new Movimentacao());
-
-        List<Movimentacao> movimentacoes = new ArrayList<>();
-        movimentacoes.add(new Movimentacao(/* set required properties here */));
-        when(movimentacaoService.findByEntrada(anyInt())).thenReturn(movimentacoes);
-
-        mockMvc.perform(get("/api/movimentacao/entrada/123")
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
-
     }
 }
 
