@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/tipo")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://172.29.14.73:4200")
 public class TipoController {
 
     private final TipoService tipoService;
