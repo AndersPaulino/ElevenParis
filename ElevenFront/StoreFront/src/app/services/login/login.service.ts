@@ -7,12 +7,13 @@ import { jwtDecode,JwtPayload } from 'jwt-decode';
 
 
 
+
 @Injectable({
   providedIn: 'root'
 })
-export class LoginService {
+export class LoginService  {
 
-  API: string = 'http://localhost:8080/api/login';
+  API: string = '192.168.56.104:8080/api/login';
   http = inject(HttpClient);
 
   constructor() { }
