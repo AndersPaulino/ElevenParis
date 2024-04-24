@@ -27,7 +27,7 @@ describe('CadastroService', () => {
       expect(user).toEqual(mockUser); // Verifica se o usuário retornado é o mesmo que foi enviado
     });
 
-    const req = httpTestingController.expectOne('http://localhost:8080/api/users');
+    const req = httpTestingController.expectOne('http://192.168.4.157:8080/api/users');
     expect(req.request.method).toEqual('POST'); // Verifica se a solicitação é um POST
 
     req.flush(mockUser); // Simula a resposta da API com os dados do usuário mockado

@@ -36,7 +36,7 @@ describe('EstoqueService', () => {
       expect(estoques).toEqual(mockEstoques);
     });
 
-    const req = httpMock.expectOne('http://localhost:8080/api/estoque');
+    const req = httpMock.expectOne('http://192.168.4.157:8080/api/estoque');
     expect(req.request.method).toBe('GET');
     req.flush(mockEstoques);
   });
@@ -48,7 +48,7 @@ describe('EstoqueService', () => {
       expect(estoque).toEqual(mockEstoque);
     });
 
-    const req = httpMock.expectOne('http://localhost:8080/api/estoque/1');
+    const req = httpMock.expectOne('http://192.168.4.157:8080/api/estoque/1');
     expect(req.request.method).toBe('GET');
     req.flush(mockEstoque);
   });
@@ -60,7 +60,7 @@ describe('EstoqueService', () => {
       expect(response).toBe('Registro cadastrado com sucesso!');
     });
   
-    const req = httpMock.expectOne('http://localhost:8080/api/estoque');
+    const req = httpMock.expectOne('http://192.168.4.157:8080/api/estoque');
     expect(req.request.method).toBe('POST');
     req.flush('Registro cadastrado com sucesso!');
   });
@@ -74,7 +74,7 @@ describe('EstoqueService', () => {
       expect(response).toBe('Registro atualizado com sucesso!');
     });
 
-    const req = httpMock.expectOne('http://localhost:8080/api/estoque/nome/1');
+    const req = httpMock.expectOne('http://192.168.4.157:8080/api/estoque/nome/1');
     expect(req.request.method).toBe('PUT');
     req.flush('Registro atualizado com sucesso!');
   });
