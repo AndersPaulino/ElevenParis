@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/estoque")
-@CrossOrigin(origins = "http://172.29.14.73:4200")
+@CrossOrigin(origins = "http://172.22.90.211:4200")
 public class EstoqueController {
 
     private EstoqueService estoqueService;
