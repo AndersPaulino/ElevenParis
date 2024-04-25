@@ -9,7 +9,7 @@ import { Cadastro } from "src/app/models/cadastro.model";
 
 })
 export class CadastroService {
-    API: string = 'http://172.22.89.72:8080/api/users';
+    API: string = 'http://172.21.132.206:8080/api/users';
     http = inject(HttpClient);
 
     constructor(){}
