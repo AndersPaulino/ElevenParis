@@ -7,7 +7,7 @@ import { Movimentacao } from "../models/movimentacao.model";
     providedIn: 'root'
 })
 export class MovimentacaoService{
-    private API: string = '192.168.92.18:8080/api/movimentacao';
+    private API: string = 'http://192.168.92.18:8080/api/movimentacao';
 
     constructor(private http: HttpClient){}
 
