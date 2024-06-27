@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/movimentacao")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://192.168.43.90:4200")
 public class MovimentacaoController {
     private final MovimentacaoService movimentacaoService;
 

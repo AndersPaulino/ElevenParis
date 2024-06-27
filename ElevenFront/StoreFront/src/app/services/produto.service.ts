@@ -7,7 +7,7 @@ import { Produto } from '../models/produto';
   providedIn: 'root'
 })
 export class ProdutoService {
-  private API: string = 'http://localhost:8080/api/produto';
+  private API: string = 'http://192.168.43.179:8081/api/produto';
 
   constructor(private http: HttpClient) { }
 

@@ -29,7 +29,7 @@ public class LoginService {
                 )
         );
         User user = repository.findByUsername(loginDTO.getUsername()).orElseThrow();
-        var jwtToken = jwtService.generateToken(user);
+        String jwtToken = jwtService.generateToken(user);
 
         return toUserDTO(user, jwtToken);
     }

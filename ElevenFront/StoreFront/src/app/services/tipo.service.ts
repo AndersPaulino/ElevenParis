@@ -7,7 +7,7 @@ import { Tipo } from '../models/tipo';
   providedIn: 'root'
 })
 export class TipoService {
-  private API: string = 'http://localhost:8080/api/tipo';
+  private API: string = 'http://192.168.43.179:8081/api/tipo';
 
   constructor(private http: HttpClient) {}
 

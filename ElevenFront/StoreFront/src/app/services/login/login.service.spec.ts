@@ -33,7 +33,7 @@ describe('LoginService', () => {
       expect(usuario).toEqual(mockUser);
     });
   
-    const req = httpMock.expectOne('http://localhost:8080/api/login');
+    const req = httpMock.expectOne('http://192.168.56.102:8080/api/login');
     expect(req.request.method).toBe('POST');
     req.flush(mockUser); // Simula a resposta do servidor
   });

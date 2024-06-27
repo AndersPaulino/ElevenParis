@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.function.Function;
 
 import com.elevenparis.store.entity.User;
+import lombok.Value;
+import org.springframework.http.*;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.web.client.RestTemplate;
 
 @Service
 public class JwtServiceGenerator {
@@ -37,6 +40,65 @@ public class JwtServiceGenerator {
                 .signWith(getSigningKey(), JwtConfig.ALGORITMO_ASSINATURA)
                 .compact();
     }
+
+
+
+    private String keycloakUrl = "http://192.168.43.87:8080/realms/myrealm";
+
+    private String clientId = "app_elenparis";
+
+    private String grantType = "password";
+
+    private String username = "user_elevenparis";
+
+    private String password = "user";
+
+    public String getTokenFromKeycloak(User userDetails) {
+
+        Map<String, Object> extraClaims = new HashMap<>();
+        extraClaims.put("username", userDetails.getUsername());
+        extraClaims.put("id", userDetails.getId().toString());
+        extraClaims.put("role", userDetails.getRole());
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        String tokenUrl = keycloakUrl + "http://192.168.43.87:8080/realms/master/protocol/openid-connect/token";
+        Map<String, String> params = new HashMap<>();
+        params.put("realm", "your-realm"); // Substitua pelo seu realm
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+        Map<String, String> body = new HashMap<>();
+        body.put("client_id", clientId);
+        body.put("grant_type", grantType);
+        body.put("username", username);
+        body.put("password", password);
+
+        HttpEntity<Map<String, String>> entity = new HttpEntity<>(body, headers);
+
+        ResponseEntity<Map> response = restTemplate.exchange(
+                tokenUrl,
+                HttpMethod.POST,
+                entity,
+                Map.class,
+                params
+        );
+
+        if (response.getStatusCode() == HttpStatus.OK) {
+            Map<String, Object> responseBody = response.getBody();
+            if (responseBody != null) {
+                return (String) responseBody.get("access_token");
+            }
+        }
+
+        throw new RuntimeException("Failed to get token from Keycloak");
+    }
+
+    /*public String generateToken(User userDetails) {
+        return getTokenFromKeycloak(userDetails);
+    } */
+
 
     private Claims extractAllClaims(String token) {
         return Jwts

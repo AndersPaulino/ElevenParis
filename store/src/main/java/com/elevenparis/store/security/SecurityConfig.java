@@ -40,6 +40,7 @@ public class SecurityConfig  {
                         .requestMatchers("/*").permitAll() //permitir o primeiro nível pra rodar o Angular
                         .requestMatchers("/api/login").permitAll()
                         .requestMatchers("/api/users").permitAll()
+                        .requestMatchers("/api/token").permitAll()
                         .anyRequest().authenticated())
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
@@ -54,7 +55,7 @@ public class SecurityConfig  {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://localhost:4200");
+        config.addAllowedOrigin("http://192.168.43.90:4200");
         config.setAllowedHeaders(Arrays.asList(HttpHeaders.AUTHORIZATION,HttpHeaders.CONTENT_TYPE,HttpHeaders.ACCEPT));
         config.setAllowedMethods(Arrays.asList(HttpMethod.GET.name(),HttpMethod.POST.name(),HttpMethod.PUT.name(),HttpMethod.DELETE.name()));
         config.setMaxAge(3600L);
