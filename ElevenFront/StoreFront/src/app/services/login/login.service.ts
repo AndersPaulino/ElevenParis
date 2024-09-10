@@ -12,7 +12,7 @@ import { jwtDecode,JwtPayload } from 'jwt-decode';
 })
 export class LoginService {
 
-  API: string = 'http://172.21.132.50:8080/api/login';
+  API: string = 'http://localhost:8080/api/login';
   http = inject(HttpClient);
 
   constructor() { }

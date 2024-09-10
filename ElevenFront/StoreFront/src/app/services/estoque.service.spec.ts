@@ -36,7 +36,7 @@ describe('EstoqueService', () => {
       expect(estoques).toEqual(mockEstoques);
     });
 
-    const req = httpMock.expectOne('http://192.168.4.157:8080/api/estoque');
+    const req = httpMock.expectOne('http://localhost:8080/api/estoque');
     expect(req.request.method).toBe('GET');
     req.flush(mockEstoques);
   });

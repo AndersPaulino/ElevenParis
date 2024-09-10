@@ -35,7 +35,7 @@ describe('TipoService', () => {
       expect(tipos).toEqual(mockTipos);
     });
 
-    const req = httpMock.expectOne('http://192.168.4.157:8080/api/tipo');
+    const req = httpMock.expectOne('http://localhost:8080/api/tipo');
     expect(req.request.method).toBe('GET');
     req.flush(mockTipos);
   });
@@ -47,7 +47,7 @@ describe('TipoService', () => {
       expect(tipo).toEqual(mockTipo);
     });
 
-    const req = httpMock.expectOne('http://192.168.4.157:8080/api/tipo/1');
+    const req = httpMock.expectOne('http://localhost:8080/api/tipo/1');
     expect(req.request.method).toBe('GET');
     req.flush(mockTipo);
   });
@@ -59,7 +59,7 @@ describe('TipoService', () => {
       expect(tipos).toEqual(mockTipos);
     });
 
-    const req = httpMock.expectOne('http://192.168.4.157:8080/api/tipo/ativo/true');
+    const req = httpMock.expectOne('http://localhost:8080/api/tipo/ativo/true');
     expect(req.request.method).toBe('GET');
     req.flush(mockTipos);
   });
@@ -71,7 +71,7 @@ describe('TipoService', () => {
       expect(response).toBe('Registro cadastrado com sucesso!');
     });
 
-    const req = httpMock.expectOne('http://192.168.4.157:8080/api/tipo');
+    const req = httpMock.expectOne('http://localhost:8080/api/tipo');
     expect(req.request.method).toBe('POST');
     req.flush('Registro cadastrado com sucesso!');
   });
@@ -83,7 +83,7 @@ describe('TipoService', () => {
       expect(response).toBe('Registro atualizado com sucesso!');
     });
 
-    const req = httpMock.expectOne('http://192.168.4.157:8080/api/tipo/nome/1');
+    const req = httpMock.expectOne('http://localhost:8080/api/tipo/nome/1');
     expect(req.request.method).toBe('PUT');
     req.flush('Registro atualizado com sucesso!');
   });
@@ -93,7 +93,7 @@ describe('TipoService', () => {
       expect(response).toBe('Registro desativado com sucesso!');
     });
 
-    const req = httpMock.expectOne('http://192.168.4.157:8080/api/tipo/desativar/1');
+    const req = httpMock.expectOne('http://localhost:8080/api/tipo/desativar/1');
     expect(req.request.method).toBe('DELETE');
     req.flush('Registro desativado com sucesso!');
   });
@@ -107,7 +107,7 @@ describe('TipoService', () => {
       }
     );
 
-    const req = httpMock.expectOne('http://192.168.4.157:8080/api/tipo');
+    const req = httpMock.expectOne('http://localhost:8080/api/tipo');
     req.flush('Internal Server Error', { status: 500, statusText: 'Internal Server Error' });
   });
 
