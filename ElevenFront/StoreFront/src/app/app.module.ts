@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
@@ -21,7 +21,7 @@ import { EstoquedetailsComponent } from './components/estoque/estoquedetails/est
 import { MovimentacaodetailsComponent } from './components/movimentacao/movimentacaodetails/movimentacaodetails.component';
 import { MovimentacaolistComponent } from './components/movimentacao/movimentacaolist/movimentacaolist.component';
 import { EstoquemovimentacaoComponent } from './components/estoque/estoquemovimentacao/estoquemovimentacao.component';
-import { httpInterceptorProviders } from './interceptors/httpinterceptor.service';
+import { AuthInterceptor } from './interceptors/auth.Interceptor';
 
 @NgModule({
   declarations: [
@@ -50,7 +50,7 @@ import { httpInterceptorProviders } from './interceptors/httpinterceptor.service
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [DatePipe, httpInterceptorProviders],
+  providers: [DatePipe,AuthInterceptor],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

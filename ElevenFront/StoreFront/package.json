@@ -24,6 +24,7 @@
     "bootstrap": "^5.3.2",
     "jwt-decode": "^4.0.0",
     "rxjs": "~7.8.0",
+    "store-front": "file:",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
   },

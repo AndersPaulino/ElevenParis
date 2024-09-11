@@ -1,9 +1,7 @@
 package com.elevenparis.store.service;
 
 import com.elevenparis.store.dto.MovimentacaoDTO;
-import com.elevenparis.store.dto.ProdutoDTO;
 import com.elevenparis.store.entity.Movimentacao;
-import com.elevenparis.store.entity.Produto;
 import com.elevenparis.store.repository.MovimentacaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

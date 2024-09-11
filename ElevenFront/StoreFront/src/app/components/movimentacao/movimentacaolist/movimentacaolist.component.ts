@@ -56,7 +56,7 @@ export class MovimentacaolistComponent {
     if (movimentacao.id) {
       this.movimentacaoService.atualizar(movimentacao.id, movimentacao).subscribe(onComplete);
     } else {
-      this.movimentacaoService.cadastar(movimentacao).subscribe(onComplete);
+      this.movimentacaoService.cadastrar(movimentacao).subscribe(onComplete);
     }
   }
 

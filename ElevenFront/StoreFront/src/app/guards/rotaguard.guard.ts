@@ -1,16 +1,21 @@
-import { inject } from '@angular/core';
-import { CanActivateFn, Router } from '@angular/router';
-import { LoginService } from '../services/login/login.service'; 
+import { Injectable } from '@angular/core';
+import { CanActivate, Router } from '@angular/router';
+import { AuthService } from '../services/auth/authservice';
 
-export const rotaguardGuard: CanActivateFn = (route, state) => {
+@Injectable({
+  providedIn: 'root'
+})
+export class Rotaguard implements CanActivate  {
 
-  let loginService = inject(LoginService);
-  let roteador = inject(Router);
+  constructor(private authService: AuthService, private router: Router) {}
 
-  if (loginService.getToken() == null) {
-    roteador.navigate(['/login']);
-    return false;
-  } else {
+  canActivate(): boolean {
+    const token = this.authService.getToken();
+    if (!token) {
+      this.router.navigate(['/login']);
+      return false;
+    }
     return true;
   }
-};
+  
+}

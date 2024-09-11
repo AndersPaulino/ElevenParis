@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Cadastro } from 'src/app/models/cadastro.model';
-import { CadastroService } from 'src/app/services/cadastro/cadastro.service';
+import { AuthService } from 'src/app/services/auth/authservice';
 
 @Component({
   selector: 'app-cadastro',
@@ -9,31 +9,23 @@ import { CadastroService } from 'src/app/services/cadastro/cadastro.service';
   styleUrls: ['./cadastro.component.scss']
 })
 export class CadastroComponent {
-  router = inject(Router);
-  cadastroService = inject(CadastroService);
+  userData = { login: '', password: '', role: 'ADMIN' };  // Adicione outros campos conforme necessário
 
-  cadastro: Cadastro = new Cadastro();
+  constructor(private authService: AuthService, private router: Router) {}
 
-  constructor(){}
+  register() {
+    this.authService.register(this.userData).subscribe({
+      next: (response) => {
+        this.router.navigate(['/login']);  // Redirecionar para a página de login após o registro
+      },
+      error: (err) => {
+        console.error('Erro no registro', err);
+      }
+    });
+  }
 
   logar(){
     this.router.navigate(["/login"]);
   }
   
-  cadastrar() {
-    this.cadastroService.cadastrar(this.cadastro).subscribe(
-      (response: any) => {
-        console.log(response.message);
-        alert(response.message);
-        this.limparFormulario();
-        this.router.navigate(['/cadastro']);
-      
-      },
-    );
-  }
-
-
-  limparFormulario() {
-    this.cadastro = new Cadastro();
-  }
 }

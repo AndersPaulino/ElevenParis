@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Login } from 'src/app/models/login.model';
-import { LoginService } from 'src/app/services/login/login.service';
+import { AuthService } from 'src/app/services/auth/authservice';
 
 @Component({
   selector: 'app-login',
@@ -9,25 +9,19 @@ import { LoginService } from 'src/app/services/login/login.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+  credentials = { login: '', password: '' };
 
-  login: Login = new Login();
-  router = inject(Router);
-  loginService = inject(LoginService);
-
-  constructor() {
-    this.loginService.removerToken();
-  }
+  constructor(private authService: AuthService, private router: Router) {}
 
   logar() {
-    this.loginService.logar(this.login).subscribe({
-      next: user => { // QUANDO DÁ CERTO
-        console.log(user);
-        this.loginService.addToken(user.token);
-        this.router.navigate(['/admin/estoque']);
+    this.authService.login(this.credentials).subscribe({
+      next: (response) => {
+        const token = response.token;  // Supondo que o token JWT esteja no campo 'token' da resposta
+        this.authService.saveToken(token);
+        this.router.navigate(['/admin/tipo']);  // Redirecionar para a página desejada após o login
       },
-      error: erro => { // QUANDO DÁ ERRO
-        alert('Exemplo de tratamento de erro/exception! Observe o erro no console!');
-        console.error(erro);
+      error: (err) => {
+        console.error('Erro no login', err);
       }
     });
   }

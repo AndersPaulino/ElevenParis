@@ -1,8 +1,8 @@
 <section id="section-login">
     <h1 id="h1_titulo">ELEVEN</h1>
     <form>
-        <input type="text" name="login" placeholder="Digite seu Username..." [(ngModel)]="login.username" />
-        <input type="password" name="senha" placeholder="Digite sua Senha..." [(ngModel)]="login.password" />
+        <input type="text" name="login" placeholder="Digite seu Username..." [(ngModel)]="credentials.login" />
+        <input type="password" name="senha" placeholder="Digite sua Senha..." [(ngModel)]="credentials.password" />
         <hr />
         <button type="button" (click)="logar()">Login</button>
         <button type="button" (click)="cadastro()">Cadastrar</button>
