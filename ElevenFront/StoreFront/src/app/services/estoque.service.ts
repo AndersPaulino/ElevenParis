@@ -2,12 +2,13 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Estoque } from "../models/estoque.model";
+import { environment } from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class EstoqueService {
-    private API: string = 'http://localhost:8080/api/estoque';
+    API = environment.apiUrl+'estoque';
 
     constructor(private http: HttpClient) { }
 

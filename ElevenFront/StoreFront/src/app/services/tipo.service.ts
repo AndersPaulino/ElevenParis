@@ -3,12 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Tipo } from '../models/tipo';
 import { HttpHeaders } from '@angular/common/http';
-
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class TipoService {
-  private API: string = 'http://localhost:8080/api/tipo';
+  API = environment.apiUrl+'tipo';
 
   constructor(private http: HttpClient) {}
 

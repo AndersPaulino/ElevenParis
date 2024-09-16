@@ -49,6 +49,6 @@ public class AuthenticationController {
         User newuser = new User(data.login(),encryptedPassword,data.role());
 
         this.repository.save(newuser);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok("User registered successfully");
     }
 }

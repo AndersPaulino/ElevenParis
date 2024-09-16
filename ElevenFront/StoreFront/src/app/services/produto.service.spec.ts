@@ -41,7 +41,7 @@ describe('ProdutoService', () => {
       expect(produto).toEqual(mockProduto);
     });
 
-    const req = httpMock.expectOne('http://localhost:8080/api/produto/1');
+    const req = httpMock.expectOne('http://192.168.56.103:8080/api/produto/1');
     expect(req.request.method).toBe('GET');
     req.flush(mockProduto);
   });
@@ -74,7 +74,7 @@ describe('ProdutoService', () => {
       expect(produtos).toEqual(mockProdutos);
     });
 
-    const req = httpMock.expectOne('http://localhost:8080/api/produto');
+    const req = httpMock.expectOne('http://192.168.56.103:8080/api/produto');
     expect(req.request.method).toBe('GET');
     req.flush(mockProdutos);
   });
@@ -95,7 +95,7 @@ describe('ProdutoService', () => {
       expect(produto).toEqual(mockProduto);
     });
 
-    const req = httpMock.expectOne('http://localhost:8080/api/produto/nome/Produto1');
+    const req = httpMock.expectOne('http://192.168.56.103:8080/api/produto/nome/Produto1');
     expect(req.request.method).toBe('GET');
     req.flush(mockProduto);
   });
@@ -118,7 +118,7 @@ describe('ProdutoService', () => {
       expect(produtos).toEqual(mockProdutos);
     });
 
-    const req = httpMock.expectOne('http://localhost:8080/api/produto/ativo/true');
+    const req = httpMock.expectOne('http://192.168.56.103:8080/api/produto/ativo/true');
     expect(req.request.method).toBe('GET');
     req.flush(mockProdutos);
   });
@@ -141,7 +141,7 @@ describe('ProdutoService', () => {
       expect(produtos).toEqual(mockProdutos);
     });
 
-    const req = httpMock.expectOne('http://localhost:8080/api/produto/registro/dia/2023-12-01');
+    const req = httpMock.expectOne('http://192.168.56.103:8080/api/produto/registro/dia/2023-12-01');
     expect(req.request.method).toBe('GET');
     req.flush(mockProdutos);
   });
@@ -164,7 +164,7 @@ describe('ProdutoService', () => {
       expect(produtos).toEqual(mockProdutos);
     });
 
-    const req = httpMock.expectOne('http://localhost:8080/api/produto/atualizar/dia/2023-12-01');
+    const req = httpMock.expectOne('http://192.168.56.103:8080/api/produto/atualizar/dia/2023-12-01');
     expect(req.request.method).toBe('GET');
     req.flush(mockProdutos);
   });
@@ -185,7 +185,7 @@ describe('ProdutoService', () => {
       expect(response).toBe('Registro cadastrado com sucesso!');
     });
 
-    const req = httpMock.expectOne('http://localhost:8080/api/produto');
+    const req = httpMock.expectOne('http://192.168.56.103:8080/api/produto');
     expect(req.request.method).toBe('POST');
     req.flush('Registro cadastrado com sucesso!');
   });
@@ -206,7 +206,7 @@ describe('ProdutoService', () => {
       expect(response).toBe('Registro atualizado com sucesso!');
     });
 
-    const req = httpMock.expectOne('http://localhost:8080/api/produto/nome/1');
+    const req = httpMock.expectOne('http://192.168.56.103:8080/api/produto/nome/1');
     expect(req.request.method).toBe('PUT');
     req.flush('Registro atualizado com sucesso!');
   });
@@ -216,7 +216,7 @@ describe('ProdutoService', () => {
       expect(response).toBe('Registro desativado com sucesso!');
     });
 
-    const req = httpMock.expectOne('http://localhost:8080/api/produto/desativar/1');
+    const req = httpMock.expectOne('http://192.168.56.103:8080/api/produto/desativar/1');
     expect(req.request.method).toBe('DELETE');
     req.flush('Registro desativado com sucesso!');
   });
@@ -230,7 +230,7 @@ describe('ProdutoService', () => {
       }
     );
 
-    const req = httpMock.expectOne('http://localhost:8080/api/produto/1');
+    const req = httpMock.expectOne('http://192.168.56.103:8080/api/produto/1');
     req.flush('Internal Server Error', { status: 500, statusText: 'Internal Server Error' });
   });
 

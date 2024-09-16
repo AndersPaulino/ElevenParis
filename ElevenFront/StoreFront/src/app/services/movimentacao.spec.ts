@@ -56,7 +56,7 @@ describe('MovimentacaoService', () => {
       expect(movimentacoes).toEqual(mockMovimentacoes);
     });
 
-    const req = httpMock.expectOne('http://localhost:8080/api/movimentacao');
+    const req = httpMock.expectOne('http://192.168.56.103:8080/api/movimentacao');
     expect(req.request.method).toBe('GET');
     req.flush(mockMovimentacoes);
   });
@@ -89,7 +89,7 @@ describe('MovimentacaoService', () => {
         expect(response).toBe('Registro cadastrado com sucesso!');
       });
 
-    const req = httpMock.expectOne('http://localhost:8080/api/movimentacao');
+    const req = httpMock.expectOne('http://192.168.56.103:8080/api/movimentacao');
     expect(req.request.method).toBe('POST');
     req.flush('Registro cadastrado com sucesso!');
   });
@@ -122,7 +122,7 @@ describe('MovimentacaoService', () => {
       expect(response).toBe('Registro atualizado com sucesso!');
     });
 
-    const req = httpMock.expectOne('http://localhost:8080/api/movimentacao/atualizar/1');
+    const req = httpMock.expectOne('http://192.168.56.103:8080/api/movimentacao/atualizar/1');
     expect(req.request.method).toBe('PUT');
     req.flush('Registro atualizado com sucesso!');
   });
