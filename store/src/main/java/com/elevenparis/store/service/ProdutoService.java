@@ -1,7 +1,9 @@
 package com.elevenparis.store.service;
 
+import com.elevenparis.store.auditing.Audit;
 import com.elevenparis.store.dto.ProdutoDTO;
 import com.elevenparis.store.entity.Produto;
+import com.elevenparis.store.repository.AuditRepository;
 import com.elevenparis.store.repository.ProdutoRepository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,8 +19,13 @@ public class ProdutoService {
 
     private ProdutoRepository produtoRepository;
 
+    private AuditRepository auditRepository;
+
     @Autowired
-    public ProdutoService(ProdutoRepository produtoRepository){this.produtoRepository = produtoRepository;}
+    public ProdutoService(ProdutoRepository produtoRepository, AuditRepository auditRepository){
+        this.produtoRepository = produtoRepository;
+        this.auditRepository = auditRepository;
+    }
 
     @Transactional(readOnly = true)
     public Optional<ProdutoDTO> findById(Long id){ return produtoRepository.findById(id).map(ProdutoDTO::new);}
@@ -74,6 +81,13 @@ public class ProdutoService {
     @Transactional(rollbackFor = Exception.class)
     public void cadastrar(Produto produto){
         validarProduto(produto);
+
+        Audit audit = new Audit();
+        audit.setOperation("CREATE_PRODUTO");
+        audit.setCreatedBy(audit.getCreatedBy());
+        audit.setCreateDate(audit.getCreateDate());
+        auditRepository.save(audit);
+
         produtoRepository.save(produto);
     }
 
@@ -96,6 +110,13 @@ public class ProdutoService {
                 produtoExistente.setDescricao(produto.getDescricao());
             }
             produtoExistente.setAtivo(produto.isAtivo());
+
+            Audit audit = new Audit();
+            audit.setOperation("INSERT_PRODUTO");
+            audit.setCreatedBy(audit.getCreatedBy());
+            audit.setCreateDate(audit.getCreateDate());
+            auditRepository.save(audit);
+
             produtoRepository.save(produtoExistente);
         } else {
             throw new IllegalArgumentException("ID Inválido!");
@@ -109,6 +130,13 @@ public class ProdutoService {
 
         if (produtoExistenteOptional.isPresent()){
             Produto produtoExistente = produtoExistenteOptional.get();
+
+            Audit audit = new Audit();
+            audit.setOperation("DELETE_PRODUTO");
+            audit.setCreatedBy(audit.getCreatedBy());
+            audit.setCreateDate(audit.getCreateDate());
+            auditRepository.save(audit);
+
             produtoExistente.setAtivo(false);
         } else {
             throw new IllegalArgumentException("ID Invalido");

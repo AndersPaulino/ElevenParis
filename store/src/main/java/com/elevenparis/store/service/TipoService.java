@@ -1,7 +1,9 @@
 package com.elevenparis.store.service;
 
+import com.elevenparis.store.auditing.Audit;
 import com.elevenparis.store.dto.TipoDTO;
 import com.elevenparis.store.entity.Tipo;
+import com.elevenparis.store.repository.AuditRepository;
 import com.elevenparis.store.repository.TipoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,10 +17,12 @@ import java.util.Optional;
 public class TipoService {
 
     private TipoRepository tipoRepository;
+    private AuditRepository auditRepository;
 
     @Autowired
-    public TipoService(TipoRepository tipoRepository){
+    public TipoService(TipoRepository tipoRepository, AuditRepository auditRepository){
         this.tipoRepository = tipoRepository;
+        this.auditRepository = auditRepository;
     }
 
     @Transactional(readOnly = true)
@@ -52,6 +56,13 @@ public class TipoService {
     @Transactional(rollbackFor = Exception.class)
     public void cadastrar(Tipo tipo){
         validarTipo(tipo);
+
+        Audit audit = new Audit();
+        audit.setOperation("CREATE_TIPO");
+        audit.setCreatedBy(audit.getCreatedBy());
+        audit.setCreateDate(audit.getCreateDate());
+        auditRepository.save(audit);
+
         tipoRepository.save(tipo);
     }
 
@@ -64,6 +75,13 @@ public class TipoService {
             Tipo tipoExistente = tipoOptional.get();
             tipoExistente.setAtivo(tipo.isAtivo());
             tipoExistente.setNameTipo(tipo.getNameTipo());
+
+            Audit audit = new Audit();
+            audit.setOperation("INSERT_TIPO");
+            audit.setCreatedBy(audit.getCreatedBy());
+            audit.setCreateDate(audit.getCreateDate());
+            auditRepository.save(audit);
+
             tipoRepository.save(tipoExistente);
         } else {
             throw new IllegalArgumentException("ID de tipo inválido!");
@@ -77,6 +95,13 @@ public class TipoService {
 
         if (tipoOptional.isPresent()){
             Tipo tipo = tipoOptional.get();
+
+            Audit audit = new Audit();
+            audit.setOperation("DELETE_TIPO");
+            audit.setCreatedBy(audit.getCreatedBy());
+            audit.setCreateDate(audit.getCreateDate());
+            auditRepository.save(audit);
+
             tipo.setAtivo(false);
         } else{
             throw new IllegalArgumentException("ID de tipo inválido!");
