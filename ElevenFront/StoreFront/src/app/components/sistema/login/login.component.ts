@@ -18,7 +18,7 @@ export class LoginComponent {
       next: (response) => {
         const token = response.token;  // Supondo que o token JWT esteja no campo 'token' da resposta
         this.authService.saveToken(token);
-        this.router.navigate(['/admin/menu']);  // Redirecionar para a página desejada após o login
+        this.router.navigate(['/admin/estoque']);  // Redirecionar para a página desejada após o login
       },
       error: (err) => {
         console.error('Erro no login', err);

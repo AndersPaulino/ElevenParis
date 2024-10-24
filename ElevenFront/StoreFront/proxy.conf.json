@@ -1,6 +1,6 @@
 {
     "/api": {
-      "target": "http://192.168.56.103:8080",
+      "target": "https://192.168.56.103:8443",
       "secure": false,
       "changeOrigin": true
     }
