@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,15 +23,18 @@ public class TipoController {
         this.tipoService = tipoService;
     }
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<TipoDTO> findById(@PathVariable Long id){
         return tipoService.findById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<TipoDTO>> findAll(){
         List<TipoDTO> tipoDTOS = tipoService.findAll();
         return ResponseEntity.ok(tipoDTOS);
     }
     @GetMapping("ativo/{ativo}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<TipoDTO>> findByAtivo(@PathVariable boolean ativo) {
         try {
             List<TipoDTO> tipoDTO = tipoService.findByAtivo(ativo);
@@ -45,6 +49,7 @@ public class TipoController {
         }
     }
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> cadastrar(@RequestBody Tipo tipo) {
         try {
             tipoService.cadastrar(tipo);
@@ -54,6 +59,7 @@ public class TipoController {
         }
     }
     @PutMapping("/nome/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> atualizar(@PathVariable @NotNull Long id, @RequestBody Tipo tipo) {
         try {
             tipoService.atualizar(id, tipo);
@@ -65,6 +71,7 @@ public class TipoController {
         }
     }
     @DeleteMapping("/desativar/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> deletar(@PathVariable Long id) {
         try {
             tipoService.deletar(id);

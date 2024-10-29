@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -24,6 +25,7 @@ public class EstoqueController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<EstoqueDTO> findById(@PathVariable Long id) {
         return estoqueService.findById(id)
                 .map(ResponseEntity::ok)
@@ -31,12 +33,14 @@ public class EstoqueController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<EstoqueDTO>> findAll() {
         List<EstoqueDTO> estoqueDTO = estoqueService.findAll();
         return ResponseEntity.ok(estoqueDTO);
     }
 
     @GetMapping("/nome/{nomeEstoque}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<EstoqueDTO> findByNomeEstoque(@PathVariable String nomeEstoque){
         try {
             EstoqueDTO estoqueDTO = estoqueService.findByNomeEstoque(nomeEstoque);
@@ -52,6 +56,7 @@ public class EstoqueController {
     }
 
     @GetMapping("ativo/{ativo}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<EstoqueDTO>> findByAtivo(@PathVariable boolean ativo) {
         try {
             List<EstoqueDTO> estoqueDTO = estoqueService.findByAtivo(ativo);
@@ -67,6 +72,7 @@ public class EstoqueController {
     }
 
     @GetMapping("registro/dia/{registro}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<EstoqueDTO>> findByDiaRegistro(@PathVariable("registro") LocalDate registro) {
         try {
             List<EstoqueDTO> estoqueDTO = estoqueService.findByDiaRegistro(registro);
@@ -82,6 +88,7 @@ public class EstoqueController {
     }
 
     @GetMapping("atualizar/dia/{atualizar}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<EstoqueDTO>> findByDiaAtualizar(@PathVariable("atualizar") LocalDate atualizar) {
         try {
             List<EstoqueDTO> estoqueDTO = estoqueService.findByDiaAtualizar(atualizar);
@@ -97,6 +104,7 @@ public class EstoqueController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> cadastrar(@RequestBody Estoque estoque) {
         try {
             estoqueService.cadastrar(estoque);
@@ -106,6 +114,7 @@ public class EstoqueController {
         }
     }
     @PutMapping("/nome/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> atualizar(@PathVariable @NotNull Long id, @RequestBody Estoque estoque) {
         try {
             estoqueService.atualizar(id, estoque);
@@ -117,6 +126,7 @@ public class EstoqueController {
         }
     }
     @DeleteMapping("/desativar/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> deletar(@PathVariable Long id) {
         try {
             estoqueService.deletar(id);

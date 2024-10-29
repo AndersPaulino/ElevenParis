@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -25,6 +26,7 @@ public class ProdutoController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ProdutoDTO> findById(@PathVariable Long id) {
         return produtoService.findById(id)
                 .map(ResponseEntity::ok)
@@ -32,12 +34,14 @@ public class ProdutoController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<ProdutoDTO>> findAll() {
         List<ProdutoDTO> produtoDTO = produtoService.findAll();
         return ResponseEntity.ok(produtoDTO);
     }
 
     @GetMapping("/nome/{nome}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ProdutoDTO> findByNomeProduto(@PathVariable String nome) {
         try {
             ProdutoDTO produtoDTO = produtoService.findByNome(nome);
@@ -52,6 +56,7 @@ public class ProdutoController {
         }
     }
     @GetMapping("ativo/{ativo}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<ProdutoDTO>> findByAtivo(@PathVariable boolean ativo) {
         try {
             List<ProdutoDTO> produtoDTO = produtoService.findByAtivo(ativo);
@@ -67,6 +72,7 @@ public class ProdutoController {
     }
 
     @GetMapping("registro/dia/{registro}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<ProdutoDTO>> findByDiaRegistro(@PathVariable("registro") LocalDate registro) {
         try {
             List<ProdutoDTO> produtoDTO = produtoService.findByDiaRegistro(registro);
@@ -82,6 +88,7 @@ public class ProdutoController {
     }
 
     @GetMapping("atualizar/dia/{atualizar}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<ProdutoDTO>> findByDiaAtualizar(@PathVariable("atualizar") LocalDate atualizar) {
         try {
             List<ProdutoDTO> produtoDTO = produtoService.findByDiaAtualizar(atualizar);
@@ -97,6 +104,7 @@ public class ProdutoController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> cadastrar(@RequestBody Produto produto) {
         try {
             produtoService.cadastrar(produto);
@@ -106,6 +114,7 @@ public class ProdutoController {
         }
     }
     @PutMapping("/nome/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> atualizar(@PathVariable @NotNull Long id, @RequestBody Produto produto) {
         try {
             produtoService.atualizar(id, produto);
@@ -118,6 +127,7 @@ public class ProdutoController {
     }
 
     @DeleteMapping("/desativar/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> deletar(@PathVariable Long id) {
         try {
             produtoService.deletar(id);

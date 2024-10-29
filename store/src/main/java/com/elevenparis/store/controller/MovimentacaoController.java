@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -21,6 +22,7 @@ public class MovimentacaoController {
     public MovimentacaoController(MovimentacaoService movimentacaoService) {this.movimentacaoService = movimentacaoService;}
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<MovimentacaoDTO> findById(@PathVariable Long id){
         return movimentacaoService.findById(id)
                 .map(ResponseEntity::ok)
@@ -28,12 +30,14 @@ public class MovimentacaoController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<MovimentacaoDTO>> findAll() {
         List<MovimentacaoDTO> movimentacaoDTO = movimentacaoService.findAll();
         return ResponseEntity.ok(movimentacaoDTO);
     }
 
     @GetMapping("ativo/{ativo}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<MovimentacaoDTO>> findByAtivo(@PathVariable boolean ativo) {
         try {
             List<MovimentacaoDTO> movimentacaoDTO = movimentacaoService.findByAtivo(ativo);
@@ -49,6 +53,7 @@ public class MovimentacaoController {
     }
 
     @GetMapping("registro/dia/{registro}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<MovimentacaoDTO>> findByDiaRegistro(@PathVariable("registro") LocalDate registro) {
         try {
             List<MovimentacaoDTO> movimentacaoDTO = movimentacaoService.findByDiaRegistro(registro);
@@ -64,6 +69,7 @@ public class MovimentacaoController {
     }
 
     @GetMapping("atualizar/dia/{atualizar}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<MovimentacaoDTO>> findByDiaAtualizar(@PathVariable("atualizar") LocalDate atualizar) {
         try {
             List<MovimentacaoDTO> movimentacaoDTOS = movimentacaoService.findByDiaAtualizar(atualizar);
@@ -79,6 +85,7 @@ public class MovimentacaoController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> cadastrar(@RequestBody Movimentacao movimentacao) {
         try {
             movimentacaoService.cadastrar(movimentacao);
@@ -89,6 +96,7 @@ public class MovimentacaoController {
     }
 
     @PutMapping("/atualizar/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> atualizar(@PathVariable @NotNull Long id, @RequestBody Movimentacao movimentacao) {
         try {
             movimentacaoService.atualizar(id, movimentacao);
@@ -101,6 +109,7 @@ public class MovimentacaoController {
     }
 
     @DeleteMapping("/desativar/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> deletar(@PathVariable Long id) {
         try {
             movimentacaoService.deletar(id);
