@@ -3,17 +3,10 @@ package com.elevenparis.store.controller;
 
 import com.elevenparis.store.dto.AuthenticationDTO;
 import com.elevenparis.store.dto.RegisterDTO;
-import com.elevenparis.store.entity.User;
-import com.elevenparis.store.repository.UserRepository;
-import com.elevenparis.store.security.TokenService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.springframework.http.*;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,17 +19,8 @@ import org.springframework.web.client.RestTemplate;
 @RequestMapping("/api/auth")
 public class AuthenticationController {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
-    @Autowired
-    private TokenService tokenService;
-
-    @Autowired
-    private UserRepository repository;
-
     @PostMapping("/login")
-    public ResponseEntity loginK(@RequestBody @Valid AuthenticationDTO data){
+    public ResponseEntity<String> login(@RequestBody AuthenticationDTO data){
         HttpHeaders headers = new HttpHeaders();
         RestTemplate rt = new RestTemplate();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
@@ -53,25 +37,48 @@ public class AuthenticationController {
 
         return result;
     }
-/*
-    @PostMapping("/login")
-    public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data){
-        var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(),data.password());
-        var auth = this.authenticationManager.authenticate(usernamePassword);
 
-        var token = tokenService.generateToken((User) auth.getPrincipal());
-
-        return ResponseEntity.ok(new LoginResponseDTO(token));
-    }
-*/
     @PostMapping("/register")
-    public ResponseEntity register(@RequestBody @Valid RegisterDTO data){
-        if(this.repository.findByLogin(data.login()) != null) return ResponseEntity.badRequest().build();
+    public ResponseEntity<String> register(@RequestBody @Valid RegisterDTO data) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.setBearerAuth("eyJhbGciOiJIUzUxMiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI2ZDJlYjg2Yy1iMjk0LTQzZjUtOWIwZC1kZmUxMTM3ZjYyMWIifQ.eyJleHAiOjAsImlhdCI6MTczMDI2MDg2NiwianRpIjoiZGU1NTY2NzUtNWYyNy00MDJhLThjNjktMmU4ZTM2ODliMDk0IiwiaXNzIjoiaHR0cDovLzE5Mi4xNjguNTYuMTA2OjgwODAvcmVhbG1zL2VsZXZlbiIsImF1ZCI6Imh0dHA6Ly8xOTIuMTY4LjU2LjEwNjo4MDgwL3JlYWxtcy9lbGV2ZW4iLCJ0eXAiOiJSZWdpc3RyYXRpb25BY2Nlc3NUb2tlbiIsInJlZ2lzdHJhdGlvbl9hdXRoIjoiYXV0aGVudGljYXRlZCJ9.IJr0vb3D2yBlXxTynRYMtNnTx9tTvZmDcIw2_aQQebL-CUpsG-GeF-6QjEvpa2QSlCQtlCJavdNRtQRz1qQemA"); // Substitua pelo token apropriado
 
-        String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
-        User newuser = new User(data.login(),encryptedPassword,data.role());
+        try {
+            // Criar o objeto JSON para o novo usuário
+            JSONObject userJson = new JSONObject();
+            userJson.put("username", data.username());
+            userJson.put("enabled", true);
 
-        this.repository.save(newuser);
-        return ResponseEntity.ok("User registered successfully");
+            JSONObject credentialsJson = new JSONObject();
+            credentialsJson.put("type", "password");
+            credentialsJson.put("value", data.password());
+            credentialsJson.put("temporary", false);
+            userJson.put("credentials", new JSONArray().put(credentialsJson));
+
+            // Criar a entidade com os dados JSON e os cabeçalhos
+            HttpEntity<String> entity = new HttpEntity<>(userJson.toString(), headers);
+            RestTemplate restTemplate = new RestTemplate();
+
+            // Enviar a solicitação POST para criar o usuário no Keycloak
+            ResponseEntity<String> response = restTemplate.postForEntity(
+                    "http://192.168.56.106:8080/admin/realms/eleven/users",
+                    entity,
+                    String.class
+            );
+
+            if (response.getStatusCode().is2xxSuccessful()) {
+                return ResponseEntity.ok("User registered successfully");
+            } else {
+                return ResponseEntity.status(response.getStatusCode()).body("Error: " + response.getBody());
+            }
+
+        } catch (org.json.JSONException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("JSON Error: " + e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("User registration failed: " + e.getMessage());
+        }
     }
+
+
 }
