@@ -1,9 +1,7 @@
 package com.elevenparis.store.service;
 
-import com.elevenparis.store.auditing.Audit;
 import com.elevenparis.store.dto.MovimentacaoDTO;
 import com.elevenparis.store.entity.Movimentacao;
-import com.elevenparis.store.repository.AuditRepository;
 import com.elevenparis.store.repository.MovimentacaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,12 +17,10 @@ import java.util.stream.Collectors;
 @Service
 public class MovimentacaoService {
     private final MovimentacaoRepository movimentacaoRepository;
-    private AuditRepository auditRepository;
 
     @Autowired
-    public MovimentacaoService(MovimentacaoRepository movimentacaoRepository,AuditRepository auditRepository){
+    public MovimentacaoService(MovimentacaoRepository movimentacaoRepository){
         this.movimentacaoRepository = movimentacaoRepository;
-        this.auditRepository = auditRepository;
     }
 
     @Transactional(readOnly = true)
@@ -78,12 +74,6 @@ public class MovimentacaoService {
 
         movimentacao.setTotalProduto(movimentacao.getEntrada() - movimentacao.getSaida());
 
-        Audit audit = new Audit();
-        audit.setOperation("CREATE_MOVIMENTACAO");
-        audit.setCreatedBy(audit.getCreatedBy());
-        audit.setCreateDate(audit.getCreateDate());
-        auditRepository.save(audit);
-
         movimentacaoRepository.save(movimentacao);
     }
 
@@ -118,12 +108,6 @@ public class MovimentacaoService {
 
             movimentacaoExistente.setTotalProduto(movimentacao.getEntrada() - movimentacao.getSaida());
 
-            Audit audit = new Audit();
-            audit.setOperation("INSERT_MOVIMENTACAO");
-            audit.setCreatedBy(audit.getCreatedBy());
-            audit.setCreateDate(audit.getCreateDate());
-            auditRepository.save(audit);
-
             movimentacaoRepository.save(movimentacaoExistente);
         } else {
             throw new IllegalArgumentException("ID Inválido!");
@@ -150,12 +134,6 @@ public class MovimentacaoService {
 
         if (movimentacaoExistenteOptional.isPresent()){
             Movimentacao movimentacaoExistente = movimentacaoExistenteOptional.get();
-
-            Audit audit = new Audit();
-            audit.setOperation("DELETE_MOVIMENTACAO");
-            audit.setCreatedBy(audit.getCreatedBy());
-            audit.setCreateDate(audit.getCreateDate());
-            auditRepository.save(audit);
 
             movimentacaoExistente.setAtivo(false);
         } else {

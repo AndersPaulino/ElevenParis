@@ -1,9 +1,7 @@
 package com.elevenparis.store.service;
 
-import com.elevenparis.store.auditing.Audit;
 import com.elevenparis.store.dto.EstoqueDTO;
 import com.elevenparis.store.entity.Estoque;
-import com.elevenparis.store.repository.AuditRepository;
 import com.elevenparis.store.repository.EstoqueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,12 +17,10 @@ import java.util.Optional;
 public class EstoqueService {
 
     private EstoqueRepository estoqueRepository;
-    private AuditRepository auditRepository;
 
     @Autowired
-    public EstoqueService(EstoqueRepository estoqueRepository, AuditRepository auditRepository){
+    public EstoqueService(EstoqueRepository estoqueRepository){
         this.estoqueRepository = estoqueRepository;
-        this.auditRepository = auditRepository;
     }
 
     @Transactional(readOnly = true)
@@ -89,12 +85,6 @@ public class EstoqueService {
     public void cadastrar(Estoque estoque) {
         validarEstoque(estoque);
 
-        Audit audit = new Audit();
-        audit.setOperation("CREATE_ESTOQUE");
-        audit.setCreatedBy(audit.getCreatedBy());
-        audit.setCreateDate(audit.getCreateDate());
-        auditRepository.save(audit);
-
         estoqueRepository.save(estoque);
     }
 
@@ -117,12 +107,6 @@ public class EstoqueService {
             }
             estoqueExistente.setAtualizar(LocalDateTime.now());
 
-            Audit audit = new Audit();
-            audit.setOperation("INSERT_ESTOQUE");
-            audit.setCreatedBy(audit.getCreatedBy());
-            audit.setCreateDate(audit.getCreateDate());
-            auditRepository.save(audit);
-
             estoqueRepository.save(estoqueExistente); // Salvar o estoque atualizado
         } else {
             throw new IllegalArgumentException("ID de estoque inválido!");
@@ -138,12 +122,6 @@ public class EstoqueService {
 
         if (estoqueExistenteOptional.isPresent()) {
             Estoque estoqueExistente = estoqueExistenteOptional.get();
-
-            Audit audit = new Audit();
-            audit.setOperation("DELETE_ESTOQUE");
-            audit.setCreatedBy(audit.getCreatedBy());
-            audit.setCreateDate(audit.getCreateDate());
-            auditRepository.save(audit);
 
             estoqueExistente.setAtivo(false);
         } else {

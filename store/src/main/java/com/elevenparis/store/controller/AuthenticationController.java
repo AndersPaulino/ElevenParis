@@ -3,9 +3,6 @@ package com.elevenparis.store.controller;
 
 import com.elevenparis.store.dto.AuthenticationDTO;
 import com.elevenparis.store.dto.RegisterDTO;
-import jakarta.validation.Valid;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.http.*;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -14,6 +11,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -39,44 +40,40 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody @Valid RegisterDTO data) {
+    public ResponseEntity<String> register(@RequestBody RegisterDTO data) {
+        // Configurações de cabeçalhos e autenticação
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        headers.setBearerAuth("eyJhbGciOiJIUzUxMiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI2ZDJlYjg2Yy1iMjk0LTQzZjUtOWIwZC1kZmUxMTM3ZjYyMWIifQ.eyJleHAiOjAsImlhdCI6MTczMDI2MDg2NiwianRpIjoiZGU1NTY2NzUtNWYyNy00MDJhLThjNjktMmU4ZTM2ODliMDk0IiwiaXNzIjoiaHR0cDovLzE5Mi4xNjguNTYuMTA2OjgwODAvcmVhbG1zL2VsZXZlbiIsImF1ZCI6Imh0dHA6Ly8xOTIuMTY4LjU2LjEwNjo4MDgwL3JlYWxtcy9lbGV2ZW4iLCJ0eXAiOiJSZWdpc3RyYXRpb25BY2Nlc3NUb2tlbiIsInJlZ2lzdHJhdGlvbl9hdXRoIjoiYXV0aGVudGljYXRlZCJ9.IJr0vb3D2yBlXxTynRYMtNnTx9tTvZmDcIw2_aQQebL-CUpsG-GeF-6QjEvpa2QSlCQtlCJavdNRtQRz1qQemA"); // Substitua pelo token apropriado
 
-        try {
-            // Criar o objeto JSON para o novo usuário
-            JSONObject userJson = new JSONObject();
-            userJson.put("username", data.username());
-            userJson.put("enabled", true);
+        // Criação do JSON para o novo usuário
+        Map<String, Object> userJson = new HashMap<>();
+        userJson.put("username", data.username());
+        userJson.put("enabled", true);
+        userJson.put("email", data.email());
+        userJson.put("attributes", Map.of("role", data.role()));
 
-            JSONObject credentialsJson = new JSONObject();
-            credentialsJson.put("type", "password");
-            credentialsJson.put("value", data.password());
-            credentialsJson.put("temporary", false);
-            userJson.put("credentials", new JSONArray().put(credentialsJson));
+        Map<String, String> credentialsJson = new HashMap<>();
+        credentialsJson.put("type", "password");
+        credentialsJson.put("value", data.password());
+        credentialsJson.put("temporary", "false");
+        userJson.put("credentials", Collections.singletonList(credentialsJson));
 
-            // Criar a entidade com os dados JSON e os cabeçalhos
-            HttpEntity<String> entity = new HttpEntity<>(userJson.toString(), headers);
-            RestTemplate restTemplate = new RestTemplate();
+        // Criação da entidade da requisição com o JSON do usuário
+        HttpEntity<Map<String, Object>> entity = new HttpEntity<>(userJson, headers);
+        RestTemplate restTemplate = new RestTemplate();
 
-            // Enviar a solicitação POST para criar o usuário no Keycloak
-            ResponseEntity<String> response = restTemplate.postForEntity(
-                    "http://192.168.56.106:8080/admin/realms/eleven/users",
-                    entity,
-                    String.class
-            );
+        // Enviar a solicitação POST para o Keycloak
+        ResponseEntity<String> response = restTemplate.postForEntity(
+                "http://192.168.56.106:8080/admin/realms/eleven/users",
+                entity,
+                String.class
+        );
 
-            if (response.getStatusCode().is2xxSuccessful()) {
-                return ResponseEntity.ok("User registered successfully");
-            } else {
-                return ResponseEntity.status(response.getStatusCode()).body("Error: " + response.getBody());
-            }
-
-        } catch (org.json.JSONException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("JSON Error: " + e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("User registration failed: " + e.getMessage());
+        if (response.getStatusCode().is2xxSuccessful()) {
+            return ResponseEntity.ok("User registered successfully");
+        } else {
+            return ResponseEntity.status(response.getStatusCode())
+                    .body("User registration failed: " + response.getBody());
         }
     }
 

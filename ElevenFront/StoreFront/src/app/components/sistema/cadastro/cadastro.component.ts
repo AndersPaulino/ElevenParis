@@ -13,7 +13,7 @@ export class CadastroComponent {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  register() {
+  /*register() {
     this.authService.register(this.userData).subscribe({
       next: (response) => {
         this.router.navigate(['/login']);  // Redirecionar para a página de login após o registro
@@ -23,7 +23,7 @@ export class CadastroComponent {
       }
     });
   }
-
+*/
   logar(){
     this.router.navigate(["/login"]);
   }
