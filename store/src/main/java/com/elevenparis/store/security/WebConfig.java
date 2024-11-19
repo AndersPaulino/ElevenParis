@@ -10,7 +10,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("https://StoreFront.mshome.net","https://192.168.56.103")
+                .allowedOrigins("https://StoreFront.mshome.net","https://192.168.56.103","https://192.168.56.7")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*");
     }

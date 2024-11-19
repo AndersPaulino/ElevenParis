@@ -1,6 +1,6 @@
 {
     "/api": {
-      "target": "https://192.168.56.103:8443",
+      "target": "https://Backend.mshome.net:8443",
       "secure": false,
       "changeOrigin": true
     }

@@ -18,7 +18,6 @@ import org.springframework.stereotype.Component;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 @Aspect
 @Component
@@ -57,13 +56,11 @@ public class AuditAspect {
         Object[] methodArgs = joinPoint.getArgs();
         String action = "Executou o método: " + methodName + " com argumentos: " + Arrays.toString(methodArgs);
 
-        // Declare uma variável final ou efetivamente final para o username
         final String finalUsername = username;
 
-        // Log na saída padrão
         logger.info(() -> "Usuário: " + finalUsername + " executou o método: " + methodName + " com argumentos: " + Arrays.toString(methodArgs));
 
-        // Preparar dados para enviar ao Elasticsearch
+        // Preparar dados para enviar ao Elastic
         Map<String, Object> logData = new HashMap<>();
         logData.put("username", finalUsername);
         logData.put("method", methodName);

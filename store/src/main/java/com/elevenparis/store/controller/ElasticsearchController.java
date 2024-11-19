@@ -25,13 +25,12 @@ public class ElasticsearchController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> indexDocument(@RequestBody Map<String, Object> jsonMap) {
         try {
-            String index = "logs";
+            String index = "log";
             String json = new ObjectMapper().writeValueAsString(jsonMap);
 
             elasticsearchService.indexDocument(index, json);
             return ResponseEntity.ok("Documento indexado com sucesso.");
         } catch (Exception e) {
-            e.printStackTrace();
             return ResponseEntity.status(500).body("Erro ao indexar o documento: " + e.getMessage());
         }
     }

@@ -15,7 +15,7 @@ export class AuthService {
 
   login(credentials: any): Observable<any> {
     return this.http.post(`${this.API_USUARIO}/login`, {
-      clientId: 'store_client',
+      clientId: 'eleven_backend',
       grantType: 'password',
       username: credentials.username,
       password: credentials.password

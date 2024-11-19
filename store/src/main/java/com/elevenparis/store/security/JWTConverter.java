@@ -16,10 +16,10 @@ public class JWTConverter  implements Converter<Jwt, AbstractAuthenticationToken
         // Extrair o campo "resource_access" que contém os papéis associados ao client
         Map<String, Map<String, Collection<String>>> resourceAccess = jwt.getClaim("resource_access");
 
-        // Verificar se há papéis definidos para "store_client"
+        // Verificar se há papéis definidos para "eleven_backend"
         Collection<String> roles = Collections.emptyList();
-        if (resourceAccess != null && resourceAccess.containsKey("store_client")) {
-            roles = resourceAccess.get("store_client").get("roles");
+        if (resourceAccess != null && resourceAccess.containsKey("eleven_backend")) {
+            roles = resourceAccess.get("eleven_backend").get("roles");
         }
 
         // Mapear os papéis para SimpleGrantedAuthority
@@ -29,6 +29,7 @@ public class JWTConverter  implements Converter<Jwt, AbstractAuthenticationToken
 
         return new JwtAuthenticationToken(jwt, grants);
     }
+
 
 
 }

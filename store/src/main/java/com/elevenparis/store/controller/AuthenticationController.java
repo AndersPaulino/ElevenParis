@@ -31,7 +31,7 @@ public class AuthenticationController {
 
         HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<MultiValueMap<String,String>>(formData,headers);
 
-        var result = rt.postForEntity("http://192.168.56.106:8080/realms/eleven/protocol/openid-connect/token",entity, String.class);
+        var result = rt.postForEntity("http://192.168.56.7:8080/realms/PROJETO_MENSAL/protocol/openid-connect/token",entity, String.class);
 
         return result;
     }
